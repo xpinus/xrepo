@@ -13,9 +13,11 @@
   "description": "",
   "dependencies": {
     "@highlightjs/vue-plugin": "^2.1.0",
-    "highlight.js": "^11.10.0"
+    "highlight.js": "^11.10.0",
+    "@xrepo/ui": "workspace:^"
   },
   "devDependencies": {
-    "vitepress": "^1.5.0"
+    "vitepress": "^1.5.0",
+    "typescript": "5.5.4"
   }
 }

@@ -1,9 +1,23 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import dts from 'vite-plugin-dts'
+import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+      vue(),
+      dts({
+        insertTypesEntry: true,
+        copyDtsFiles: false
+      })
+  ],
+  // 配置别名
+  resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
+  },
   build: {
     lib: {
       entry: 'index.ts',

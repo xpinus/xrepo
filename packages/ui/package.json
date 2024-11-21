@@ -4,20 +4,23 @@
   "version": "0.0.0",
   "type": "module",
   "mian": "dist/ui.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "build": "pnpm run clean && vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "clean": "rimraf dist"
   },
   "peerDependencies": {
     "vue": "^3.5.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/runtime-core": "^3.5.12",
     "typescript": "~5.6.2",
     "vite": "^5.4.10",
-    "vue-tsc": "^2.1.8",
-    "@vue/runtime-core": "^3.5.12",
-    "vue": "^3.5.12"
+    "vite-plugin-dts": "^4.3.0",
+    "vue": "^3.5.12",
+    "vue-tsc": "^2.1.8"
   }
 }
