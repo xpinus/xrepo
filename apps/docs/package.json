@@ -1,28 +1,21 @@
 {
-  "name": "docs",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@xrepo/docs",
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "check-types": "tsc --noEmit"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
   },
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
-    "@repo/ui": "workspace:*",
-    "next": "15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+    "@highlightjs/vue-plugin": "^2.1.0",
+    "highlight.js": "^11.10.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@types/node": "^20",
-    "@types/react": "18.3.1",
-    "@types/react-dom": "18.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.3",
-    "typescript": "5.5.4"
+    "vitepress": "^1.5.0"
   }
 }
