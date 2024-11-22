@@ -17,10 +17,10 @@
       "cache": false,
       "persistent": true
     },
-    "docs:dev": {
+    "docs#dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": ["^build"]
+      "dependsOn": ["^@xrepo/ui#build"]
     },
     "lint:stage": {
       "dependsOn": ["^lint"]
