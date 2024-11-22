@@ -1,16 +1,13 @@
 {
+  "extends": "@xrepo/tsconfig/vue.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "jsx": "preserve",
-    "strict": true,
-    "target": "ES2015",
     "module": "ESNext",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "moduleResolution": "Node",
     "lib": ["esnext", "dom"],
+    "target": "ES2015",
     "noEmit": true,
-
+    "baseUrl": ".",
     // 配置别名
     "paths": {
       "@/*": ["./src/*"]
