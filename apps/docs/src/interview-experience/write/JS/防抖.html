@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head lang="zh-CN">
+	<title>防抖</title>
+	<meta charset="utf-8" />
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0,
+	minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+	/>
+</head>
+<body>
+	<div style="height: 400vh">滚动页面查看输出</div>
+
+	<script>
+		// 只有当wait时间内没有新触发才会执行操作，只会执行最后一次
+		function debounce(fn, wait) {
+			let timer;
+
+			return function () {
+				if (timer) {
+					clearTimeout(timer); // 取消记录的操作
+				}
+
+				timer = setTimeout(() => {
+					fn.apply(this, arguments);
+				}, wait);
+			};
+		}
+
+		function task() {
+			console.log(window.scrollY);
+		}
+
+		const debounceTask = debounce(task, 500);
+		window.addEventListener("scroll", debounceTask);
+	</script>
+</body>

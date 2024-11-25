@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>worker测试</title>
+	</head>
+	<body>
+		<button>send2worker</button>
+		<textarea
+			name=""
+			id=""
+			cols="30"
+			rows="10"
+			placeholder="来自worker的信息"
+		></textarea>
+	</body>
+
+	<script>
+		var worker = new Worker("./worker.js");
+		var btn = document.querySelector("button");
+		var text = document.querySelector("textarea");
+
+		btn.addEventListener("click", () => {
+			worker.postMessage("hello worker");
+			text.value = text.value + "hello worker \n";
+		});
+
+		worker.addEventListener("message", (e) => {
+			text.value = text.value + e.data + "\n";
+		});
+	</script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head lang="zh-CN">
+	<title>节流</title>
+	<meta charset="utf-8" />
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0,
+	minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+	/>
+</head>
+<body>
+	<div style="height: 400vh">滚动页面查看输出</div>
+
+	<script>
+		// 只会执行第一个触发，然后wait期间内的都忽略
+		function throttle(fn, wait) {
+			let last = 0;
+
+			return function () {
+				const now = Date.now();
+				if (now - last > wait) {
+					last = now;
+					fn.apply(this, arguments);
+				}
+			};
+		}
+
+		function task() {
+			console.log(window.scrollY);
+		}
+
+		const throttleTask = throttle(task, 500);
+		window.addEventListener("scroll", throttleTask);
+	</script>
+</body>

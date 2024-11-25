@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head lang="zh-CN">
+	<title>行内元素的margin和padding</title>
+	<meta charset="utf-8" />
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0,
+	minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+	/>
+
+	<style>
+		* {
+			margin: 0;
+		}
+
+		.d1 {
+			background-color: green;
+			height: 200px;
+		}
+
+		span {
+			background-color: pink;
+		}
+		.test {
+			padding: 10px 10px;
+			margin: 10px 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="d1"></div>
+	<span>行内元素1</span><span class="test">行内元素2</span
+	><span>行内元素2</span>
+	<div class="d1"></div>
+</body>

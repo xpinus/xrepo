@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>小喵咪喂给大黄鱼</title>
+		<style>
+			body {
+				text-align: center;
+			}
+
+			img {
+				width: 80px;
+				height: 80px;
+				border-radius: 100%;
+			}
+			#fish {
+				margin-top: 200px;
+				opacity: 0.2;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>小喵咪拖到大黄鱼上面的时候消失（删除小喵咪）</h3>
+		<img
+			class="cat"
+			id="cat1"
+			src="https://pic2.zhimg.com/v2-9d3619857f65f66fe0163f84481b0d38_r.jpg?source=1940ef5c"
+			alt=""
+		/>
+		<img
+			class="cat"
+			id="cat2"
+			src="https://pic2.zhimg.com/v2-9d3619857f65f66fe0163f84481b0d38_r.jpg?source=1940ef5c"
+			alt=""
+		/>
+		<img
+			class="cat"
+			id="cat3"
+			src="https://pic2.zhimg.com/v2-9d3619857f65f66fe0163f84481b0d38_r.jpg?source=1940ef5c"
+			alt=""
+		/>
+		<br />
+		<img
+			id="fish"
+			src="https://img95.699pic.com/element/40144/3630.png_860.png"
+			alt=""
+		/>
+	</body>
+	<script>
+		//要想从数据库中删除猫咪，就需要猫咪的图片地址是后台传值过来的，然后循环遍历在页面中，当拖动删除的时候，删除掉数据库中的数据即可；然后刷新页面
+		var cat = document.getElementsByClassName("cat"); //找到所有的猫咪
+		for (var i = 0; i < cat.length; i++) {
+			var catSingle = cat[i];
+			catSingle.ondragstart = function (e) {
+				//循环遍历猫咪，当dragstart拖动开始的时候，setData设置他的id到e.dataTransfer中
+				e.dataTransfer.setData("catId", this.id);
+			};
+		}
+		fish.ondragenter = function () {
+			//当如到鱼种时候，让鱼的透明度为1；
+			console.log("已经拖入");
+			fish.style.opacity = "1";
+		};
+		fish.ondragleave = function () {
+			//拖动离开鱼的时候
+			console.log("拖动离开");
+			fish.style.opacity = ".2";
+		};
+		fish.ondragover = function (e) {
+			//拖动悬浮在鱼上
+			e.preventDefault();
+		};
+		fish.ondrop = function (e) {
+			//拖动放开时候；获取拖动开始时候设置的数据；然后从dom结构中移除；
+			console.log("放开拖动");
+			fish.style.opacity = ".2";
+			var id = e.dataTransfer.getData("catId");
+			console.log(id);
+			var dragId = document.getElementById(id);
+			dragId.parentNode.removeChild(dragId);
+		};
+	</script>
+</html>

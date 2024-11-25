@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head lang="zh-CN">
+	<title>双向数据绑定</title>
+	<meta charset="utf-8" />
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0,
+	minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+	/>
+</head>
+<body>
+	<input id="input" />
+	<button id="read">读取</button>
+
+	<script>
+		const data = {};
+		const input = document.getElementById("input");
+		Object.defineProperty(data, "text", {
+			set(value) {
+				input.value = value;
+				this.value = value;
+			},
+			get() {
+				return input.value;
+			},
+		});
+		input.onChange = function (e) {
+			data.text = e.target.value;
+		};
+
+		const btn = document.getElementById("read");
+		btn.onclick = () => {
+			console.log(data.text);
+		};
+	</script>
+</body>
