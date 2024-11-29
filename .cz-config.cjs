@@ -2,13 +2,10 @@ const path = require('path');
 
 // 读取apps和packages目录下所有的文件夹
 
-const apps = require('fs')
-    .readdirSync(path.resolve(__dirname, 'apps'))
-    .filter((f) => f !== 'ui');
+const apps = require('fs').readdirSync(path.resolve(__dirname, 'apps'));
 
 const packages = require('fs')
     .readdirSync(path.resolve(__dirname, 'packages'))
-    .filter((f) => f !== 'ui')
     .map((f) => `@xrepo/${f}`);
 
 const scopes = ['xrepo', ...apps, ...packages];
