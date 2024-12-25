@@ -4,6 +4,6 @@ import demo from './demo.vue'
 
 # Button 按钮
 
-<preview comp-name="button" demo-name="demo">
+<preview codePath="components/button/demo.vue">
   <demo />
 </preview>

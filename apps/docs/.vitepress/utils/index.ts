@@ -1,36 +1,43 @@
 import path from 'path';
 import fs from 'fs-extra';
+import MD5 from 'md5.js';
 
-export function generateSidebar() {
-    return {
-        '/blogs/': [
+const ROOT_PATH = path.resolve(__dirname, '../../src/');
+
+export function hash(str) {
+    return new MD5().update(str).digest('hex');
+}
+
+export function generateSidebar(directory: { text: string; path: string }[]) {
+    const siderbar = {};
+
+    for (let i = 0; i < directory.length; i++) {
+        const item = directory[i];
+        const key = item.path;
+        const value = item.text;
+
+        siderbar[key] = [
             {
-                text: '博客',
+                text: value,
                 items: fs
-                    .readdirSync(path.resolve(__dirname, '../../src/blogs'))
-                    .map((item) => ({ text: item, link: `/blogs/${item}` })),
+                    .readdirSync(path.resolve(ROOT_PATH, key))
+                    .filter((filename) => {
+                        return (
+                            fs.statSync(path.resolve(ROOT_PATH, key, filename)).isDirectory() ||
+                            (fs.statSync(path.resolve(ROOT_PATH, key, filename)).isFile() && filename.endsWith('.md'))
+                        );
+                    })
+                    .map((filename) => {
+                        filename = filename.replace('.md', '');
+
+                        return {
+                            text: filename,
+                            link: path.join(key, filename),
+                        };
+                    }),
             },
-        ],
-        '/components/': [
-            {
-                text: '组件',
-                items: fs
-                    .readdirSync(path.resolve(__dirname, '../../src/components'))
-                    .map((item) => ({ text: item, link: `/components/${item}` })),
-            },
-        ],
-        '/interview-experience/': fs
-            .readdirSync(path.resolve(__dirname, '../../src/interview-experience'))
-            .filter((item) => {
-                return fs.statSync(path.resolve(__dirname, `../../src/interview-experience/${item}`)).isDirectory();
-            })
-            .map((dirName) => {
-                return {
-                    text: dirName,
-                    items: fs
-                        .readdirSync(path.resolve(__dirname, `../../src/interview-experience/${dirName}`))
-                        .map((item) => ({ text: item, link: `/interview-experience/${dirName}/${item}` })),
-                };
-            }),
-    };
+        ];
+    }
+
+    return siderbar;
 }
