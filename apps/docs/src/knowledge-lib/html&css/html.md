@@ -1,0 +1,323 @@
+## Doctype作用? 严格模式与混杂模式如何区分？它们有何意义?
+```html
+<Doctype html></Doctype>
+```
+
+- 文档声明是为了告诉浏览器，当前HTML文档使用哪种的HTML来写的，这样浏览器才能按照声明的版本来正确的解析。
+- 如果文档包含严格的DOCTYPE ，那么它一般以标准模式呈现，指浏览器按照W3C标准解析渲染页面，所有浏览器下的显示效果会保持一致。
+- 如果不写，浏览器会以怪异模式、兼容模式(quirks模式)渲染，是指浏览器用自己的方式解析代码，不同浏览器下显示效果会不一致。混杂模式通常模拟老式浏览器的行为，以防止老站点无法工作；
+
+
+## meta和viewport
+
+> `viewport`
+
+```js
+<meta name="viewport" content="width=device-witdh, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+```
+
+* `width`：设置`viewport`宽度，为一个正整数或字符串`device-witdh`表示设备宽度
+* `height`：一般设置宽度后高度会自动解析，不用设置
+* `initial-scale`：默认缩放比例，为一个数字可以带小数
+* `minimum-scale`：允许用户最小缩放比例
+* `maximum-scale`：允许用户最大缩放比例
+* `user-scalable`：是否允许手动缩放
+
+** 延伸问题 **
+
+怎么处理移动端1px被渲染成2px的问题？
+
+* 局部处理：
+    * `meta`标签中的`viewport`属性里的`initial-scale`设置为`1.0`
+    * `rem`按照设计稿标准走，外加利用`transform`的`scale(0.5)`缩小一倍即可
+* 全局处理：
+    * `meta`标签中的`viewport`属性里的`initial-scale`设置为`0.5`
+    * `rem`按照设计稿标准走即可
+
+> 其它meta
+
+``` html
+<!DOCTYPE html>   H5声明
+<head lang="en" />  语言
+<meta charset='utf-8' />  声明文档字符编码
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/> 优先使用IE最新版和chrome
+<meta http-equiv=”pragma” content=”no-cache”> <!--设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出-->
+<meta http-equiv=”cache-control” content=”no-cache”> <!--设置页面不缓存,清除缓存-->
+<meta http-equiv=”expires” content=”0″>  <!--设定网页的到期时间 -->
+<meta name="desciption" content="不超过150个字符"/>  页面描述
+<meta name="keywords" content="xx xx"/>  页面关键词
+<meta name="author" content="name, emial@gmail.com"/>   网页作者
+<meta name='robots' content="index, follow"/>  告诉搜索引擎机器人哪些页面需要索引抓取
+```
+
+* `content`的内容：
+    * `all`文件将被检索，且页面上的链接可以被跟踪
+    * `none`文件：文件将不被检索，且页面上的链接不可以被跟踪；(和 “noindex, no follow”起相同作用)
+    * index：文件将被检索；（让robot/spider登录）
+    * follow：页面上的链接可以被查询；
+    * noindex：文件将不被检索，但页面上的链接可以被查询；(不让robot/spider登录)
+    * nofollow：文件可以被检索，页面上的链接不可以被查询。(不让robot/spider顺着此页的连接往下抓取)
+
+* 产生如下写法：
+
+```html
+  <meta name=”robots” content=”index, follow” /> <!--表示此页面允许索引并跟踪此页面上的链接-->
+  <meta name=”robots” content=”noindex, nofollow” /> <!--此页面允许索引并跟踪此页面上的链接--> 
+  <meta name=”robots” content=”index, nofollow” /> <!--此页面允许索引并跟踪此页面上的链接-->
+  <meta name=”robots” content=”noindex, follow” /> <!--允许索引并跟踪此页面上的链接-->
+<meta name=”apple-mobile-web-app-title” content=”标题”/> iOS 设备 begin
+<meta name=”apple-mobile-web-app-capable” content=”yes”/>  添加到主屏后的标题（iOS 6 新增）是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏
+<meta name=”apple-itunes-app” content=”app-id=myAppStoreID, affiliate-data=myAffiliateData, app-argument=myURL”/> 添加智能 App 广告条 Smart App Banner（iOS 6+ Safari）
+<meta name=”apple-mobile-web-app-status-bar-style” content=”black”/> 设置苹果工具栏颜色
+<meta name=”format-detection” content=”telphone=no, email=no”/> 格式检测，用来检测html里的一些格式
+<meta name=”renderer” content=”webkit”>   启用360浏览器的极速模式(webkit)
+<meta http-equiv=”X-UA-Compatible” content=”IE=edge”/> 避免IE使用兼容模式
+<meta http-equiv=”Cache-Control” content=”no-siteapp” />  不让百度转码
+
+<meta name=”HandheldFriendly” content=”true”>     <!--针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓-->
+<meta name=”MobileOptimized” content=”320″>   <!--微软的老式浏览器-->
+<meta name=”screen-orientation” content=”portrait”>   <!--uc强制竖屏-->
+<meta name=”x5-orientation” content=”portrait”>    <!--QQ强制竖屏-->
+<meta name=”full-screen” content=”yes”>              <!--UC强制全屏-->
+<meta name=”x5-fullscreen” content=”true”>       <!--QQ强制全屏-->
+<meta name=”browsermode” content=”application”>   <!--UC应用模式-->
+<meta name=”x5-page-mode” content=”app”>   <!-- QQ应用模式-->
+<meta name=”msapplication-tap-highlight” content=”no”>    <!--windows phone 点击无高亮-->
+```
+
+# HTML5新特性
+
+[参考](https://www.cnblogs.com/vicky1018/p/7705223.html#:~:text=HTML5%E7%9A%84%E5%8D%81%E5%A4%A7%E6%96%B0%E7%89%B9%E6%80%A7.%20%E4%B8%BA%E4%BA%86%E6%9B%B4%E5%A5%BD%E5%9C%B0%E5%A4%84%E7%90%86%E4%BB%8A%E5%A4%A9%E7%9A%84%E4%BA%92%E8%81%94%E7%BD%91%E5%BA%94%E7%94%A8%EF%BC%8CHTML5%E6%B7%BB%E5%8A%A0%E4%BA%86%E5%BE%88%E5%A4%9A%E6%96%B0%E5%85%83%E7%B4%A0%E5%8F%8A%E5%8A%9F%E8%83%BD%EF%BC%8C%E6%AF%94%E5%A6%82%3A%20%E5%9B%BE%E5%BD%A2%E7%9A%84%E7%BB%98%E5%88%B6%EF%BC%8C%E5%A4%9A%E5%AA%92%E4%BD%93%E5%86%85%E5%AE%B9%EF%BC%8C%E6%9B%B4%E5%A5%BD%E7%9A%84%E9%A1%B5%E9%9D%A2%E7%BB%93%E6%9E%84%EF%BC%8C%E6%9B%B4%E5%A5%BD%E7%9A%84%E5%BD%A2%E5%BC%8F%20%E5%A4%84%E7%90%86%EF%BC%8C%E5%92%8C%E5%87%A0%E4%B8%AAapi%E6%8B%96%E6%94%BE%E5%85%83%E7%B4%A0%EF%BC%8C%E5%AE%9A%E4%BD%8D%EF%BC%8C%E5%8C%85%E6%8B%AC%E7%BD%91%E9%A1%B5%20%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%BC%93%E5%AD%98%EF%BC%8C%E5%AD%98%E5%82%A8%EF%BC%8C%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E8%80%85%EF%BC%8C%E7%AD%89.,HTML5%20%E6%8B%A5%E6%9C%89%E5%A4%9A%E4%B8%AA%E6%96%B0%E7%9A%84%E8%A1%A8%E5%8D%95%20Input%20%E8%BE%93%E5%85%A5%E7%B1%BB%E5%9E%8B%E3%80%82.%20%E8%BF%99%E4%BA%9B%E6%96%B0%E7%89%B9%E6%80%A7%E6%8F%90%E4%BE%9B%E4%BA%86%E6%9B%B4%E5%A5%BD%E7%9A%84%E8%BE%93%E5%85%A5%E6%8E%A7%E5%88%B6%E5%92%8C%E9%AA%8C%E8%AF%81%E3%80%82.%20%E6%A0%87%E7%AD%BE%E8%A7%84%E5%AE%9A%E7%94%A8%E4%BA%8E%E8%A1%A8%E5%8D%95%E7%9A%84%E5%AF%86%E9%92%A5%E5%AF%B9%E7%94%9F%E6%88%90%E5%99%A8%E5%AD%97%E6%AE%B5%E3%80%82.)
+
+**HTML5有哪些新特性、移除了哪些元素？**
+
+html5新特性中移除的元素：basefont、big、center、font、s、strike、tt、u、frame、frameset、noframes、acronym、applet等等。
+
+
+## `<img>`的`title`和`alt`有什么区别
+
+- `title`通常当鼠标滑动到元素上的时候显示
+- `alt`是`<img>`的特有属性，是图片内容的等价描述，用于图片无法加载时显示、读屏器阅读图片。可提图片高可访问性，除了纯装饰图片外都必须设置有意义的值，搜索引擎会重点分析。
+
+## 行内元素有哪些？块级元素？空（void）元素？行内元素和块级元素的区别？
+
+- 行内元素有：`a span img input button label textarea select strong b`等
+    - `img`是行内元素但是却可以设置宽高，这是因为其是可替换元素
+    - **可替换元素（replaced element）** ：内容不受 CSS 视觉格式化模型控制，CSS 渲染模型不考虑对此内容的渲染，且元素本身一般y拥有固有尺寸(宽度，高度，宽高比)，CSS 可以影响到可元素的位置，但是不会影响到元素自身的内容
+    - `iframe`，`video`,`embed`,`img`
+- 块级元素有：`div ul ol li dl dt dd table h* p header footer section`等
+- 空元素：`<br> 换行 <hr> 分隔线 <img> <input> <link> <meta>`
+- 行内元素特点：
+    - 不可以设置宽高，行内元素设置width无效，height无效(可以设置line-height)，margin**上下**无效，padding**上下**无效（空有现象）
+    - 不独占一行，宽度只与内容有关
+    - 行内元素只能容纳文本或者其他行内元素
+- 块级元素特点：
+    - 可以设置宽高
+    - 独占一行始终是与浏览器宽度一样，与内容无关
+    - 可以容纳内联元素和其他块元素
+    -
+
+## checkbox和radio
+
+
+## `src`和`href`的区别
+
+* `src`是source的缩写，指向外部资源
+    * 在请求资源时会将指向的资源下载并嵌入到当前文档中当前标签的位置，例如`js`脚本、`img`和`iframe`
+    * `<script src='demo.js'></script>`当浏览器解析到该标签，会暂停其它资源的下载和处理，直到该资源加载、编译、执行完毕，图片和框架等元素也如此。这也是为什么js脚本放在底部而不是头部
+* `href`是Hypertext Reference的缩写，指向网络资源所在位置
+    * 建立和当前元素（锚点）或当前文档（链接）之间的链接
+    * `<link href="common.css" rel="stylesheet"/>`那么浏览器会识别该文档为`css`文件，就会**并行**下载资源并且不会停止对当前文档的处理。这也是为什么建议使用`link`方式来加载`css`，而不是使用`@import`方式
+
+
+解析遇到link、script、img标签时，浏览器会向服务器发送请求资源。
+script的加载或者执行都会阻塞html解析、其他下载线程以及渲染线程。
+link加载完css后会解析为CSSOM(层叠样式表对象模型,一棵仅含有样式信息的树)。css的加载和解析不会阻塞html的解析，但会阻塞渲染。
+img的加载不会阻塞html的解析，但img加载后并不渲染，它需要等待Render Tree生成完后才和Render Tree一起渲染出来。未下载完的图片需等下载完后才渲染。
+
+## 媒体标签video和audio
+
+> video基础
+
+```html
+<video src="./test.mp4" controls="controls" width="700px" height="400px">
+  浏览器不支持video
+</video>
+```
+
+有些比较老的浏览器可能不支持 `<video>` 标签，放置文本内容，这样当某个浏览器不支持此标签时，就可以显示提示内容
+
+`src`	将要播放的视频的 URL
+
+`controls`	如果设置该属性，则向用户显示控件，例如播放按钮，音量按钮等
+
+`autoplay`	如果设置该属性，则视频在就绪后马上播放，设置了 autoplay 后会忽略属性 preload
+
+`width`	设置视频播放器的宽度
+
+`height`	设置视频播放器的高度
+
+`loop`	如果设置该属性，则当媒介文件完成播放后再次开始播放
+
+`muted`	设置视频的音频输出应该被静音
+
+`poster`	规定视频下载时显示的图像，或者在用户点击播放按钮前显示的图像
+
+`preload`	如果设置该属性，则视频在页面加载时进行加载，并预备播放
+
+**视频格式**
+|视频格式 |	描述|
+|---      |---|
+|Ogg   |	带有 Theora 视频编码和 Vorbis 音频编码的 Ogg 文件|
+|MPEG | 4（MP4）	带有 H.264 视频编码和 AAC 音频编码的 MPEG 4 文件|
+|WebM |	带有 VP8 视频编码和 Vorbis 音频编码的 WebM 文件|
+
+这三种视频格式，在不同的浏览器中兼容性不同，例如 MP4 格式不支持 Firefox 和 Opera 浏览器，Ogg 格式不支持IE、Safari 浏览器，WebM 格式不支持IE、Safari 浏览器等。所以我们可能需要在不同的浏览器中使用不同的视频格式，这需要用到 <source> 标签。
+
+```html
+<video controls="controls" width="700px" height="400px">
+  <source src="./test.mp4" type="video/mp4">
+  <source src="./test.ogg" type="video/ogg">
+  您的浏览器不支持 video 标签
+</video>
+``````
+
+> audio基础
+
+```html
+<audio controls="controls">
+  <source src="./test.mp4" type="audio/mpeg">
+  <source src="./test.ogg" type="audio/ogg">
+  您的浏览器不支持 audio 标签
+</audio>
+```
+
+|属性|	描述 |
+| --- | --- |
+|src|	要播放的音频的 URL
+|controls|	如果设置该属性，则向用户显示控件，例如播放按钮
+|autoplay|	如果设置该属性，则音频在就绪后马上播放
+|loop|	如果设置该属性，则每当音频结束时重新开始播放
+|muted|	规定音频输出应该被静音
+|preload|	如果设置该属性，则音频在页面加载时进行加载，并预备播放
+
+|音频格式|	MIME类型
+| --- | --- |
+|MP3|	audio/mpeg
+|Ogg|	audio/ogg
+|Wav|	audio/wav
+
+
+## 语义化的理解
+
+![语义化标签](https://upload-images.jianshu.io/upload_images/15827882-4057d561069e7a15.png?imageMogr2/auto-orient/strip|imageView2/2/w/484/format/webp)
+
+**优点**
+
+- 为了在没有CSS的情况下，页面也能呈现出很好地内容结构、代码结构
+- 比<div>标签有更加丰富的含义，方便开发与维护
+- 方便搜索引擎能识别页面结构，有利于SEO
+- 方便其他设备解析（如移动设备、盲人阅读器等）
+- 有利于合作，遵守W3C标准
+
+
+1.header 与hgroup
+
+放在页面或布局的顶部，一般放置导航栏或标题，如：
+
+```html
+<header>
+    <h1>**信息科技有限公司</h1>
+</header>
+一个文档中可以包含一对或者一对以上的<header>标签。
+标签的位置是次要的，不一定非要显示在页面的上方，我们可以为任何需要的区块标签添加<header>元素，例如下面将要讲解的<article>、<section>等标签。
+
+<hgroup>
+    <h1>这是一篇介绍HTML 5语义化标签和更简洁的结构</h1>
+    <h2>HTML 5</h2>
+</hgroup>
+```
+如果有连续多个h1-h6标签就用hgroup
+如果有连续多个标题和其他文章数据，h1-h6标签就用hgroup包住，和其他文章元数据一起放入header标签
+
+2.nav
+
+表示页面的导航，也可以在`<header>`标签中使用，还可以显示在侧边栏中。一个页面之中可以有多个`<nav>`标签。
+为了方便搜索引擎解析，最好是将主要的链接放在nav中。
+
+```html
+<header>
+   <h1>**信息科技有限公司</h1>
+   <nav>
+       <li><a href="#">首页</a></li>
+       <li><a href="example.html">客户案例</a></li>
+       <li><a href="service_one.html">技术服务</a></li>          
+       <li><a href="aboutus_one.html">关于我们</a></li>
+       <li><a href="connection.html">联系我们</a></li>
+   </nav>
+</header>
+```
+
+3.aside
+
+所包含的内容不是页面的主要内容、具有独立性，是对页面的补充。
+`<aside>`一般使用在页面、文章的侧边栏、广告、友情链接等区域。
+
+4.footer
+
+一般被放置在页面或者页面中某个区块的底部，包含版权信息、联系方式等信息。一个页面也可以有多个footer
+```html
+<footer>
+    <small>
+        版权所有 © 2016-2017 **信息科技有限公司
+    </small>
+</footer>
+```
+
+
+5.article
+
+```text
+<article>元素应该使用在相对比较独立、完整的的内容区块，所以我们可以在一篇博客、一个论坛帖子、一篇新闻报道或者一个用户评论中使用<article>元素。article可以互相嵌套。
+
+<article>
+   <h1>HTML5学习之语义化标签</h1>
+   <p>....正文.....</p>
+   <footer>版权所有*伪版必究</footer>
+</article>
+```
+6.section
+
+一组或者一节内容。
+
+```text
+<div>、<section>、<article>三者的比较：
+<div>：应用广泛，任意一个区域
+<section>：包含的内容是一个明确的主题，通常有标题区域
+<article>：如果我们的页面中需要一个单独的模块来实现一个单独的功能，就用<article>，其他的时候都用<section>
+```
+
+7.time
+
+可以带格式的时间标签
+```html
+<time datetime="2017-07-03">
+```
+
+8.mark
+
+高亮
+
+9.address
+
+address代表区块容器，必须是作为联系信息出现，邮编地址、邮件地址等等,一般出现在footer。
+
+## a标签的target
+
+`_blank`：在新浏览器窗口(新标签)中打开链接文件；
+
+`_parent`：将链接的文件载入含有该链接框架的父框架集或父窗口中。如果含有该链接的框架不是嵌套的，则在浏览器全屏窗口中载入链接的文件，就象
+
+`_self`：在同一框架（iframe）或窗口中打开所链接的文档。此参数为默认值，通常不用指定。
+
+`_top`：**在当前的整个浏览器窗口（此标签）**中打开所链接的文档，因而会删除所有框架；

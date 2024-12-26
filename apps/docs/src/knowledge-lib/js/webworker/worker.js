@@ -1,6 +1,6 @@
 onmessage = function (e) {
 	console.log("Worker: Message received from main script");
-	postMessage("Hello web");
+	postMessage("Hello 浏览器");
 };
 
 setInterval(() => {

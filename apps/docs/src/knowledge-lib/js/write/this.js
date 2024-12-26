@@ -29,15 +29,29 @@
 // fun(111);
 
 // 例子二
-function outer(val1, val2) {
-	let argOut = arguments;
-	console.log(argOut); // ①
-	let fun = () => {
-		let argIn = arguments;
-		console.log(argIn); // ②
-		console.log(argOut === argIn); // ③
-		console.log(this);
-	};
-	fun();
-}
-outer(111, 222);
+// function outer(val1, val2) {
+// 	let argOut = arguments;
+// 	console.log(argOut); // ①
+// 	let fun = () => {
+// 		let argIn = arguments;
+// 		console.log(argIn); // ②
+// 		console.log(argOut === argIn); // ③
+// 		console.log(this);
+// 	};
+// 	fun();
+// }
+// outer(111, 222);
+
+// var obj = {
+// 	name: 'obj',
+// 	sayName: () => {
+// 		console.log(this.name)
+// 	}
+// }
+//
+// console.log(obj.name);
+// // console.log(obj.name());
+// console.log(obj.sayName())
+//
+// var fn = obj.sayName;
+// console.log(fn())
