@@ -301,3 +301,50 @@ HTTP（HyperText Transfer Protocol，超文本传输协议）中定义的请求�
 
 
 
+
+
+
+## 报文request和response的结构
+
+### request报文结构
+
+```text
+（1）请求行：请求方法 请求url 协议版本 CRLF(换行符)
+GET /Protocols/rfc2616/rfc2616-sec5.html HTTP/1.1
+（2）请求头：包含若干行内容，每行以CRLF结束
+Host: www.w3.org
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36
+Referer: https://www.google.com.hk/
+Accept-Encoding: gzip,deflate,sdch
+Accept-Language: zh-CN,zh;q=0.8,en;q=0.6
+Cookie: authorstyle=yes
+If-None-Match: "2cc8-3e3073913b100"
+If-Modified-Since: Wed, 01 Sep 2004 13:24:52 GMT
+（3）空行 CRLF
+（4）请求体：
+name=qiu&age=25
+```
+
+### response报文结构
+
+```text
+（1）响应状态行：协议版本 状态码 状态描述 CRLF
+HTTP/1.1 200 OK
+（2）响应头：若干响应头，包括通用头部、响应头部、实体头部
+Date: Tue, 08 Jul 2014 05:28:43 GMT
+Server: Apache/2
+Last-Modified: Wed, 01 Sep 2004 13:24:52 GMT
+ETag: "40d7-3e3073913b100"
+Accept-Ranges: bytes
+Content-Length: 16599
+Cache-Control: max-age=21600
+Expires: Tue, 08 Jul 2014 11:28:43 GMT
+P3P: policyref="http://www.w3.org/2001/05/P3P/p3p.xml"
+Content-Type: text/html; charset=iso-8859-1
+（3）空行 CRLF
+（4）响应体：
+{"name": "qiu", "age": 25}
+```

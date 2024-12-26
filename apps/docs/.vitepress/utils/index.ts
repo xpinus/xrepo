@@ -31,25 +31,6 @@ export function generateSidebar(directory: { text: string; path: string }[]) {
             {
                 text: value,
                 items: parseDir(key),
-
-                // fs
-                // .readdirSync(path.resolve(ROOT_PATH, key))
-                // .filter((filename) => {
-                //     return (
-                //         fs.statSync(path.resolve(ROOT_PATH, key, filename)).isDirectory() ||
-                //         (fs.statSync(path.resolve(ROOT_PATH, key, filename)).isFile() && filename.endsWith('.md'))
-                //     );
-                // })
-                // .map((filename) => {
-                //     filename = filename.replace('.md', '');
-                //
-                //
-                //
-                //     return {
-                //         text: filename,
-                //         link: path.join(key, filename),
-                //     } as DefaultTheme.SidebarItem;
-                // }),
             },
         ];
     }
@@ -80,6 +61,8 @@ export function generateSidebar(directory: { text: string; path: string }[]) {
         const files = fs.readdirSync(path.resolve(ROOT_PATH, basePath));
 
         const items: DefaultTheme.SidebarItem[] = [];
+        const itemWithSubs: DefaultTheme.SidebarItem[] = [];
+
 
         for (let i = 0; i < files.length; i++) {
             const filename = files[i];
@@ -94,14 +77,12 @@ export function generateSidebar(directory: { text: string; path: string }[]) {
                 }
             } else if (!isEmpty(path.join(basePath, filename))) {
                 if (isLeaf(path.join(basePath, filename))) {
-                    console.log(path.join(basePath, filename));
-
                     items.push({
                         text: fn,
                         link: path.join(basePath, fn),
                     });
                 } else {
-                    items.push({
+                    itemWithSubs.push({
                         text: fn,
                         items: parseDir(path.join(basePath, filename)),
                     });
@@ -109,7 +90,7 @@ export function generateSidebar(directory: { text: string; path: string }[]) {
             }
         }
 
-        return items;
+        return [...itemWithSubs, ...items];
     }
 
     return siderbar;
