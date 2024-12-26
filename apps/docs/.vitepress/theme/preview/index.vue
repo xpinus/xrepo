@@ -5,6 +5,12 @@
         </div>
         <div class="code_box">
             <div
+                class="operate_btn"
+                @click="showCode = !showCode"
+            >
+                {{ showCode ? '隐藏' : '显示' }}代码
+            </div>
+            <div
                 class="code"
                 :class="{ show_code: showCode }"
             >
@@ -16,12 +22,6 @@
                         />
                     </div>
                 </div>
-            </div>
-            <div
-                class="operate_btn"
-                @click="showCode = !showCode"
-            >
-                {{ showCode ? '隐藏' : '显示' }}代码
             </div>
         </div>
     </div>

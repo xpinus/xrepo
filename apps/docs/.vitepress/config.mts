@@ -10,43 +10,43 @@ export default defineConfig({
         // https://vitepress.dev/reference/default-theme-config
         nav: [
             { text: 'Home', link: '/' },
-            { text: '组件', link: '/components/button' },
-            { text: '博客', link: '/blogs' },
             {
-                text: '面经',
+                text: '知识库',
                 items: [
-                    { text: '浏览器', link: '/interview-experience/browser' },
-                    { text: 'html&css', link: '/interview-experience/html&css' },
-                    { text: 'javascript', link: '/interview-experience/js' },
-                    { text: '工程化', link: '/interview-experience/engineering' },
+                    { text: '博客', link: '/knowledge-lib/blogs' },
+                    { text: '浏览器', link: '/knowledge-lib/browser' },
+                    { text: 'html&css', link: '/knowledge-lib/html&css' },
+                    { text: 'javascript', link: '/knowledge-lib/js' },
+                    { text: '工程化', link: '/knowledge-lib/engineering' },
                 ],
             },
+            { text: '组件', link: '/components/button' },
         ],
 
         sidebar: generateSidebar([
-            {
-                text: '博客',
-                path: 'blogs/',
-            },
             {
                 text: '组件',
                 path: 'components/',
             },
             {
+                text: '博客',
+                path: 'knowledge-lib/blogs',
+            },
+            {
                 text: '浏览器',
-                path: 'interview-experience/browser',
+                path: 'knowledge-lib/browser',
             },
             {
                 text: 'HTML & CSS',
-                path: 'interview-experience/html&css',
+                path: 'knowledge-lib/html&css',
             },
             {
                 text: 'JavaScript',
-                path: 'interview-experience/js',
+                path: 'knowledge-lib/js',
             },
             {
                 text: '工程化',
-                path: 'interview-experience/engineering',
+                path: 'knowledge-lib/engineering',
             },
         ]),
 

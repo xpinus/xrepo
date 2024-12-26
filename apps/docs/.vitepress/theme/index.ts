@@ -10,8 +10,10 @@ import { Button } from '@xrepo/ui';
 import '@xrepo/ui/dist/es/src/style/button.css';
 
 import 'highlight.js/styles/base16/summerfruit-light.css'; // 主题
-import Preview from './preview/index.vue';
 import hljsVuePlugin from '@highlightjs/vue-plugin';
+
+import Preview from './preview/index.vue';
+import RunScript from './runScript/index.vue';
 
 export default {
     extends: DefaultTheme,
@@ -25,6 +27,7 @@ export default {
         // app.use(XUI);
         app.component('x-button', Button);
         app.component('preview', Preview); // 注册预览功能的组件
+        app.component('runScript', RunScript); // 注册预览功能的组件
         app.use(hljsVuePlugin);
     },
 } satisfies Theme;
