@@ -12,8 +12,8 @@ import '@xrepo/ui/dist/es/src/style/button.css';
 import 'highlight.js/styles/base16/summerfruit-light.css'; // 主题
 import hljsVuePlugin from '@highlightjs/vue-plugin';
 
-import Preview from './preview/index.vue';
-import RunScript from './runScript/index.vue';
+import Preview from './components/preview/index.vue';
+import RunScript from './components/runScript/index.vue';
 
 export default {
     extends: DefaultTheme,

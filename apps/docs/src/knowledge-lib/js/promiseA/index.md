@@ -1,22 +1,13 @@
-<script>
-</script>
 
 # Promise
 
-## 面试题
-
-<run-script name="t1" codePath="knowledge-lib/js/promiseA/question/t1.js">
-</run-script>
-
-## Promise
-
-**回调地狱**:在 js 中我们经常会大量使用异步回调，例如使用 ajax 请求，面对复杂场景，太多的回调形成地狱
+> 回调地狱:在 js 中我们经常会大量使用异步回调，例如使用 ajax 请求，面对复杂场景，太多的回调形成地狱
 
 - Promise 有三种状态：**等待态（Pending）、执行态（Fulfilled）和拒绝态（Rejected）**，且 Promise 必须为三种状态之一只有异步操作的结果，可以决定当前哪一种状态，任何其它操作都无法改变这个状态。
-- **状态只能由 Pending 变为 Fulfilled 或由 Pending 变为 Rejected** ，且状态改变之后不会再发生变化，会一直保持这个状态
-- Pending 变为 Fulfilled 会得到一个私有**value**，Pending 变为 Rejected 会得到一个私有**reason**，当 Promise 达到了 Fulfilled 或 Rejected 时，执行的异步代码会接收到这个 value 或 reason。
+  - **状态只能由 Pending 变为 Fulfilled 或由 Pending 变为 Rejected** ，且状态改变之后不会再发生变化，会一直保持这个状态
 
-> 构造函数
+## 创建promise的方法
+1. 构造函数
 
 ```js
 // 构造函数, 返回一个Promise对象
@@ -27,7 +18,7 @@ const promise = new Promise((resolve, reject) => {
 });
 ```
 
-> 实例方法
+2. 实例方法
 
 ```js
 // 为 promise 添加被兑现和被拒绝状态的回调函数，其以回调函数的返回值兑现 promise。若不处理已兑现或者已拒绝状态（例如，onFulfilled 或 onRejected 不是一个函数），则返回 promise 被敲定时的值。
@@ -40,7 +31,7 @@ Promise.prototype.catch();
 Promise.prototype.finally();
 ```
 
-> 静态方法
+3. 静态方法
 
 ```js
 // iterable一般传进去一个由多个Promise对象组成的数组
@@ -51,7 +42,7 @@ Promise.prototype.finally();
 Promise.all(iterable);
 
 // 与all类似的输入
-// 输出区别：当所有的 promises 都已经结束无论是完成状态或者是失败状态，它都会返回一个 promise，这个 promise 将会包含一个关于描述每个 promise 状态结果的对象数组。
+// 输出区别：当**所有**的 promises 都已经结束无论是完成状态或者是失败状态，它都会返回一个 promise，这个 promise 将会包含一个关于描述每个 promise 状态结果的对象数组。
 // [ {status: 'xxx', value: xxx} ]
 Promise.allSettled(iterable);
 
@@ -71,7 +62,6 @@ Promise.reject(reason);
   	通常而言，如果你不知道一个值是否是 promise 对象，使用 Promise.resolve(value) 来返回一个 Promise 对象，这样就能将该 value 以 promise 对象形式使用。*/
 Promise.resolve(value);
 ```
-
 [allSettled 与 all 的区别](https://cloud.tencent.com/developer/article/1730975)
 
 ## async 和 await
@@ -82,3 +72,29 @@ await 是等待 async 的异步执行，而且只能在 async 里面定义。syn
 
 await 关键字仅在 async function 中有效。如果在 async function 函数体外使用 await ，你只会得到一个语法错误。
 
+## 自己实现promise
+
+[手写promise](https://www.cnblogs.com/dennisj/p/12660388.html) 包含详细的解释和promise/A+规范的完整测试方法
+
+<run-script name="promise" codePath="knowledge-lib/js/promiseA/MyPromise.js">
+</run-script>
+
+## 面试题
+
+<run-script name="t1" codePath="knowledge-lib/js/promiseA/question/t1.js">
+</run-script>
+
+<run-script name="t2" codePath="knowledge-lib/js/promiseA/question/t2.js">
+</run-script>
+
+<run-script name="t3" codePath="knowledge-lib/js/promiseA/question/t3.js">
+</run-script>
+
+<run-script name="t4" codePath="knowledge-lib/js/promiseA/question/t4.js">
+</run-script>
+
+<run-script name="t5" codePath="knowledge-lib/js/promiseA/question/t5.js">
+</run-script>
+
+<run-script name="t6" codePath="knowledge-lib/js/promiseA/question/t6.js">
+</run-script>

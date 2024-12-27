@@ -16,7 +16,7 @@ export default defineConfig({
                     { text: '博客', link: '/knowledge-lib/blogs' },
                     { text: '浏览器', link: '/knowledge-lib/browser' },
                     { text: 'html&css', link: '/knowledge-lib/html&css' },
-                    { text: 'javascript', link: '/knowledge-lib/js' },
+                    { text: 'javascript', link: '/knowledge-lib/js/es6' },
                     { text: '工程化', link: '/knowledge-lib/engineering' },
                 ],
             },

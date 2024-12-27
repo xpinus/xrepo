@@ -27,12 +27,36 @@ export function generateSidebar(directory: { text: string; path: string }[]) {
         const key = item.path;
         const value = item.text;
 
-        siderbar[key] = [
-            {
-                text: value,
-                items: parseDir(key),
-            },
-        ];
+        const files = fs.readdirSync(path.resolve(ROOT_PATH, key));
+        const leafs = [];
+        const dirs = [];
+
+        // 遍历区分出单文档和子目录块
+        for (let j = 0; j < files.length; j++) {
+            const filename = files[j];
+            if (fs.statSync(path.resolve(ROOT_PATH, key, filename)).isFile()) {
+                leafs.push(filename);
+            } else if (isLeaf(path.resolve(ROOT_PATH, key, filename))) {
+                leafs.push(filename);
+            } else if (!isEmpty(path.resolve(ROOT_PATH, key, filename))) {
+                dirs.push(filename);
+            }
+        }
+
+        siderbar[key] = [];
+        leafs.forEach((filename) => {
+            const fn = filename.replace('.md', '');
+            siderbar[key].push({
+                text: fn,
+                link: path.join(key, fn),
+            });
+        });
+        dirs.forEach((filename) => {
+            siderbar[key].push({
+                text: filename,
+                items: parseDir(path.join(key, filename)),
+            });
+        });
     }
 
     // 如果包含index.md文件，认为是叶子
@@ -63,7 +87,6 @@ export function generateSidebar(directory: { text: string; path: string }[]) {
         const items: DefaultTheme.SidebarItem[] = [];
         const itemWithSubs: DefaultTheme.SidebarItem[] = [];
 
-
         for (let i = 0; i < files.length; i++) {
             const filename = files[i];
             const fn = filename.replace('.md', '');
@@ -84,6 +107,7 @@ export function generateSidebar(directory: { text: string; path: string }[]) {
                 } else {
                     itemWithSubs.push({
                         text: fn,
+                        collapsed: true,
                         items: parseDir(path.join(basePath, filename)),
                     });
                 }
