@@ -8,3 +8,34 @@
 - 少用`iframe`：搜索引擎不会抓取`iframe`中的内容
 - 非装饰性图片必须加`alt`
 - 提高网站速度：网站速度是搜索引擎排序的一个重要指标
+
+## 页面结构优化 
+- 语义化标签，语义化的`HTML`代码，符合W3C规范：语义化代码让搜索引擎容易理解网页；
+
+## 内容优化
+
+保证关键词的覆盖率
+
+## 技术向
+- 站点地图
+```txt
+# robot.txt
+User-agent: *
+Disallow: /private/
+
+Sitemap: http://www.example.com/sitemap.xml
+```
+- 结构化数据
+```html
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "My Organization",
+        "url": "http://www.example.com",
+        "logo": "http://www.example.com/logo.jpg"
+    }
+</script>
+``` 
+- 移动端兼容处理
+- 性能优化

@@ -398,3 +398,12 @@ console.log(sayHi.prototype); // undefined
 IIFE函数是由一对()将函数声明包裹起来的表达式。使得JS编译器不再认为这是一个函数声明，而是一个IIFE，即立刻执行函数表达式。 但是两者达到的目的都是一样的，都是声明了一个函数并且随后调用这个函数。
 
 IIFE的出现是为了弥补JS在scope方面的缺陷：JS只有全局作用域（global scope）、函数作用域（function scope），从ES6开始才有块级作用域（block scope）。
+
+
+## 超过Number最大值怎么处理
+
+BigInt
+
+转换为字符串处理：bignumber.js, decimal.js, bi.js
+
+https://www.cnblogs.com/caihongmin/p/17986687
