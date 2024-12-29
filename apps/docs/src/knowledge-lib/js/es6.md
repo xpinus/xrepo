@@ -100,6 +100,17 @@ var和let可以
 
 const声明一个只读的常量。一旦声明，常量的值就不能改变
 
+```js
+for (var i = 0; i < 10; i++) {
+	(function (n) {
+		setTimeout(() => {
+			console.log(n);
+		}, 0);
+	})(i);
+}
+// 0 
+```
+
 ## null和undefiend
 
 ```js
