@@ -32,6 +32,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "vue": "^3.5.12"
   },
   "devDependencies": {
