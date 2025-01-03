@@ -73,7 +73,7 @@ async function loadSourceCode() {
     text-align: center;
     background: #f7f7f7;
     cursor: pointer;
-    z-index: 100;
+    z-index: 1;
 }
 .operate_btn:hover {
     background: #f2f2f2;

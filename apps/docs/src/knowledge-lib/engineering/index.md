@@ -1,107 +1,14 @@
 # 前端工程化
 
-[从零到亿系统性的建立前端构建知识体系](https://juejin.cn/post/7147365025047379981/)
+- 开发环境
+  - 现代化前端框架选型
+  - 开发规范（代码规范、提交规范等）
+- 构建
+  - 打包
+  - 性能优化
+  - 兼容性
+- 部署
+  - CI/CD
+- 监控
 
-几个常见的相关面试题：
-
-## 模块化的产生是为了解决什么问题？在什么场景下诞生的？
-
-> 早期js开发存在`全局污染`和`依赖混乱`的问题
-> 社区模块化方案
-
-- CommonJS
-    - 最初由社区提出用在浏览器器之外，如node服务端，在node中`每一个js都是一个单独模块`
-    - 使用`exports`、`module.exports`、`require`
-    - 运行时
-- AMD CMD UMD 为浏览器环境提出的模块化方案
-
-> 官方提出的模块化方案
-
-- ES Module
-    - 使用import export
-    - 静态导入导出的优势，实现了 tree shaking
-    - 可以 import() 懒加载方式实现代码分割
-
-## webpack实现方式
-
-浏览器是仅支持ESM，node支持CJS\ESM，构建工具支持更多, 如 Webpack 搭建的项目中，它是允许我们使用各种各样的模块化的。最常用的方式就是 CommonJS 和 ES Module。
-
-> CommonJS实现模块化的原理
-
-```js
-// name.js
-module.exports = "不要秃头啊";
-
-// main.js
-let author = require("./name.js");
-console.log(author, "author");
-```
-
-![CommonJS实现模块化的原理 ](/interview/cjs.png)
-
-```js
-//初始化定义modules对象
-var modules = {
-  // key值为该模块路径，value值为该模块代码, 在require函数执行时获取导出对象。
-  "./src/name.js": (module) => {
-    module.exports = "不要秃头啊";
-  },
-};
-// 缓存对象
-var cache = {};
-
-// 定义加载模块函数require， 接受模块的路径为参数，返回具体的模块的内容
-function require(modulePath) {
-  var cachedModule = cache[modulePath]; //获取模块缓存
-  if (cachedModule !== undefined) {
-    //如果有缓存则不允许模块内容，直接retuen导出的值
-    return cachedModule.exports;
-  }
-  //如果没有缓存，则定义module对象，定义exports属性
-  //这里注意！！！module = cache[modulePath] 代表引用的是同一个内存地址
-  var module = (cache[modulePath] = {
-    exports: {},
-  });
-  //运行模块内的代码，在模块代码中会给module.exports对象赋值
-  modules[modulePath](module, module.exports, require);
-
-  //导入module.exports对象
-  return module.exports;
-}
-
-// 执行入口函数, 防止命名冲突，包装成一个立即执行函数。
-(() => {
-  let author = require("./src/name.js");
-  console.log(author, "author");
-})();
-
-```
-
-> ESM实现模块化的原理
-
-```js
-// name.js
-const author = "不要秃头啊";
-
-export const age = "18";
-export default author;
-
-// main.js
-import author, { age } from "./name";
-
-console.log(author, "author");
-console.log(age, "age");
-```
-
-
-
-> Web环境中是如何支持模块化的？加载过程是怎么样的？
-
-## CommonJS 可以加载 ES Module 导出的内容吗？
-
-## ES Module 可以加载 CommonJS 导出的内容吗？
-
-## Webpack 内部是如何区分一个模块是采用的哪种模块化规范？
-
-## 一个模块内可以既使用CommonJS，又使用 ES Module 吗？
 

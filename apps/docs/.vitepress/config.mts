@@ -18,6 +18,8 @@ export default defineConfig({
                     { text: 'html&css', link: '/knowledge-lib/html&css' },
                     { text: 'javascript', link: '/knowledge-lib/js/es6' },
                     { text: '工程化', link: '/knowledge-lib/engineering' },
+                    { text: '后端', link: '/knowledge-lib/backend' },
+                    { text: 'AI', link: '/knowledge-lib/AI' },
                 ],
             },
             { text: '组件', link: '/components/button' },
@@ -47,6 +49,14 @@ export default defineConfig({
             {
                 text: '工程化',
                 path: 'knowledge-lib/engineering',
+            },
+            {
+                text: '后端',
+                path: 'knowledge-lib/backend',
+            },
+            {
+                text: 'AI',
+                path: 'knowledge-lib/AI',
             },
         ]),
 

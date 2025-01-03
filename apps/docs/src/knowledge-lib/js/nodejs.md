@@ -22,3 +22,5 @@ Node.js 主要由 V8、Libuv 和第三方库组成：
 **和Tomcat的区别**
 
 Nodejs是一个基于Chrome V8引擎的JavaScript运行环境，一个让JavaScript运行在服务端的开发平台。而Tomcat是一个应用服务器，一个免费的开放源代码的Web应用服务器，是广泛的jsp服务器。
+
+**当需要在console.log中打印中文：chcp 65001**
