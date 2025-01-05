@@ -418,3 +418,8 @@ BigInt
 转换为字符串处理：bignumber.js, decimal.js, bi.js
 
 https://www.cnblogs.com/caihongmin/p/17986687
+
+
+## arguments是什么
+
+是一个Arguments类型的类数组对象，是函数中传递的参数值的集合

@@ -209,3 +209,17 @@ console.log(obj);
 
 <run-script codePath="knowledge-lib/js/jsAPI/src/for_in.js">
 </run-script>
+
+## escape\encodeURL\encodeURLComponet
+
+都是用于编码URL或字符串的函数
+
+- escape：弃用
+- encodeURL：用于对URL的部分进行编码，对传入的完整url地址，仅将一些特殊字符转成可传输的形式，保留字符如 : // ? 等不变 
+- encodeURLComponet：对URL的所有特殊字符进行编码
+
+## toLocaleString
+```js
+Number.prototype.toLocaleString('zh', { style: "currency" })   // 转换成地区对应的数字表示方式 123，456   一二三,四五六
+Number.prototype.toLocaleString('zh', { style: "currency" })   // 货币表示
+```

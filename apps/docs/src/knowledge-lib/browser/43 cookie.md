@@ -34,3 +34,8 @@ Cookie 曾一度用于客户端数据的存储，因当时并没有其它合适�
 当服务器收到 HTTP 请求时，服务器可以在响应头里面添加一个 [`Set-Cookie`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie) 选项。浏览器收到响应后通常会保存下 Cookie，之后对该服务器每一次请求中都通过 [`Cookie`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cookie) 请求头部将 Cookie 信息发送给服务器。另外，Cookie 的过期时间、域、路径、有效期、适用站点都可以根据需要来指定。
 
 ![img](https://pic4.zhimg.com/80/v2-b9637047c96bb6ac934807a820dc7663_720w.jpg)
+
+## cookie和token都存放在header中为什么token不会被劫持
+
+1、xss攻击拿到cookie就可以伪造，相对而言，因为token的存放位置不确定，而且通过jwt+ip的方式验证，即使劫持也无效
+2. csrf攻击成功后，利用浏览器自动携带cookie的特性，但token不会自动携带

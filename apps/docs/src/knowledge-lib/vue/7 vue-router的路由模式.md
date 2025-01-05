@@ -258,3 +258,5 @@ router.addRoute({ path: '/other', name: 'about', component: Other })
 **思路**：拦截路由->后台取到路由->保存路由到`localStorage`(用户登录进来只会从后台取一次，其余都从本地取,所以用户，只有退出在登录路由才会更新)
 
 https://www.jianshu.com/p/eaa7354ecee2
+
+路由守卫实现鉴权

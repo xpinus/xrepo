@@ -82,3 +82,15 @@
 - `scrollWidth/scrollHeight`包含滚动内容的元素的大小：
   - 返回值包含**content + padding + 溢出内容的尺寸**
   - ![img](https://img-blog.csdn.net/20180806142830874?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzg2MTMyNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+## Geolocation API
+
+```js
+function getLocation() {
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            ...
+        }, (err) => { ... })
+    } 
+}
+```

@@ -1,7 +1,3 @@
----
-sort: 6
----
-
 # computed 和 watch 的区别和运用的场景？
 
 * computed： 是计算属性，依赖其它属性值，并且 computed 的值有缓存，只有它依赖的属性值发生改变，下一次获取 computed 的值时才会重新计算 computed 的值；
