@@ -2,5 +2,7 @@
 
 ## 创建项目
 ```shell
-npx create-electron-app@latest my-new-app --template=vite-typescript
+pnpm dlx create-electron-app@latest autotest --template=vite-typescript
 ```
+
+chcp 65001 && 
