@@ -1,4 +1,7 @@
-# Electron
+# [Electron](https://www.electronjs.org/zh/docs/latest/tutorial/quick-start)
+> Electron是一个使用 JavaScript、HTML 和 CSS 构建桌面应用程序的框架。 嵌入 Chromium 和 Node.js 到 二进制的 Electron 允许您保持一个 JavaScript 代码代码库并创建 在Windows上运行的跨平台应用 macOS和Linux
+
+
 
 ## electron中用到了哪些系统api
 
@@ -13,3 +16,6 @@
 - 原生窗口操作
 - 打开文件对话框：electron的dialog模块来进行文件对话框操作
 - 系统级快捷键：electron的globalShortcut模块来进行系统级快捷键操作
+
+
+<<< ./基于electron和playwright的测试软件.md
