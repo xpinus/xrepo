@@ -1,5 +1,16 @@
 # package.json
 
+## 字段
+
+- `debug`:
+```js
+"debug": {
+    "env": {
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:3344/"
+    }
+  },
+```
+
 ## 包版本
 
 - 版本号基本是由三位数字组成`[MAJOR].[MINOR].[PATCH]`

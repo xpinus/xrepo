@@ -22,7 +22,7 @@
       "persistent": true,
       "dependsOn": ["^@xrepo/ui#build"]
     },
-    "autotest#start": {
+    "auto-test#dev": {
       "cache": true,
       "persistent": true
     },
