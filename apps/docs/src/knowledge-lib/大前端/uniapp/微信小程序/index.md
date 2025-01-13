@@ -11,3 +11,8 @@ var isMini = /miniProgram/i.test(userAgent);
 ```shell
 var platform = /miniProgram/i.test(navigator.userAgent) ? 'mobile' :  device.type; 
 ```
+
+
+## webview中a标签点击不跳转
+
+在pc端和某些系统场景下，h5的a标签点击没有反应，需要改为`location.href`

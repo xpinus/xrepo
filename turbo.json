@@ -22,6 +22,10 @@
       "persistent": true,
       "dependsOn": ["^@xrepo/ui#build"]
     },
+    "autotest#start": {
+      "cache": true,
+      "persistent": true
+    },
     "lint:stage": {
       "dependsOn": ["^lint"]
     }

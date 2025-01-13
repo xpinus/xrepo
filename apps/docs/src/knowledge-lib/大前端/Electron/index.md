@@ -158,4 +158,3 @@ ipcRenderer.postMessage('port', null, [port1])   // main中使用ipcMain.on处�
 - 系统级快捷键：electron的globalShortcut模块来进行系统级快捷键操作
 
 
-<<< ./基于electron和playwright的测试软件.md
