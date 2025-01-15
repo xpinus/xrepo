@@ -4,31 +4,33 @@
 
 https://blog.csdn.net/ZLJ_999/article/details/124122540
 
-- 1. let和const
-- 2. symbol, BigInt(表示大于2^53 - 1)
-- 3. 模板字符串
-- 4. 数组对象解构表达式
-- 5. Map和Set
-- 6. 数组的新方法:  
+- let和const
+- symbol, BigInt(表示大于2^53 - 1)
+- 模板字符串
+- 数组对象解构表达式
+- Map和Set
+- 数组的新方法:  
   - Array.from()方法
   - includes()方法
   - map()、filter() 方法
   - forEach()方法
   - find()方法
   - some()、every() 方法
-- 7. object的新方法
+- object的新方法
   - Object.is()
   - Object.assign()
   - Object.keys()、Object.values()、Object.entries()
   - 对象声明简写
   - ...(对象扩展符)
-- 8、函数方面
+- 函数方面
   - 参数默认值
   - 箭头函数
-- 8、class（类）
-- 10、promise和proxy
-- 11、模块化
-- 12、运算符
+- class（类）
+- promise
+- 迭代器
+- proxy
+- ESM模块化
+- 运算符
 
 
 参考：https://zhuanlan.zhihu.com/p/99342755
@@ -423,3 +425,7 @@ https://www.cnblogs.com/caihongmin/p/17986687
 ## arguments是什么
 
 是一个Arguments类型的类数组对象，是函数中传递的参数值的集合
+
+## 迭代器和生成器
+
+

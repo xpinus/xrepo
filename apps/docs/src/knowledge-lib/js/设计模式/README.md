@@ -25,7 +25,7 @@ Single Responsibility Principle，简称是SRP
 - 抽象不应该依赖细节；
 - 细节应该依赖抽象。
 
-![依赖倒置](./asset/img.png)
+![依赖倒置](asset/img.png)
 
 ## 单例模式
 定义：全局唯一访问对象，像是浏览器中的window

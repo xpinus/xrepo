@@ -12,3 +12,5 @@ ollama run llama3.1
 **修改ollama的模型默认存放路径**
 https://blog.csdn.net/LJX_ahut/article/details/139310401
 https://blog.csdn.net/LJX_ahut/article/details/139310401
+
+> open-wenui  为olloma打造的web交互界面

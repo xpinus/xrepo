@@ -37,6 +37,7 @@ class MyPromise {
         try {
             fn(resolve, reject);
         } catch (error) {
+            console.error(error);
             reject(error);
         }
     }
@@ -70,14 +71,19 @@ class MyPromise {
     }
 
     _runHandlers() {
+        if (this._status === PENDING) return;
+
         while (this._handlerQueue.length) {
             const { handler, status, resolve, reject } = this._handlerQueue.shift();
 
             if (status !== this._status) continue;
 
-            if (typeof handler !== 'function') resolve(this._value);
-
             runMircoTask(() => {
+                if (typeof handler !== 'function') {
+                    resolve(this._value);
+                    return;
+                }
+
                 try {
                     const result = handler(this._value);
 
@@ -87,12 +93,14 @@ class MyPromise {
                                 resolve(val);
                             });
                         } catch (error) {
+                            console.error(error);
                             reject(error);
                         }
                     } else {
                         resolve(result);
                     }
                 } catch (error) {
+                    console.error(error);
                     reject(error);
                 }
             });
@@ -116,21 +124,85 @@ class MyPromise {
             this._runHandlers();
         });
     }
+
+    /* 其它 */
+    catch(onRejected) {
+        return this.then(null, onRejected);
+    }
+
+    finally(onSettled) {
+        return this.then(
+            (data) => {
+                onSettled();
+                return data;
+            },
+            (reason) => {
+                onSettled();
+                return reason;
+            },
+        );
+    }
+
+    static resolve(data) {
+        if (data instanceof MyPromise) {
+            return MyPromise;
+        }
+
+        return new MyPromise((resolve, reject) => {
+            if (isPromise(data)) {
+                data.then(
+                    (data) => resolve(data),
+                    (reason) => reject(reason),
+                );
+            } else {
+                resolve(data);
+            }
+        });
+    }
+
+    static reject(reason) {
+        return new MyPromise((resolve, reject) => {
+            reject(reason);
+        });
+    }
+
+    /**
+     * @param {iterator} promises
+     */
+    static all(promises) {
+        return new MyPromise((resolve, reject) => {
+            const result = [];
+            let count = 0,
+                settled = 0;
+
+            // all传进的参数为迭代器，因此不能使用一般的for循环
+            for (const p of promises) {
+                let index = count;
+                count++;
+
+                p.then((data) => {
+                    result[index] = data;
+                    settled++;
+
+                    if (settled === count) {
+                        resolve(result);
+                    }
+                }).catch((reason) => {
+                    console.error(reason);
+                    reject(reason);
+                });
+            }
+        });
+    }
 }
 
 // 用例
 (function () {
-    // new Promise((resolve, reject) => {
-    //     resolve(2);
-    // }).then(console.log);
-
-    var promise = new MyPromise((resolve, reject) => {
-        resolve(2);
+    const p2 = new MyPromise((resolve) => {
+        setTimeout(() => {
+            resolve(2);
+        }, 100);
     });
 
-    promise.then(console.log);
-
-    console.log(promise);
-
-    console.log(3);
+    MyPromise.all([MyPromise.resolve(1), p2, MyPromise.resolve(3)]).then(console.log);
 })();

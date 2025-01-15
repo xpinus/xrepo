@@ -6,6 +6,7 @@ export default defineConfig({
     title: 'Xrepo',
     description: '项目文档',
     srcDir: 'src',
+    head: [['link', { rel: 'icon', href: './favicon.ico' }]],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
@@ -23,9 +24,9 @@ export default defineConfig({
                     { text: '大前端', link: '/knowledge-lib/大前端/' },
                 ],
             },
-            { text: '组件', link: '/components/button' },
+            { text: '组件库', link: '/components/button' },
+            { text: '关于我', link: '/cv' },
         ],
-
         sidebar: generateSidebar([
             {
                 text: '组件',

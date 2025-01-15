@@ -76,7 +76,12 @@ await 关键字仅在 async function 中有效。如果在 async function 函数
 
 [手写promise](https://www.cnblogs.com/dennisj/p/12660388.html) 包含详细的解释和promise/A+规范的完整测试方法
 
-<run-script name="promise" codePath="knowledge-lib/js/promiseA/MyPromise.js">
+<run-script name="promise" codePath="knowledge-lib/js/promiseA/MyPromiseES.js">
+</run-script>
+
+## 自己实现async和await效果
+
+<run-script name="await" codePath="knowledge-lib/js/promiseA/await.js">
 </run-script>
 
 ## 面试题

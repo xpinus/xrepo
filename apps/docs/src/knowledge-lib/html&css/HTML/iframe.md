@@ -1,8 +1,3 @@
----
-sort: 23
----
-
-
 
 # iframe的理解
 
@@ -12,17 +7,16 @@ sort: 23
 ```js
 <iframe src="demo_iframe_sandbox.htm"></iframe>
 ```
-```text
 iframe常用属性:
-1.frameborder:是否显示边框，1(yes),0(no)
-2.height:框架作为一个普通元素的高度，建议在使用css设置。
-3.width:框架作为一个普通元素的宽度，建议使用css设置。
-4.name:框架的名称，window.frames[name]时专用的属性。
-5.scrolling:框架的是否滚动。yes,no,auto。
-6.src：内框架的地址，可以使页面地址，也可以是图片的地址。
-7.srcdoc , 用来替代原来HTML body里面的内容。但是IE不支持, 不过也没什么卵用
-8.sandbox: 对iframe进行一些列限制，IE10+支持
-```
+1. frameborder:是否显示边框，1(yes),0(no)
+2. height:框架作为一个普通元素的高度，建议在使用css设置。
+3. width:框架作为一个普通元素的宽度，建议使用css设置。
+4. name:框架的名称，window.frames[name]时专用的属性。
+5. scrolling:框架的是否滚动。yes,no,auto。
+6. src：内框架的地址，可以使页面地址，也可以是图片的地址。
+7. srcdoc , 用来替代原来HTML body里面的内容。但是IE不支持, 不过也没什么卵用
+8. sandbox: 对iframe进行一些列限制，IE10+支持
+9. allowfullscreen: 允许iframe内的documnet发起requestFullScreen
 
 **操作iframe内容**
 ```js
