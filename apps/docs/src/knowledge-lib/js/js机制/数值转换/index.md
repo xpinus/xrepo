@@ -1,0 +1,44 @@
+# js机制-原始值强制转化
+
+在如下面场景，会执行类型转换
+- Date()接收到不是预期的参数
+- ±： 如果某个操作数是字符串，执行字符串串联；否则，执行数字相加
+- ==：如果某个操作数是原始值，而另一个操作数是对象（object），则该对象将转换为没有首选类型的原始值
+
+## 转换过程
+- 如果值已经是原始值，则此操作不会进行任何转换
+- number强制转换
+  - undefined转换为NaN
+  - null转换为0
+  - boolean转换为1或0
+  - string尝试转化为数字，失败返回NaN
+    - 首尾空格被忽略
+    - +-符号出现在开头被看作符号
+    - Infinity被当作字面量
+    - 空字符串或字符串中只包含空格时，返回0
+    - 不允许数字分隔符
+      - 正常数字中，可以使用下划线（_，U+005F）作为分隔符以增强数字字面量的可读性
+  - BigInt直接报错TypeError，防止导致精度误差
+  - Symbol直接报错TypeError
+- string强制转换
+  - undefined转换为'undefined'
+  - null转换为'null'
+  - boolean转换为'false'或'true'
+  - 数字使用toString(10)方法转换为字符串
+  - Symbol直接报错TypeError
+  - 对象是先调用toString()方法，再调用valueOf()方法
+- 对象会依次调用下列方法尝试转换为原始值，如需要再继续转换
+  - `[Symbol.toPrimitive]()`:如果存在，则必须返回原始值——返回对象，会导致 TypeError
+  - `valueOf()`: 如果返回对象，则忽略其返回值
+  - `toString()`: 如果仍然返回对象则报错：TypeError
+    - 对象默认返回`[object Object]`
+
+
+
+
+
+
+
+
+<run-script codePath="knowledge-lib/js/js机制-数值转化/questions/q1.js">
+</run-script>

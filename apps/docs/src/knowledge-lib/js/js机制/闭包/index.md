@@ -1,5 +1,21 @@
 # 闭包
 
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
+
+> 闭包是由封闭的函数和对函数声明所在词法环境的引用组合而成。 即，闭包让函数能访问它的外部作用域。
+
+> 闭包会随着函数的创建而同时创建。
+
+
+
+
+
+
+
+
+
+
+
 必看：https://juejin.cn/post/6943031797022195742
 
 全局作用域
