@@ -32,17 +32,20 @@
 
 > 属性键要么是字符串，要么是 symbol, 当其他类型（如数字）用于索引对象时，值会隐式地转化为字符串
 
-> 有两种类型的对象属性：数据属性和访问器属性。每个属性都有对应的特性。每个特性由 JavaScript 引擎进行内部访问，但是你可以通过 Object.defineProperty() 设置它们，或通过 Object.getOwnPropertyDescriptor() 读取它们
+> 有两种类型的对象属性：数据属性和访问器属性。每个属性都有对应的特性。
+> 每个特性由 JavaScript 引擎进行内部访问
+> 通过 `Object.defineProperty()` 设置它们，或通过 `Object.getOwnPropertyDescriptor()` 读取它们
 
 ### 数据属性
 > 数据属性将键与值相关联
-- value: 数据属性的值, 通过属性的 get 访问获取值
-- writable: 是否可写
+- value: 数据属性的值, 通过属性的 get 访问获取值 
+- writable: 属性值是否可写
 - enumerable: 是否可枚举
-- configurable: 是否可配置, 表示属性是否可以删除，是否可以更改为访问器属性，以及是否可以更改其特性
+- configurable: 数据属性是否可配置, 表示属性是否可以删除，是否可以更改为访问器属性，以及是否可以更改其特性
 
 ### 访问器属性
-> 将键与两个访问器函数（get 和 set）相关联，以获取或者存储值。
+> 数据属性的属性描述符中，如果配置了get和set，那么就是访问器属性
+> get和set配置均为函数，如果一个属性时访问器属性，则读取该属性时，会运行get方法，将返回值作为属性值，如果有set方法，则会运行set方法，将值作为新值，然后返回新值
 
 > 对象的原型指向另一个对象或者 null——从概念上讲，它是对象的隐藏属性，通常表示为 [[Prototype]]。对象的 [[Prototype]] 的属性也可以在对象自身上访问。
 
@@ -138,3 +141,7 @@ console.log(fn.constructor.name) // Function
 console.log(date.constructor.name)// Date 
 console.log(arr.constructor.name) // Array
 ```
+
+## 面试题
+
+<run-script codePath="knowledge-lib/js/jsAPI/数据结构/src/q1.js"></run-script>

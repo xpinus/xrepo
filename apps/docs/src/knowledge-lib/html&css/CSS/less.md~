@@ -1,4 +1,8 @@
-## stylus/sass/less 区别
+---
+sort: 21
+---
+
+# stylus/sass/less 区别
 
 - 均具有“变量”、“混合”、“嵌套”、“继承”、“颜色混合”五大基本特性
 - `Scss`和`LESS`语法较为严谨，`LESS`要求一定要使用大括号“{}”，`Scss`和`Stylus`可以通过缩进表示层次与嵌套关系
@@ -7,14 +11,3 @@
 
 
 https://www.runoob.com/sass/sass-functions.html
-
-## 自动注入less全局变量
-
-less-loader插件自动注入全局变量
-
-webpack:
-additionalData: `@import "@/styles/variables.less";`
-
-vite:
-css.preprocessorOptions.less.additionalData = `@import "@/styles/variables.less";`
-

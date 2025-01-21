@@ -19,25 +19,6 @@
 
 https://blog.csdn.net/weixin_42232325/article/details/123994867
 
-## never的妙用
-
-表示不存在
-
-```ts
-// type Method = 'get' | 'post'
-type Method = 'get' | 'post' | 'put'  // 当新增情况时
-
-function request(method: Method) {
-  if (method === 'get') {
-      return method;
-  } else if(method === 'post') {
-    return method;
-  }else {
-    const neverMethod: never = method;   // ts报错，从而提示你这里需要新增分支
-  }
-}
-```
-
 
 从 TS 的 useDefineForClassFields 选项到class-fields 提案
 https://zhuanlan.zhihu.com/p/258906525

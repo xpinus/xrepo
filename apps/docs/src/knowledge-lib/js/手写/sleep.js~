@@ -1,0 +1,11 @@
+function sleep(time) {
+    let bool = true;
+    new Promise((resolve) => {
+        setTimeout(resolve, time);
+    });
+    while (bool) {}
+}
+
+console.log(1);
+sleep(1000);
+console.log(2);
