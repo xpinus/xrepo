@@ -85,6 +85,17 @@ new 会返回一个对象，这个对象绑定到构造函数的 this
 
 ES6 中新增了一种函数类型，**箭头函数**[2]，箭头函数中 `this` 不会应用上述规则，而是**根据最外层的词法作用域来确定 this**，简单来说，箭头函数的 `this` 就是它**外面第一个不是箭头函数的函数的 this**：
 
+## 实现绑定this的方法
+
+<run-script name="手写apply" codePath="knowledge-lib/js/js机制-this指向/questions/apply.js">
+</run-script>
+
+<run-script name="手写call" codePath="knowledge-lib/js/js机制-this指向/questions/call.js">
+</run-script>
+
+<run-script name="手写bind" codePath="knowledge-lib/js/js机制-this指向/questions/bind.js">
+</run-script>
+
 ## 面试题
 
 <run-script codePath="knowledge-lib/js/js机制-this指向/questions/q1.js">
@@ -95,3 +106,5 @@ ES6 中新增了一种函数类型，**箭头函数**[2]，箭头函数中 `this
 
 <run-script codePath="knowledge-lib/js/js机制-this指向/questions/q3.js">
 </run-script>
+
+手写 call、apply、bind

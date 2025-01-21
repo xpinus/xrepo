@@ -1,17 +1,10 @@
-// async function add() {
-//     console.log('1 + 1 = ?');
-//     const res = await Promise.resolve(2);
-//     console.log(res);
-// }
-// add();
-
-function* task() {
+function* add() {
     console.log('1 + 2 = ?');
     let res = yield Promise.resolve(3);
     console.log(res);
 }
 
-function run() {
+function run(task) {
     const generator = task(); // 1. 创造一个Gnerator
     let result = generator.next(); // 2. 第一次next，开始执行任务
 
@@ -43,4 +36,4 @@ function run() {
     return result.value;
 }
 
-run();
+run(add);

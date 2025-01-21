@@ -1,9 +1,9 @@
-Function.prototype.myBind = function (context) {
+Function.prototype.myBind = function (context, ...args) {
     // 获取当前函数
     const fn = this;
 
-    return function (...args) {
-        return fn.apply(context, args);
+    return function (...newArgs) {
+        return fn.apply(context, [...args, ...newArgs]); // bind参数具有柯里化的性质
     };
 };
 

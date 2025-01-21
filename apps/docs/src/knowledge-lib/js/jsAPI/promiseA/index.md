@@ -38,7 +38,7 @@ Promise.prototype.finally();
 // 返回：一个新的 promise 对象，等到所有的 promise 对象都成功或有任意一个 promise 失败。
 // 结果：
 // 	- 成功：iterable 里所有 promise 返回值的数组作为成功回调的返回值。顺序跟 iterable 的顺序保持一致。
-//  - 失败：一旦有任意一个 iterable 里面的 promise 对象失败则立即以该 promise 对象失败的理由来拒绝这个新的 promise。
+//  - 失败：一旦有**任意一个** iterable 里面的 promise 对象失败则立即以该 promise 对象失败的理由来拒绝这个新的 promise。
 Promise.all(iterable);
 
 // 与all类似的输入
@@ -62,7 +62,13 @@ Promise.reject(reason);
   	通常而言，如果你不知道一个值是否是 promise 对象，使用 Promise.resolve(value) 来返回一个 Promise 对象，这样就能将该 value 以 promise 对象形式使用。*/
 Promise.resolve(value);
 ```
-[allSettled 与 all 的区别](https://cloud.tencent.com/developer/article/1730975)
+
+## 手写promise
+
+[手写promise](https://www.cnblogs.com/dennisj/p/12660388.html) 
+
+<run-script name="promise" codePath="knowledge-lib/js/jsAPI/promiseA/MyPromiseES.js">
+</run-script>
 
 ## async 和 await
 
@@ -72,34 +78,14 @@ await 是等待 async 的异步执行，而且只能在 async 里面定义。syn
 
 await 关键字仅在 async function 中有效。如果在 async function 函数体外使用 await ，你只会得到一个语法错误。
 
-## 自己实现promise
-
-[手写promise](https://www.cnblogs.com/dennisj/p/12660388.html) 包含详细的解释和promise/A+规范的完整测试方法
-
-<run-script name="promise" codePath="knowledge-lib/js/promiseA/MyPromiseES.js">
-</run-script>
-
-## 自己实现async和await效果
-
-<run-script name="await" codePath="knowledge-lib/js/promiseA/await.js">
+<run-script  name="利用生成器和迭代器实现相同效果" codePath="knowledge-lib/js/jsAPI/promiseA/await.js">
 </run-script>
 
 ## 面试题
 
-<run-script name="t1" codePath="knowledge-lib/js/promiseA/questions/t1.js">
-</run-script>
-
-<run-script name="t2" codePath="knowledge-lib/js/promiseA/questions/t2.js">
-</run-script>
-
-<run-script name="t3" codePath="knowledge-lib/js/promiseA/questions/t3.js">
-</run-script>
-
-<run-script name="t4" codePath="knowledge-lib/js/promiseA/questions/t4.js">
-</run-script>
-
-<run-script name="t5" codePath="knowledge-lib/js/promiseA/questions/t5.js">
-</run-script>
-
-<run-script name="t6" codePath="knowledge-lib/js/promiseA/questions/t6.js">
-</run-script>
+<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t1.js"></run-script>
+<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t2.js"></run-script>
+<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t3.js"></run-script>
+<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t4.js"></run-script>
+<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t5.js"></run-script>
+<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t6.js"></run-script>

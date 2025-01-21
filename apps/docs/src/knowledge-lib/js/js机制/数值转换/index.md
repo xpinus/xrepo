@@ -1,5 +1,7 @@
 # js机制-原始值强制转化
 
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
+
 在如下面场景，会执行类型转换
 - Date()接收到不是预期的参数
 - ±： 如果某个操作数是字符串，执行字符串串联；否则，执行数字相加
@@ -7,7 +9,7 @@
 
 ## 转换过程
 - 如果值已经是原始值，则此操作不会进行任何转换
-- number强制转换
+- **number**强制转换
   - undefined转换为NaN
   - null转换为0
   - boolean转换为1或0
@@ -20,25 +22,22 @@
       - 正常数字中，可以使用下划线（_，U+005F）作为分隔符以增强数字字面量的可读性
   - BigInt直接报错TypeError，防止导致精度误差
   - Symbol直接报错TypeError
-- string强制转换
+- **string**强制转换
   - undefined转换为'undefined'
   - null转换为'null'
   - boolean转换为'false'或'true'
   - 数字使用toString(10)方法转换为字符串
   - Symbol直接报错TypeError
   - 对象是先调用toString()方法，再调用valueOf()方法
-- 对象会依次调用下列方法尝试转换为原始值，如需要再继续转换
-  - `[Symbol.toPrimitive]()`:如果存在，则必须返回原始值——返回对象，会导致 TypeError
+- **boolean**强制转换
+  - ±0、null、false、NaN、undefined、''空字符串转换为false
+  - 任何对象转换为true
+- **对象**会依次调用下列方法尝试转换为原始值，如需要再继续转换
+  - `[Symbol.toPrimitive]()`: 如果存在，则必须返回原始值——返回对象，会导致 TypeError, 没有默认的实现，是用来自定义原始值转换行为的
   - `valueOf()`: 如果返回对象，则忽略其返回值
   - `toString()`: 如果仍然返回对象则报错：TypeError
     - 对象默认返回`[object Object]`
 
 
-
-
-
-
-
-
-<run-script codePath="knowledge-lib/js/js机制-数值转化/questions/q1.js">
+<run-script codePath="knowledge-lib/js/js机制/数值转换/questions/q1.js">
 </run-script>

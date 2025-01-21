@@ -72,6 +72,11 @@ function runScript() {
 .name {
     font-size: 18px;
     margin: 4px 0 10px 0;
+    font-weight: 600;
+    background: #eee;
+    width: fit-content;
+    padding: 0 8px;
+    border-radius: 2px;
 }
 
 .run-tip {

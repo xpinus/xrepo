@@ -109,7 +109,7 @@ Object.prototype.toString.call(null); // '[object Null]'
 - `typeof`: 返回数据类型的字符串
   - 缺点：typeof null 的值为 Object，无法分辨是 null 还是 Object
     - 为在 JavaScript 中，不同的对象都是使用二进制存储的，如果二进制前三位都是 0 的话，系统会判断为是 Object 类型，而 null 的二进制全是 0
-    - 000对象 001整型 010浮点数 100字符串 110布尔值
+  - 000对象 001整型 010浮点数 100字符串 110布尔值
 ```js
 typeof undefined // 'undefined' 
 typeof '10' // 'String' 

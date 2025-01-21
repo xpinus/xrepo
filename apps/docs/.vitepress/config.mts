@@ -6,7 +6,7 @@ export default defineConfig({
     title: 'Xrepo',
     description: '项目文档',
     srcDir: 'src',
-    head: [['link', { rel: 'icon', href: './favicon.ico' }]],
+    head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
