@@ -25,7 +25,9 @@ WebIDL(web interface definition language)。定义浏览器和js之间如何通�
 平时所说的虚拟DOM快的前提：
 - 和谁比较：
   - 肯定是比原生js的DOM操作慢
-  - 相比innerHTML比较，在初始化渲染时两者间差距并不大，主要是更新时，虚拟DOM性能更高
+  - 相比innerHTML比较
+    - 在初始化渲染时两者间差距并不大，虚拟DOM多了一层计算会略慢
+    - 主要是更新时，虚拟DOM性能更高
   
 **虚拟DOM主要是防止在重新渲染时性能恶化**
 

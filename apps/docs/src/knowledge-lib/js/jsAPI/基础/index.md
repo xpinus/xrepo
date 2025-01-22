@@ -259,3 +259,8 @@ Number.prototype.toLocaleString('zh', { style: "currency" })   // 货币表示
 - 没有 arguments 对象，不能使用 arguments，如果要获取参数的话可以使用 rest 运算符
 - 没有 yield 属性，不能作为生成器 Generator 使用
 - 不会进行函数提升
+
+
+## 数组的遍历方法与区别，那个性能更好
+
+Object.keys和for in的区别

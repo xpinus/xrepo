@@ -145,3 +145,7 @@ console.log(arr.constructor.name) // Array
 ## 面试题
 
 <run-script codePath="knowledge-lib/js/jsAPI/数据结构/src/q1.js"></run-script>
+
+> typeof String(1) 和 typeof new String(1)
+> 返回值的区别？
+> 为什么都能调用substr方法

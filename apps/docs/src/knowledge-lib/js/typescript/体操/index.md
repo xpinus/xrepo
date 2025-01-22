@@ -131,6 +131,12 @@
 
 <<< ./src/00116-medium-replace.ts
 
+## 00119-ReplaceAll
+
+实现 `ReplaceAll<S, From, To>` 将一个字符串 S 中的所有子字符串 From 替换为 To。
+
+<<< ./src/00119-medium-replaceAll.ts
+
 ## 00189-Awaited
 
 假如我们有一个 Promise 对象，这个 Promise 对象会返回一个类型。在 TS 中，我们用 Promise 中的 T 来描述这个 Promise 返回的类型。请你实现一个类型，可以获取这个类型。

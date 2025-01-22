@@ -18,5 +18,6 @@ function add() {
 let r1 = add(1, 2, 3)(4);
 console.log(r1);
 console.log(r1.toString());
+
 const r2 = add(1)(2)(3)(4);
 console.log(r2.toString());
