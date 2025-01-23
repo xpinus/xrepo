@@ -1,0 +1,119 @@
+body {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin: 0;
+}
+svg {
+	width: 500px;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.title {
+	font-family: "Helvetica Neue", san-serif;
+	text-align: center;
+	width: 100%;
+	color: #ff6138;
+}
+.control {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	margin-top: 16px;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	width: 100%;
+	padding-left: 30%;
+	padding-right: 30%;
+	box-sizing: border-box;
+}
+.action {
+	border-radius: 3px;
+	font-size: 16px;
+	color: white;
+	padding: 10px;
+	cursor: pointer;
+	border: none;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 16px;
+}
+.action__grow {
+	background-color: #04bfbf;
+}
+.action__grow:hover {
+	background: #00abab;
+	-webkit-transition: 0.5s;
+	transition: 0.5s;
+}
+.action__newGrow {
+	background: #046380;
+}
+.action__newGrow--deactivated {
+	pointer-events: none;
+}
+.action__newGrow:hover {
+	background: #004154;
+	-webkit-transition: 0.5s;
+	transition: 0.5s;
+}
+.branch {
+	stroke: green;
+	stroke-width: 1.5px;
+}
+.leaf {
+	fill: green;
+}
+.pot {
+	fill: #f68d53;
+	stroke: #bb6828;
+}
+.pot-line {
+	stroke: #bb6828;
+}
+#leaf--master {
+	-webkit-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+}
+.leaf__body {
+	fill: #a9cf55;
+}
+.leaf__body,
+.leaf__stem--main,
+.leaf__stem--branch {
+	stroke: #589040;
+	stroke-miterlimit: 10;
+}
+.leaf__body {
+	stroke-width: 0.5px;
+}
+.leaf__stem--main,
+.leaf__stem--branch {
+	stroke-width: 0.25px;
+}
+.leaf__stem--main,
+.leaf__stem--branch {
+	fill: none;
+}

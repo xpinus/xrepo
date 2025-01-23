@@ -9,6 +9,7 @@ export default defineConfig({
     head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
+        // 右上头部导航栏
         nav: [
             { text: 'Home', link: '/' },
             {
@@ -18,6 +19,7 @@ export default defineConfig({
                     { text: '浏览器', link: '/knowledge-lib/browser' },
                     { text: 'html&css', link: '/knowledge-lib/html&css' },
                     { text: 'javascript', link: '/knowledge-lib/js/es6' },
+                    { text: '框架', link: '/knowledge-lib/框架' },
                     { text: '工程化', link: '/knowledge-lib/engineering' },
                     { text: '后端', link: '/knowledge-lib/backend' },
                     { text: 'AI', link: '/knowledge-lib/AI' },
@@ -27,6 +29,7 @@ export default defineConfig({
             { text: '组件库', link: '/components/button' },
             { text: '关于我', link: '/cv' },
         ],
+        // 左侧边栏
         sidebar: generateSidebar([
             {
                 text: '组件',
@@ -47,6 +50,10 @@ export default defineConfig({
             {
                 text: 'JavaScript',
                 path: 'knowledge-lib/js',
+            },
+            {
+                text: '框架',
+                path: 'knowledge-lib/框架',
             },
             {
                 text: '工程化',

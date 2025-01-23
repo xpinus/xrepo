@@ -269,7 +269,5 @@ Object.keys和for in的区别
 
 proxy get receiver：Proxy或者继承Proxy的对象
 
-用途：Proxy继承场景下结合Relfect解决this指向问题
-
 <run-script codePath="knowledge-lib/js/jsAPI/基础/src/receiver.js">
 </run-script>

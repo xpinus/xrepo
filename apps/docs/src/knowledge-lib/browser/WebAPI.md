@@ -61,27 +61,7 @@
 
 `window.resize()`
 
-## DOM的理解
 
-文档对象模型 (DOM) 是 HTML 和 XML 文档的编程接口
-
-它提供了对文档的结构化的表述，并定义了一种方式可以使从程序中对该结构进行访问，从而改变文档的结构，样式和内容
-
-任何 HTML或XML文档都可以用 DOM表示为一个由节点构成的层级结构
-
-创建节点、查询节点、更新节点、添加节点、删除节点、更改样式、绑定事件
-
-## offsetWidth/offsetHeight,clientWidth/clientHeight与scrollWidth/scrollHeight的区别
-
-- `offsetWidth/offsetHeight`偏移量：
-  - 返回值包含**content + padding + border**，效果与e.getBoundingClientRect()相同
-  - ![img](https://img-blog.csdn.net/20180806142425483?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzg2MTMyNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-- `clientWidth/clientHeight`客户区大小：
-  - 返回值只包含**content + padding**，如果有滚动条，也**不包含滚动条**
-  - ![img](https://img-blog.csdn.net/20180806142642108?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzg2MTMyNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-- `scrollWidth/scrollHeight`包含滚动内容的元素的大小：
-  - 返回值包含**content + padding + 溢出内容的尺寸**
-  - ![img](https://img-blog.csdn.net/20180806142830874?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzg2MTMyNg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 
 ## Geolocation API
 

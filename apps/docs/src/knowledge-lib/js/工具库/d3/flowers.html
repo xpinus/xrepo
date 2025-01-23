@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>flowers</title>
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/d3/7.4.5/d3.js"></script>
+		<script src="./graph.json"></script>
+
+		<style>
+			body {
+				height: 100vh;
+			}
+			#root {
+				width: 1152px;
+				height: 1152px;
+				margin: 100px auto;
+				border: 1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root">
+			<svg id="svg"></svg>
+		</div>
+	</body>
+
+	<script>
+		const svg = document.getElementById("svg");
+		const width = 1152;
+		const height = 1152;
+
+		d3.select(svg).attr("width", 1152).attr("height", 1152);
+
+		d3.json("./graph.json").then((graph) => {
+			// 连接线
+			const links = d3
+				.select(svg)
+				.selectAll(".link")
+				.data(graph.links, (d) => d.id)
+				.join("line")
+				.attr("class", "link")
+				.attr("stroke", "#ccc");
+
+			// 节点花瓣
+			const flowers = d3
+				.select(svg)
+				.selectAll(".flower")
+				.data(graph.nodes, (d) => d.title)
+				.join((enter) => {
+					const g = enter.append("g").attr("class", "flower");
+
+					g.append("text")
+						.text((d) => d.title.slice(0, 20))
+						.attr("text-anchor", "middle")
+						.attr("dy", ".35em")
+						.style("font-size", ".7em")
+						.style("font-style", "italic");
+
+					g.selectAll("path")
+						.data((d) => {
+							var data = [];
+							for (let i = 0; i < d.numPetals; i++) {
+								data.push(
+									Object.assign({}, d, {
+										rotate: (i * 360) / d.numPetals,
+									})
+								);
+							}
+
+							return data;
+						})
+						.join("path")
+						.attr("d", (d) => d.path)
+						.attr("fill", (d) => d.color)
+						.attr("fill-opacity", 0.5)
+						.attr("stoke", (d) => d.color)
+						.attr("stoke-width", 2)
+						.attr("transform", (d) => `rotate(${d.rotate}) scale(${0.5 * d.scale})`);
+
+					return g;
+				});
+
+			// create genres
+			const genres = d3
+				.select(svg)
+				.selectAll(".genre")
+				.data(graph.genres, (d) => d.label)
+				.join("text")
+				.text((d) => d.label)
+				.attr("class", ".genre")
+				.attr("text-anchor", "middle")
+				.attr("dy", ".35em")
+				.style("font-weight", 700);
+
+			// 力导向图
+			const gNodes = _.union(graph.nodes, graph.genres);
+			d3.forceSimulation(gNodes)
+				.force("charge", d3.forceManyBody(-300))
+				.force("link", d3.forceLink(graph.links).distance(100))
+				.force("center", d3.forceCenter(width / 2, height / 2))
+        .force(
+					"collide",
+					d3.forceCollide((d) => 150 * d.scale || 50)
+				)
+				.alpha(0.5)
+				.alphaMin(0.1)
+				.on("tick", () => {
+					genres.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
+
+					flowers.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
+
+          console.log(links);
+          links.attr('x1', d => d.source.x)
+          .attr('y1', d => d.source.y)
+          .attr('x2', d => d.target.x)
+          .attr('y2', d => d.target.y)
+				});
+		});
+	</script>
+</html>

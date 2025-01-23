@@ -1,185 +1,69 @@
 
+# 页面渲染
+> 一次请求会产生哪些缓存？ `dns`缓存，`cdn`缓存，浏览器缓存，服务器缓存
 
+## 从浏览器地址栏输入url到显示页面的步骤
 
+1. [DNS解析](/knowledge-lib/browser/DNS/)获取目标服务器IP地址
+2. 发起HTTP请求
+    - 打开一个socket与目标IP地址端口，三次握手，建立TCP连接
+    - 服务器接收到请求进行解析，返回结果。
+3. 浏览器接收响应,根据情况关闭TCP或保留重用，缓存资源，解码数据（如gzip压缩）
+4. 浏览器解析渲染页面
+  - 当浏览器的**网络线程**收到HTML文档后，会产生一个**渲染任务**，并将其传递给**渲染主线程的消息队列**。
+  - 在**事件循环机制**的作用下，渲染主线程取出消息队列中的渲染任务，开启**渲染流程**
+  - 渲染流程分为多个阶段：`HTML解析`、`样式计算`、`布局`、`分层`、`绘制`、`分块`、`光栅化`、`绘画`，每个阶段都有明确的输入输出，上一个阶段的输出会成为下一个阶段的输入，形成一个严密的渲染流水线。
 
-# 一次请求会产生哪些缓存
+![渲染流程](./asset/render.png)
 
-`dns`缓存，`cdn`缓存，浏览器缓存，服务器缓存
-
-# 从浏览器地址栏输入url到显示页面的步骤
+### HTML解析流程
+- 解析HTML文档，构建`DOM树`
+- 遇到link，并行下载，解析css，构建`CSSOM树`
+  - 不会阻塞DOM解析，但会阻塞script加载，依照HTML5标准，javascript脚本执行前，出现在当前script之前的link必须完全载入
+- 遇到script，会阻塞DOM解析，执行js脚本
+  - 原因：js中可能会修改DOM, 如果先解析后加载的话，DOM 树还得重新解析 
+  - 异步加载script的属性：
+    - `defer`：异步加载，等 DOM 解析完之后再运行，在 `DOMContentloaed` 之前，因此其还是会阻塞DOM解析
+    - `async`: 异步加载，但等该资源下载完成之后立刻运行，运行时机不定，可能会可能不会阻塞DOM解析
+    - [浏览器是如何解析html的？](https://juejin.cn/post/6844903745730396174#heading-1)
+- 根据DOM树和CSSOM树构建**渲染树**：从DOM树的根节点遍历所有**可见节点**，对每一个可见节点，找到恰当的CSSOM规则并应用，发布可见节点的内容和计算样式
+- HTML解析过程中会逐步显示页面
 
 ![performance timing](https://ask.qcloudimg.com/http-save/yehe-8081386/1668f163c56881fa319467b2ae0ebfe2.png?imageView2/2/w/1620)
 
+### 样式计算
 
-**浏览器请求**
-* 在浏览器地址栏输入url
-* 浏览器查看**缓存**：
-  * 没有缓存，发起新请求
-  * 已经缓存，检验是否新鲜
-* 浏览器**解析URL**获取协议、主机、端口(默认80)、path，
-* DNS解析**获取主机IP**地址：
-  * DNS的ip也是有缓存的：浏览器缓存 -> 本机缓存 -> hosts文件 -> 路由器缓存 -> ISP DNS缓存 -> DNS递归查询（可能存在负载均衡导致每次IP不一样）
-  * 先查看本地 hosts 文件，查看有没有当前域名对应的 ip 地址， 若有直接发起请求，没有的话会在本地域名服务器去查找，该查找属于递归查找，如 果本地域名服务器没查找到，会从根域名服务器查找，该过程属于迭代查找，根域名 会告诉你从哪个与服务器查找，最后查找到对应的 ip 地址后把对应规则保存到本地的 hosts 文件中
-  * 如果想加速以上及之后的 http 请求过程的话可以使用缓存服务器 CDN，CDN 过程如 下
-    * 用户输入 url 地址后，本地 DNS 会解析 url 地址，不过会把最终解析权交给 CNAME 指向的 CDN 的 DNS 服务器
-    * CDN 的 DNS 服务器会返回给浏览器一个全局负载均衡 IP
-    * 用户会根据全局负载均衡 IP 去请求全局负载均衡服务器
-    * 全局负载均衡服务器会根据用户的 IP 地址，url 地址，会告诉用户一个区域负载均衡 设备，让用户去请求它
-    * 区域负载均衡服务器会为用户选择一个离用户较近的最优的缓存服务器，并把 ip 地址 给到用户
-    * 用户想缓存服务器发送请求，如果请求不到想要的资源的话，会一层层向上一级查找， 知道查找到为止
-* 进行 http 请求
-* **等待TCP队列**：chrome 有个机制，同一域名下同时最多只能建立6个TCP连接，如果同时有10个请求发生，其中4个就会进入等待队列，直至进行中的请求完成，如果小于6个，则直接进入TCP 连接。
-* 打开一个socket与目标IP地址，端口**建立TCP连接**，三次握手：
-* TCP连接建立后，**发送HTTP请求**，连接建立成功之后，浏览器就可以与服务器之间通讯了。
-* 服务器接收到请求进行解析，如果请求头包含**缓存验证信息**，如果新鲜返回304状态码，说明客户端缓存可用，直接使用客户端缓存即可，该过程属于协商缓存，200则同时返回对应数据，最后将**响应报文通过TCP连接发送回浏览器**，或者是进行其它操作如302重定向，
-* 浏览器接收HTTP响应，根据情况**关闭TCP或保留重用**，关闭的四次握手：
-* 如果资源可缓存进行缓存
-* 对响应进行**解码**（如gzip压缩）
+主线程会遍历DOM树，计算每个节点的最终样式`Computed Style`。在这一过程中很多预设值会变成绝对值，比如`red`变成`rgb(255,0,0)`.
+**这一步结束后会得到一棵带有样式的DOM树**
 
-**浏览器渲染过程**
+### 布局Layout
+布局阶段会遍历DOM树，计算每个节点的`几何信息`，例如节点的宽高、位置
 
-![image-20211113145750091](https://imagehost-1311720054.cos.ap-nanjing.myqcloud.com/blog/%E7%9D%80%E6%89%8B%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99/image-20211113145750091.png)
+###  分层Layer
+主线程会使用复杂的策略对整个布局树进行分层，意义在于当某个层改变后，仅对该层进行处理，提升效率。
 
-<span style="color: red;">必看---</span>[浏览器是如何解析html的？](https://juejin.cn/post/6844903745730396174#heading-1)
-
-客户端自上而下执行代码
-* 、**解析HTML文档，构件DOM树，下载资源，构造CSSOM树，执行js脚本**，这些操作没有严格的先后顺序，以下分别解释：
-* 其中遇到 CSS 加载的时候，CSS 不会阻塞 DOM 树的解析，但是会阻塞 DOM 树的渲 染，并且 CSS 会阻塞下面的 JS 的执行
-* JS 加载，JS 加载会影响 DOM 的解析，之所以会影响，是因为 JS 可能会删除 添加节点，如果先解析后加载的话，DOM 树还得重新解析，性能比较差。如果不想 阻塞 DOM 树的解析的话，可以给 script 添加一个 defer 或者 async 的标签。
-  * defer：不会阻塞 DOM 解析，等 DOM 解析完之后在运行，在 DOMContentloaed 之前
-  * async: 不会阻塞 DOM 解析，等该资源下载完成之后立刻运行
-* 构建**DOM树**：[如何构建DOM树](https://juejin.cn/post/6991097279604064292)
-  * `Tokenizing`：根据HTML规范将字符流解析为标记
-  * `Lexing`：词法分析将标记转换为对象并定义属性和规则
-  * `DOM constroction`：根据HTML标记关系将对象组成DOM树
-* 构建**CSS规则树**：
-  * `Tokenizing`：字符流转换为标记流
-  * `Node`：根据标记创建节点
-  * `CSSOM`：节点创建CSSOM树
-* 根据DOM树和CSSOM树构建**渲染树**：
-  * 从DOM树的根节点遍历所有**可见节点**
-  * 对每一个可见节点，找到恰当的CSSOM规则并应用
-  * 发布可见节点的内容和计算样式
-* **js解析**如下：
-  * 参看必看
-
-**显示页面**（HTML解析过程中会逐步显示页面）
-
-
-![渲染](/interview/render.png)
-
-1. 解析html文档
-  - 过程中会解析html元素生成DOM树
-  - 遇到style标签，link元素、行内样式等css样式，会解析css生成cssom树
-    - css不会阻塞html解析。因为下载和解析css的工作是在预解析线程中进行的。
-    - js会阻塞html解析。因为js代码的执行可能会修改当前的dom树，所以dom树的生成必须暂停。
-2. 样式计算
-  主线程会遍历DOM树，计算每个节点的最终样式`Computed Style`。在这一过程中很多预设值会变成绝对值，比如`red`变成`rgb(255,0,0)`.
-  **这一步结束后会得到一棵带有样式的DOM树**
-3. 布局Layout
-   布局阶段会遍历DOM树，计算每个节点的`几何信息`，例如节点的宽高、位置
-4. 分层Layer
-   - 主线程会使用复杂的策略对整个布局树进行分层，意义在于当某个层改变后，仅对该层进行处理，提升效率。
-   - 滚动条、堆叠上下文、transform、opacity等或多或少会影响分层结果，也可以通过will-change更大程度上影响分层结果
+滚动条、堆叠上下文、transform、opacity等或多或少会影响分层结果，也可以通过will-change更大程度上影响分层结果
    
-5. 绘制paint
-   主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何绘制
-   **绘制完成后**，主线程将每个图层的绘制信息提交给`合成线程`，剩余工作将有合成线程完成
-6. 合成tilling  合成线程对图层进行分块，将其划分为更多的小区域。分块的工作是多线程同时进行的
-7. 光栅化rast   合成线程会将块信息交给GPU，GPU会开启多个线程快速完成光栅化，并优先处理靠近视口的区域
-8. 画 draw  
- - 合成线程拿到光栅化结果的位图后，生成一个个[指引quad]信息。
- - 指引会标识出每个位图应该画到屏幕哪个位置，以及考虑到旋转、缩放等变形
-   - 变形发生在合成线程，与渲染主线程无关，这就是transform效率高的本质
- - 合成线程将指引交给GPU，最终完成屏幕丞相
+### 绘制paint
+主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何绘制
+
+**绘制完成后**，主线程将每个图层的绘制信息提交给`合成线程`，剩余工作将有合成线程完成
+
+### 合成tilling  
+合成线程对图层进行分块，将其划分为更多的小区域。分块的工作是多线程同时进行的
+
+### 光栅化rast   
+合成线程会将块信息交给GPU，GPU会开启多个线程快速完成光栅化，并优先处理靠近视口的区域
+
+### 画 draw  
+- 合成线程拿到光栅化结果的位图后，生成一个个[指引quad]信息。
+- 指引会标识出每个位图应该画到屏幕哪个位置，以及考虑到旋转、缩放等变形
+  - **变形发生在合成线程，与渲染主线程无关，这就是transform效率高的本质**
+- 合成线程将指引交给GPU，最终完成屏幕成像
 
 
-**load事件的缺点**
-
-```js
-//你的代码
-window.onload=fun1
-
-//插件代码
-window.onload=fun2
-```
-
-很明显，fun1被替换成fun2；所以就会出现，你的代码失效了！
-现在很多插件都是要等到文档加载完才执行的，所以很多插件自己内部都会这有类似window.onload的注册方法，那么大家都用window.onload来注册函数那么就会出现部分代码失效问题！
-
-而jquery的ready方法不会出现这个问题，因为它是个函数，函数有个参数是回调函数，每执行一次就会注册一个回调，你的代码写在回调里，这样就不会出现代码失效了，即使大家都用ready这个方法。
-
-* window.onload的替代方案--DOM状态检测
-
-```js
-var alreadyrunflag=0 //flag to indicate whether target function has already been run
- 
-if (document.addEventListener)
-  document.addEventListener("DOMContentLoaded", function(){
-      alreadyrunflag=1; 
-      walkmydog()
-  }, false)
-else if (document.all && !window.opera){
-  document.write('<script type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>')
-  var contentloadtag=document.getElementById("contentloadtag")
-  contentloadtag.onreadystatechange=function(){
-    if (this.readyState=="complete"){
-      alreadyrunflag=1;
-      walkmydog()
-    }
-  }
-}
- 
-window.οnlοad=function(){
-  setTimeout("if (!alreadyrunflag) walkmydog()", 0);
-}
-```
-
-* 哪些异步加载js的方法
-
-1) async  HTML5的属性,让JavaScript代码进行异步加载
-
-```html
-<script type="text/javascript" src="05.js" async="async"></script>
-```
-
-2) defer 老版本IE专用
-
-```html
-<script type="text/javascript" defer="defer"></script>
-```
-
-3) 动态的创建script的标签(可以解决兼容h5以及低版本ie的问题)
-
-```html
-<script type="text/javascript">
-    function asyncLoaded(url,callback){
-        var script = document.createElement("script");
-        //  script.src = url;   假如说网速非常好，直接执行完成了，后面就监听不到状态的改变了
-        if(script.readyState){
-            script.onreadystatechange = function(){
-                if(script.readyState == "complete" || script.readyState =="loaded"){
-                    //                            执行某个函数
-                    callback()
-                }
-            }
-        }else{
-            script.onload = function(){
-                //                        执行某个函数
-                callback()
-            }
-        }
-        script.src = url;    //异步的过程
-        document.head.appendChild(script)    
-    }
-    asyncLoaded("05.js",function(){
-        fn()　　　　　　　　　　//05.js中的函数
-    })
-</script>
-```
-
-## 什么是回流 reflow 和 重绘 repaint  ?
-
+## 面试题
+**1. 什么是回流 reflow 和 重绘 repaint  ?**
 > reflow的本质是浏览器重新计算layout树
 - 当进行了会影响布局树的操作后（如：尺寸、位置、隐藏/状态状态发生改变时），产生重绘回流，重新计算布局树
 - **注意**：JS 获取 Layout 属性值（如：`offsetLeft`、`scrollTop`、`getComputedStyle`等）也会引起回流。因为浏览器需要通过回流计算最新值，而修改则是异步的
@@ -189,7 +73,6 @@ window.οnlοad=function(){
 - 当渲染树中的元素外观（如：颜色）发生改变，不影响布局时，产生重绘
 
 > 如何避免？
-
 - 需要要对元素进行复杂的操作时，可以先隐藏(`display:"none"`)，操作完成后再显示
 - 需要创建多个`DOM`节点时，使用`DocumentFragment`创建完后一次性的加入`document`
 - 缓存`Layout`属性值，如：`var left = elem.offsetLeft;` 这样，多次使用 `left` 只产生一次回流
@@ -198,8 +81,14 @@ window.οnlοad=function(){
 - 尽量使用 `css` 属性简写，如：用 `border` 代替 `border-width`, `border-style`, `border-color`
 - 批量修改元素样式：`elem.className` 和 `elem.style.cssText` 代替 `elem.style.xxx`
 
-## 为什么transform效率高  ?
+**2. 为什么transform效率高  ?**
 
-**transform**只影响渲染流程的最后一个draw阶段，不会影响layout布局或paint绘制指令
+**transform**只影响渲染流程的最后一个`draw`阶段，不会影响`layout布局`或`paint绘制指令`
 
-由于draw阶段位于合成线程，所以transform的变化和渲染主线程互不影响
+而且由于draw阶段位于`合成线程`，所以transform的变化和渲染主线程互不影响
+
+**3. window.onload和DOMContentLoaded有什么区别？**
+
+DOMContentLoaded 事件在 DOM 树构建完成时触发，但不需要等待样式表、图片和子框架等资源加载完成。
+
+window.onload 事件则在页面上所有的资源（包括 DOM、样式表、脚本、图片、Flash 等）都加载完成后触发。

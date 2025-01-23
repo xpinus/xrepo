@@ -1,0 +1,61 @@
+<mxfile host="drawio-plugin" modified="2025-01-23T03:04:22.789Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="CSMTf9nT3yNaV3TQUBIK" version="22.1.22" type="embed">
+  <diagram id="oC1L4F2esadWG39hP1qs" name="Page-1">
+    <mxGraphModel dx="777" dy="709" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;" parent="1" source="5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1340" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;渲染线程&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="20" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="HTML解析" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="180" y="220" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="style" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="320" y="220" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="layout" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="460" y="220" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="layer" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="600" y="220" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="paint" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="740" y="220" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;合成线程&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="20" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="21" value="" style="endArrow=classic;html=1;rounded=0;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="20" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="400" as="sourcePoint" />
+            <mxPoint x="1340" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="17" value="tiling" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="880" y="330" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="raster" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="1020" y="330" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="19" value="draw" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="1160" y="330" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="" style="endArrow=classic;html=1;rounded=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontSize=16;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.002;entryY=0.077;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;curved=0;" parent="1" source="16" target="17" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="850" y="350" as="sourcePoint" />
+            <mxPoint x="900" y="300" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="870" y="280" />
+              <mxPoint x="850" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

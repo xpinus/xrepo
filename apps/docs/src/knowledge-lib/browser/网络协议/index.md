@@ -244,6 +244,8 @@ websocket来自html5，是一个新的协议，与http基本没关系，最大�
 
 > 有哪些服务端推送技术？
 
+SSE, EventSource 是 HTML5 中 Server-sent Events 规范的一种技术实现。EventSource 接口用于接收服务器发送的事件。它通过 HTTP 连接到一个服务器，以 text/event- stream 格式接收事件, 不关闭连接。通过 EventSource 服务端可以主动给客户端发现 消息，使用的是 HTTP 协议，单项通信，只能服务器向浏览器发送； 与 WebSocket 相比轻量，使用简单，支持断线重连
+
 > Socket和websocket是什么关系？
 
 没有关系，就像java和javascript
@@ -344,16 +346,32 @@ Content-Type: text/html; charset=iso-8859-1
 {"name": "qiu", "age": 25}
 ```
 
-## 什么是CDN
+## # 几种重要的content-type 的应用
 
-1.首先访问本地的 DNS ，如果没有命中，继续递归或者迭代查找，直到命中拿到对应 的 IP 地址。 
-2.拿到对应的 IP 地址之后服务器端发送请求到目的地址。注意这里返回的不直接是 cdn 服务器的 IP 地址，而是全局负载均衡系统的 IP 地址 
-3.全局负载均衡系统会根据客户端的 IP 地址和请求的 url 和相应的区域负载均衡系统 通信
-4.区域负载均衡系统拿着这两个东西获取距离客户端最近且有相应资源的 cdn 缓存服 务器的地址，返回给全局负载均衡系统 
-5.全局负载均衡系统返回确定的 cdn 缓存服务器的地址给客户端。 
-6.客户端请求缓存服务器上的文件
+参考：https://juejin.cn/post/6966874464323633183
 
+Content-type在请求头、响应头中都存在，在请求头中的它的作用是告知服务器请求参数的数据类型（MIME类型），服务器可以用合适的方法去处理它。在响应头中的作用是告知浏览器此次响应内容的数据类型，客户端可以用合适的方法去处理它。
 
-## SSE
+**multipart/form-data**
 
-EventSource 是 HTML5 中 Server-sent Events 规范的一种技术实现。EventSource 接口用于接收服务器发送的事件。它通过 HTTP 连接到一个服务器，以 text/event- stream 格式接收事件, 不关闭连接。通过 EventSource 服务端可以主动给客户端发现 消息，使用的是 HTTP 协议，单项通信，只能服务器向浏览器发送； 与 WebSocket 相比轻量，使用简单，支持断线重连
+这种类型一般用在上传二进制文件，比如上传图片或者上传文件等，也可用于包含文件的表单提交。
+
+**application/json**
+
+一般都用于响应头，但是现在也普遍用于请求头，用于告诉服务器消息主体是序列化后的JSON字符串。
+
+**application/x-www-form-urlencoded**
+
+表单默认的提交数据的格式，数据被格式化为key:value的形式，并进行编码。
+
+**text/html**
+
+将文件的content-type设置为text/html的形式，浏览器在获取到这种文件时会自动调用html的解析器对文件进行相应的处理。
+
+**text/plain**
+
+将文件设置为纯文本的形式，浏览器在获取到这种文件时并不会对其进行处理。
+
+## 一句话概括RESTFUL
+
+[题目](https://www.nowcoder.com/questionTerminal/6e5324efec41442ca7c7b94b129c5485#:~:text=%20RESTful%E6%98%AF%E7%9B%AE%E5%89%8D%E6%AF%94%E8%BE%83%E6%B5%81%E8%A1%8C%E7%9A%84%E4%B8%80%E7%A7%8D%E4%BA%92%E8%81%94%E7%BD%91%E6%9E%B6%E6%9E%84%EF%BC%8C%E5%AE%83%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%BB%E8%A6%81%E6%98%AF%E5%AF%B9%E8%AF%B7%E6%B1%82%E8%B5%84%E6%BA%90%E6%97%B6%EF%BC%8C%E6%89%80%E4%BD%BF%E7%94%A8%E7%9A%84URI%E7%9A%84%E7%BB%93%E6%9E%84%E5%81%9A%E4%B8%80%E4%B8%AA%E8%A7%84%E5%AE%9A%E3%80%82%20RESTful,%E6%98%AF%E4%B8%80%E7%A7%8D%E4%BA%92%E8%81%94%E7%BD%91%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%EF%BC%8C%E6%98%AF%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%8E%A5%E5%8F%A3%E3%80%82%20%E6%8B%A5%E6%9C%89%E8%A1%A8%E7%A4%BA%E5%9F%9F%E5%90%8D%E5%92%8Capi%EF%BC%8C%E7%94%A8UPI%E8%A1%A8%E7%A4%BA%E8%B5%84%E6%BA%90%EF%BC%8C%E7%94%A8HTTP%20method%E6%8F%8F%E8%BF%B0%E5%AF%B9%E8%B5%84%E6%BA%90%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%EF%BC%8C%E6%8B%A5%E6%9C%89%E8%BF%87%E6%BB%A4%E4%BF%A1%E6%81%AF%E7%9A%84%E5%8F%82%E6%95%B0%E3%80%82)
