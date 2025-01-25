@@ -1,8 +1,6 @@
 # ES6
 
-## ES6新特性
-
-https://blog.csdn.net/ZLJ_999/article/details/124122540
+## ES6+新特性
 
 - let和const
 - symbol, BigInt(表示大于2^53 - 1)
@@ -32,11 +30,9 @@ https://blog.csdn.net/ZLJ_999/article/details/124122540
 - ESM模块化
 - 运算符
 
-
-参考：https://zhuanlan.zhihu.com/p/99342755
 ![es7~10](https://pic3.zhimg.com/80/v2-261666298bcc86402a7cac8c94ba013a_720w.jpg)
 
-## var、let、const
+## var、let、const的区别
 
 > 变量提升
 >

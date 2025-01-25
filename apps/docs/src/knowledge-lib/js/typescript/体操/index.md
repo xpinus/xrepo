@@ -157,6 +157,24 @@
 
 <<< ./src/00268-if.ts
 
+## 00296-Permutation
+
+实现联合类型的全排列，将联合类型转换成所有可能的全排列数组的联合类型。
+
+<<< ./src/00296-medium-permutation.ts
+
+## 00298-字符串的长度
+
+计算字符串的长度，类似于 String#length 。
+
+<<< ./src/00298-length-of-string.ts
+
+## 00459-Flatten
+
+在这个挑战中，你需要写一个接受数组的类型，并且返回扁平化的数组类型。
+
+<<< ./src/00459-flatten.ts
+
 ## 00533-Concat
 
 在类型系统里实现 JavaScript 内置的 Array.concat 方法，这个类型接受两个参数，返回的新数组类型应该按照输入参数从左到右的顺序合并为一个新的数组。

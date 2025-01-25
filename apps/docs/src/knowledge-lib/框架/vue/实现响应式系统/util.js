@@ -25,3 +25,6 @@ export function isSameValue(a, b) {
 
 //
 export const RAW = Symbol('raw');
+
+//
+export const ITERATE_PROP = Symbol('iterate');

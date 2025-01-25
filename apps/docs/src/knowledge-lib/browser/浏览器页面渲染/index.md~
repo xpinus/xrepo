@@ -27,6 +27,8 @@
     - `async`: 异步加载，但等该资源下载完成之后立刻运行，运行时机不定，可能会可能不会阻塞DOM解析
     - [浏览器是如何解析html的？](https://juejin.cn/post/6844903745730396174#heading-1)
 
+![performance timing](https://ask.qcloudimg.com/http-save/yehe-8081386/1668f163c56881fa319467b2ae0ebfe2.png?imageView2/2/w/1620)
+
 ### 样式计算
 
 主线程会遍历DOM树，计算每个节点的最终样式`Computed Style`。在这一过程中很多预设值会变成绝对值，比如`red`变成`rgb(255,0,0)`.
