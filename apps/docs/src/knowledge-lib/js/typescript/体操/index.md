@@ -175,11 +175,43 @@
 
 <<< ./src/00459-flatten.ts
 
+## 00527-Append to object
+
+实现一个为接口添加一个新字段的类型。该类型接收三个参数，返回带有新字段的接口类型。
+
+<<< ./src/00527-medium-append-to-object.ts
+
+## 00529-Absolute
+
+实现一个接收string,number或bigInt类型参数的Absolute类型,返回一个正数字符串。
+
+<<< ./src/00529-absolute.ts
+
+## 00531-String to Union
+
+实现一个将接收到的String参数转换为一个字母Union的类型。
+
+<<< ./src/00531-string-to-union.ts
+
 ## 00533-Concat
 
 在类型系统里实现 JavaScript 内置的 Array.concat 方法，这个类型接受两个参数，返回的新数组类型应该按照输入参数从左到右的顺序合并为一个新的数组。
 
 <<< ./src/00533-concat.ts
+
+## 00599-Merge
+
+将两个类型合并成一个类型，第二个类型的键会覆盖第一个类型的键。
+
+<<< ./src/00599-merge.ts
+
+## 00612-KebabCase
+
+Replace the `camelCase` or `PascalCase` string with `kebab-case`.
+
+`FooBarBaz` -> `foo-bar-baz`
+
+<<< ./src/00612-kebabCase.ts
 
 ## 00898-Includes
 

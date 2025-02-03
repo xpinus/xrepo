@@ -1,0 +1,4 @@
+const a = 1;
+console.log( a.__proto__ === Number.prototype)
+console.log(a instanceof Number);
+

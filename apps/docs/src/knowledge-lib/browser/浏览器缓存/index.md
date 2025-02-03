@@ -2,7 +2,13 @@
 
 [深入理解浏览器的缓存机制](https://www.jianshu.com/p/54cc04190252)
 
->  缓存位置
+##  缓存位置
+
+- Service Worker (了解)
+
+[Service Worker](https://www.bookstack.cn/read/webapi-tutorial/docs-service-worker.md) 首先是一个运行在后台的 Worker 线程，然后它会长期运行，充当一个服务
+
+Service Worker 实现缓存功能一般分为三个步骤：首先需要先注册 Service Worker，然后监听到 install 事件以后就可以缓存需要的文件，那么在下次用户访问的时候就可以通过拦截请求的方式查询是否存在缓存，存在缓存的话就可以直接读取缓存文件，否则就去请求数据。必须使用https协议。
 
 - Memory Cache
 **内存中的缓存**，主要包含的是当前中页面中已经抓取到的资源,例如页面上已经下载的样式、脚本、图片等。读取内存中的数据肯定比磁盘快,内存缓存虽然读取高效，可是缓存持续性很短，会随着进程的释放而释放。 一旦我们关闭 Tab 页面，内存中的缓存也就被释放了。
@@ -16,12 +22,6 @@
 存储在硬盘中的缓存，读取速度慢点，但是什么都能存储到磁盘中，比之 Memory Cache 胜在容量和存储时效性上。
 
 根据 HTTP Herder 中的字段判断哪些资源需要缓存，哪些资源可以不请求直接使用，哪些资源已经过期需要重新请求。并且即使在跨站点的情况下，相同地址的资源一旦被硬盘缓存下来，就不会再次去请求数据。
-
-- Service Worker (了解)
-
-[Service Worker](https://www.bookstack.cn/read/webapi-tutorial/docs-service-worker.md) 首先是一个运行在后台的 Worker 线程，然后它会长期运行，充当一个服务
-
-Service Worker 实现缓存功能一般分为三个步骤：首先需要先注册 Service Worker，然后监听到 install 事件以后就可以缓存需要的文件，那么在下次用户访问的时候就可以通过拦截请求的方式查询是否存在缓存，存在缓存的话就可以直接读取缓存文件，否则就去请求数据。
 
 - Push Cache (了解)
 Push Cache（推送缓存）是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被使用。它只在会话（Session）中存在，一旦会话结束就被释放，并且缓存时间也很短暂，在Chrome浏览器中只有5分钟左右，同时它也并非严格执行HTTP头中的缓存指令
@@ -69,3 +69,15 @@ Push Cache（推送缓存）是 HTTP/2 中的内容，当以上三种缓存都�
     - 优先级更高
   - If-None-Match 服务器通过比较请求头部的`If-None-Match`与当前资源的`ETag`是否一致来判断资源是否在两次请求之间有过修改，如果没有修改，则命中协商缓存
 
+**补充**
+- Vary: 额外的条件判断是否使用缓存，如cookie
+
+## 缓存读取规则
+
+1. 从service worker缓存中读取 (如果有service worker)
+2. 查看memory cache
+3. 查看disk cache: 如果强缓存存在且未失效，不请求服务器，状态码200；如果强缓存存在但失效，使用协商缓存，比较后确定是304还是200
+4. 发送请求
+5. 把响应存入Disk cache （如果响应头信息有相应配置 ）
+6. 把相应内容存入memory cache （无视http头配置）
+7. 把响应内容存入service worker的cache storage（如果有service worker）

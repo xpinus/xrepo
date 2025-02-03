@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas {
+            background: radial-gradient(#fff, #8c738c);
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="Canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('Canvas');
+        const ctx = canvas.getContext('2d', {
+            willReadFrequently: true
+        });
+
+        function initCanvasSize() {
+            canvas.width = window.innerWidth * devicePixelRatio;
+            canvas.height = window.innerHeight * devicePixelRatio;
+        }
+        initCanvasSize();
+
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        class Particle {
+            constructor() {
+                const r = Math.min(canvas.width, canvas.height) / 2;
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+                const rad = getRandom(0, 360) * Math.PI / 180;
+                this.x = cx + Math.cos(rad) * r;
+                this.y = cy + Math.sin(rad) * r;
+                this.size = getRandom(2 * devicePixelRatio, 6 * devicePixelRatio);
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+                ctx.fillStyle = '#5445544d';
+                ctx.fill();
+            }
+
+            moveTo(tx, ty) {
+                const duration = 500;
+                const sx = this.x;
+                const sy = this.y;
+                const xSpeed = (tx - sx) / duration;
+                const ySpeed = (ty - sy) / duration;
+                const startTime = Date.now();
+                const _move = () => {
+                    const t = Date.now() - startTime;
+                    this.x = sx + xSpeed * t;
+                    this.y = sy + ySpeed * t;
+
+                    if(t >= duration) {
+                        this.x = tx;
+                        this.y = ty;
+                        return;
+                    }
+
+                    requestAnimationFrame(_move);
+                }
+                _move();
+            }
+        }
+
+        const particles = [];
+
+
+        function clear() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        let curTime = ''
+        function update() {
+            const timeText = new Date().toTimeString().substring(0, 8);
+            if(curTime === timeText) return;
+
+            curTime = timeText;
+            // 画文本
+            ctx.fillStyle = '#000';
+            ctx.textBaseline = 'middle';
+            ctx.font = `${140 * devicePixelRatio}px 'DS-Digital'`;
+            ctx.fillText(curTime, (canvas.width - ctx.measureText(curTime).width) / 2, canvas.height / 2);
+            const points = getPoints();
+            clear();
+            for(let i=0; i< points.length; i++) {
+                let p = particles[i];
+                if(!p) {
+                    p = new Particle();
+                    particles.push(p);
+                }
+                const {x, y} = points[i];
+                p.moveTo(x, y);
+            }
+            if(particles.length > points.length) {
+                particles.splice(points.length);
+            }
+
+        }
+
+        function getPoints() {
+            // 拿到所有黑色的像素点
+            const { width, height, data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const points = [];
+            const gap = 4;
+            for(let i=0; i< width; i+=gap) {
+                for(let j=0; j< height; j+=gap) {
+                    const index = (j * width + i) * 4;
+                    const r = data[index];
+                    const g = data[index + 1];
+                    const b = data[index + 2];
+                    const a = data[index + 3];
+
+                    if(r === 0 && g === 0 && b === 0 && a === 255) {
+                        points.push({
+                            x: i,
+                            y: j
+                        })
+                    }
+                }
+            }
+
+            return points;
+
+        }
+
+        function draw() {
+            clear()
+            update();
+            particles.forEach(particle => {
+                particle.draw();
+            });
+            requestAnimationFrame(draw);
+        }
+
+        draw()
+    </script>
+</body>
+</html>

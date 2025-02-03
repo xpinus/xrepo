@@ -9,9 +9,14 @@ function macroTask(task) {
  * @description 创建一个微任务
  */
 function microTask(task) {
+
     if (typeof queueMicrotask !== 'undefined') {
         queueMicrotask(task);
-    } else if (process && process.nextTick) {
+    }
+    else if (typeof Promise === 'function') {
+        Promise.resolve().then(task);
+    }
+    else if (process && process.nextTick) {
         process.nextTick(task);
     } else if (typeof Promise !== 'undefined') {
         Promise.resolve().then(task);

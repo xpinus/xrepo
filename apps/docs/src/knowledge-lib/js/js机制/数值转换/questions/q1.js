@@ -5,12 +5,13 @@ console.log([] == ![]); // true
 // 4， []的toString方法会生效，转换为 '', 再把 ’‘ 转换为 boolean，结果为false
 // 5， false == false 结果为true
 
+console.log([] + 1); // '1'
 console.log(null + 1); // 1
 console.log(null + undefined); // NaN
 console.log(!null + 1); // 2
-console.log(null + []); // null
-console.log(null + [1, 2]); // null1,2
-console.log(null + {}); // null[object Object]
+console.log(null + []); // 'null'
+console.log(null + [1, 2]); // 'null1,2'
+console.log(null + {}); // 'null[object Object]'
 
 var a = 3;
 // console.log(a + a++ * ++a); // 18 =   3 * 5 + 3

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>卡片翻动效果</title>
+    <style>
+        body {
+            background: #333333;
+        }
+
+        .container {
+            position: absolute;
+            left: 50%;
+            top: 200px;
+            transform: translateX(-50%);
+            background: #FFF;
+            width: 100px;
+            height: 160px;
+        }
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            height: 1px;
+            width: 100%;
+            left: 0;
+            background: #333333;
+        }
+
+        .card {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            left: 0;
+            top: 0;
+            text-align: center;
+            font-size: 150px;
+            line-height: 160px;
+            overflow: hidden;
+            backface-visibility: hidden;
+            transition: .5s;
+        }
+
+        .card1 {
+            background: blue;
+            z-index: 1;
+        }
+
+        .card2 {
+            background: green;
+            top: 50%;
+            line-height: 0;
+            transform: rotateX(180deg);
+            transform-origin: center top;
+            z-index: 2;
+        }
+
+        .container:hover .card2 {
+            transform: rotateX(0deg);
+        }
+
+        .container:hover .card3 {
+            transform: rotateX(180deg);
+        }
+
+        .card3 {
+            background: yellow;
+            z-index: 3;
+            transform-origin: center bottom;
+        }
+
+        .container:hover .card3 {
+            transform: rotateX(180deg);
+        }
+
+        .card4 {
+            background: purple;
+            top: 50%;
+            line-height: 0;
+            transform: rotateX(100deg);
+            transform-origin: center top;
+            z-index: 4;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card card1">2</div>
+    <div class="card card2">3</div>
+    <div class="card card3">3</div>
+    <div class="card card4">2</div>
+</div>
+</body>
+</html>
