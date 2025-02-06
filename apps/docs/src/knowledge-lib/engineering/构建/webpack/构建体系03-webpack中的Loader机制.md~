@@ -25,24 +25,9 @@ Webpack 中完整的 Loader 运行机制是怎么样的？
  * @param {any} [meta] meta 数据，可以是任何内容
  */
 function webpackLoader(content, map, meta) {
-  //src是原文件内容，下面对内容进行处理，这里是反转
-  var result = content.split('').reverse().join('');
-  //返回JavaScript源码，必须是String或者Buffer
-  return `module.exports = '${result}'`;
+  // 你的 webpack loader 代码
 }
-
-//使用
-// {
-//   test: /\.txt$/,
-//           use: [
-//   {
-//     './path/reverse-txt-loader'
-//   }
-// ]
-// }
 ```
-
-
 
 > 配置loader的三种方式：
 - 配置 Loader 的绝对路径
@@ -158,7 +143,7 @@ Loader 按[类型](https://webpack.docschina.org/configuration/module/#ruleenfor
 
 思考题：像上面这样配置前置 Loader 去校验文件，它是在编译前先校验所有的 .js 文件再编译，还是校验一个编译一个呢？这样真的能够更早的发现错误吗？
 
-答案：校验一个编译一个，可以更早地发现单个文件的错误，而不需要等待所有文件都校验完。如果某个文件有错误，Webpack 会立即停止处理该文件，并抛出错误，避免无效的编译。
+答案：校验一个编译一个，。
 
 > loader的内联方式
 
@@ -170,7 +155,5 @@ import test from "-!c-loader!./test.js"; // 将禁用所有已配置的 preLoade
 
 const a = 1;
 ```
-
-
 
 

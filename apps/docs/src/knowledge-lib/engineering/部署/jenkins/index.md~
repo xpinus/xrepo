@@ -4,8 +4,6 @@
 
 [Jenkins操作手册 - 巨详细，一篇足矣！](https://www.cnblogs.com/gltou/p/15329634.html)
 
-https://juejin.cn/post/6844903864466948110
-
 ## 安装
 
 [https://developer.aliyun.com/article/892646](https://developer.aliyun.com/article/892646)
@@ -13,6 +11,8 @@ https://juejin.cn/post/6844903864466948110
 ### 安装并启动
 
 ```shell
+docker pull jenkinsci/blueocean   # 包含了blueocean等插件的镜像
+
 docker run --name jenkins -u root -d -p 8080:8080 -p 50000:50000 -v /var/jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts
 
 # 命令解释

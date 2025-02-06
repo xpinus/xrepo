@@ -26,6 +26,8 @@
 ![](./asset/compiler.png)
 
 > 编写插件
+> plugin的本质是一个带有apply方法的类
+> apply函数会在初始化阶段，创建好Compiler对象后运行
 
 ```js
 class DemoPlugin {

@@ -27,7 +27,6 @@ export default defineConfig({
                 ],
             },
             { text: '组件库', link: '/components/button' },
-            { text: '关于我', link: '/cv' },
         ],
         // 左侧边栏
         sidebar: generateSidebar([

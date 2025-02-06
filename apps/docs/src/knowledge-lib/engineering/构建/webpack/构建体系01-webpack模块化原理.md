@@ -11,7 +11,7 @@ Object.defineProperty(obj, Symbol.toStringTag, { value: "Module" });
 console.log(Object.prototype.toString.call(obj)) //'[object Module]'改变了类型为Module
 ```
 
-# CommonJS实现模块化的原理
+## CommonJS实现模块化的原理
 
 ![CommonJS实现模块化的原理 ](./cjs.png)
 

@@ -1,3 +1,191 @@
+# Webpack
+webpack是基于模块化的打包（构建）工具，它把一切视为模块.它通过一个开发时态的入口模块为起点，分析出所有的依赖关系，然后经过一系列的过程（压缩、合并），最终生成运行时态的文件。
+
+![](./asset/webpack.png)
+
+## 编译过程
+> 大致分为三个步骤：初始化、编译、输出
+
+### 初始化
+
+此阶段，webpack会将CLI参数、配置文件、默认配置进行融合，形成一个最终的配置对象。
+
+对配置的处理过程是依托一个第三方库yargs完成的
+
+### 编译
+
+**1. 创建chunk**
+
+chunk是webpack在内部构建过程中的一个概念，译为块，它表示通过某个入口找到的所有依赖的统称。
+
+根据入口模块（默认为./src/index.js）创建一个chunk（main chunk）
+
+每个chunk都有至少两个属性：
+- name：默认为main
+- id：唯一编号，开发环境和name相同，生产环境是一个数字，从0开始
+
+**2. 构建所有依赖模块**
+
+从入口文件开始递归处理所有模块
+
+![](./asset/chunk.png)
+
+> AST在线测试工具：https://astexplorer.net/
+
+**3. 产生chunk assets**
+
+在第二步完成后，chunk（除了main可能还有其他chunk）中会产生一个模块列表，列表中包含了模块id和模块转换后的代码
+
+接下来，webpack会根据配置为chunk生成一个资源列表，即chunk assets，资源列表可以理解为是生成到最终文件的文件名和文件内容
+
+**4. 合并chunk assets**
+
+将多个chunk的assets合并到一起，并产生一个总的hash
+
+### 输出
+
+此步骤非常简单，webpack将利用node中的fs模块（文件处理模块），根据编译产生的总的assets，生成相应的文件。
+
+![](./asset/webpack-compiler.png)
+
+**涉及术语**
+- module：模块，分割的代码单元，webpack中的模块可以是任何内容的文件，不仅限于JS
+- chunk：webpack内部构建模块的块，一个chunk中包含多个模块，这些模块是从入口模块通过依赖分析得来的
+- bundle：chunk构建好模块后会生成chunk的资源清单，清单中的每一项就是一个bundle，可以认为bundle就是最终生成的文件
+- hash：最终的资源清单所有内容联合生成的hash值
+- chunkhash：chunk生成的资源清单内容联合生成的hash值
+- chunkname：chunk的名称，如果没有配置则使用main
+- id：通常指chunk的唯一编号，如果在开发环境下构建，和chunkname相同；如果是生产环境下构建，则使用一个从0开始的数字进行编号
+- 入口：入口真正配置的是chunk，入口通过entry进行配置
+  - name：chunkname
+  - hash: 总的资源hash，通常用于解决缓存问题
+  - chunkhash: 使用chunkhash
+  - id: 使用chunkid，不推荐
+- 出口：通过output进行配置
+
+## 区分环境
+```js
+// npx webpack --env abc # env: "abc"
+//
+// npx webpack --env.abc # env: {abc:true}
+// npx webpack --env.abc=1  # env： {abc:1}
+// npx webpack --env.abc=1 --env.bcd=2 # env: {abc:1, bcd:2}
+
+// webpack允许配置不仅可以是一个对象，还可以是一个函数
+module.exports = env => {
+  return {
+    //配置内容
+  }
+}
+```
+
+## 常用扩展
+
+### 通用
+
+
+### webpack4
+`clean-webpack-plugin` 清除打包目录
+`html-webpack-plugin` 自动生成html文件
+```js
+new HtmlWebpackPlugin({
+  template: "./public/index.html"
+})
+```
+`copy-webpack-plugin` 拷贝静态资源
+```js
+new CopyPlugin([
+    { from: "./public", to: "./" }
+])
+```
+file-loader: 生成依赖的文件到输出目录，然后将模块文件设置为：导出一个路径\
+url-loader: 生成依赖的文件到输出目录，然后将模块文件设置为:导出一个URL
+**解决路径问题**
+当产生路径时，loader或plugin只有相对于dist目录的路径，并不知道该路径将在哪个资源中使用，从而无法确定最终正确的路径。面对这种情况，需要依靠webpack的配置publicPath解决
+
+## css工程化
+
+### 抽离css
+
+目前，css代码被css-loader转换后，交给的是style-loader进行处理。
+
+style-loader使用的方式是用一段js代码，将样式加入到style元素中。
+
+而实际的开发中，我们往往希望依赖的样式最终形成一个css文件
+
+`mini-css-extract-plugin`
+
+该库提供了1个plugin和1个loader
+- plugin：负责生成css文件
+- loader：负责记录要生成的css文件的内容，同时导出开启css-module后的样式对象
+
+```js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+module.exports = {
+    module: {
+        rules: [
+            {
+                test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader?modules"]
+            }
+        ]
+    },
+    plugins: [
+        new MiniCssExtractPlugin() //负责生成css文件
+    ]
+}
+```
+配置生成的文件名
+
+同output.filename的含义一样，即根据chunk生成的样式文件名
+
+配置生成的文件名，例如[name].[contenthash:5].css
+
+默认情况下，每个chunk对应一个css文件
+
+### 拆分css
+
+要拆分css，就必须把css当成像js那样的模块；要把css当成模块，就必须有一个构建工具（webpack），它具备合并代码的能力
+
+而webpack本身只能读取css文件的内容、将其当作JS代码进行分析，因此，会导致错误
+
+于是，就必须有一个loader，能够将css代码转换为js代码
+
+1. `css-loader` css-loader的作用，就是将css代码转换为js代码
+- 将css文件的内容作为字符串导出
+- 将css中的其他依赖作为require导入，以便webpack分析依赖
+
+它的处理原理极其简单：将css代码作为字符串导出, 类似：
+```css
+@import "./reset.css";
+.red{
+    color:"#f40";
+    background:url("./bg.png")
+}
+```
+转换为
+```js
+var import1 = require("./reset.css");
+var import2 = require("./bg.png");
+module.exports = `${import1}
+.red{
+    color:"#f40";
+    background:url("${import2}")
+}`;
+```
+
+2. `style-loader` 用于将css代码插入到style标签中，并且在style标签中设置scope属性，以便css模块化
+
+## js兼容性
+
+babel的出现，就是用于解决这样的问题，它是一个编译器，可以把不同标准书写的语言，编译为统一的、能被各种浏览器识别的语言
+
+babel有多种预设，最常见的预设是@babel/preset-env
+
+
+## 性能优化
+
+![](./asset/perform.png)
+
 ## 打包体积 优化思路
 
 - 提取第三方库或通过引用外部文件的方式引入第三方库
@@ -23,32 +211,6 @@ https://www.jianshu.com/p/6b526cc31ba7
 - 模块化引入需要的部分
 
 
-## Loader
-
-编写一个 loader
-
-> ```
-> loader`就是一个`node`模块，它输出了一个函数。当某种资源需要用这个`loader`转换时，这个函数会被调用。并且，这个函数可以通过提供给它的`this`上下文访问`Loader API`。 `reverse-txt-loader
-> ```
-
-```js
-// 定义
-module.exports = function(src) {
-  //src是原文件内容（abcde），下面对内容进行处理，这里是反转
-  var result = src.split('').reverse().join('');
-  //返回JavaScript源码，必须是String或者Buffer
-  return `module.exports = '${result}'`;
-}
-//使用
-{
-	test: /\.txt$/,
-	use: [
-		{
-			'./path/reverse-txt-loader'
-		}
-	]
-}
-```
 
 ## plugin，怎么使用 webpack 对项目进行优化
 
@@ -65,56 +227,7 @@ module.exports = function(src) {
 - `hash`缓存 `webpack-md5-plugin`
 - 拆包 `splitChunksPlugin`、`import()`、`require.ensure`
 
-**plugin的hooks**
-
-`entryOption`: SyncBailHook 在 entry 配置项处理过之后，执行插件。
-
-`afterPlugins`: SyncHook 在设置完初始插件之后，执行插件。
-
-`afterResolvers`: SyncHook 在resolver安装完成之后，执行插件。
-
-`environment`: SyncHook environment 准备好之后，执行插件。
-
-`afterEnvironment`: SyncHook
-
-`beforeRun`: AsyncSeriesHook compiler.run() 执行之前，添加一个钩子。
-
-`run`: AsyncSeriesHook 开始读取 records 之前，钩入(hook into) compiler。
-
-`watchRun`: AsyncSeriesHook 监听模式下，一个新的编译(compilation)触发之后，执行一个插件，但是是在实际编译开始之前。
-
-`normalModuleFactory`: SyncHook NormalModuleFactory 创建之后，执行插件。
-
-`contextModuleFactory`: ContextModuleFactory 创建之后，执行插件。
-
-`beforeCompile`: AsyncSeriesHook 编译(compilation)参数创建之后，执行插件。
-
-`compile`: SyncHook 一个新的编译(compilation)创建之后，钩入(hook into) compiler。
-
-`thisCompilation`: SyncHook 触发 compilation 事件之前执行（查看下面的 compilation）。
-
-`compilation`: SyncHook 编译(compilation)创建之后，执行插件。
-
-`make`: AsyncParallelHook
-
-`afterCompile`: AsyncSeriesHook
-
-`shouldEmit` SyncBailHook 此时返回 true/false。
-
-`emit`: AsyncSeriesHook 生成资源到 output 目录之前。
-
-`afterEmit`: AsyncSeriesHook 生成资源到 output 目录之后。
-
-`done`: SyncHook 编译(compilation)完成。
-
-...
-
-
-**loader和plugin的区别**、
-- 两者都是为了扩展webpack的功能。loader它只专注于转化文件（transform）这一个领域，完成压缩，打包，语言翻译; 而plugin不仅只局限在打包，资源的加载上，还可以打包优化和压缩，重新定义环境变量等
-- loader运行在打包文件之前（loader为在模块加载时的预处理文件）；plugins在整个编译周期都起作用
-- 一个loader的职责是单一的，只需要完成一种转换。一个loader其实就是一个Node.js模块。当需要调用多个loader去转换一个文件时，每个loader会链式的顺序执行
-- 在webpack运行的生命周期中会广播出许多事件，plugin会监听这些事件，在合适的时机通过webpack提供的API改变输出结果
+## 补充
 
 ## 模块化原理
 
@@ -197,14 +310,4 @@ HMR 是在原生 ESM 上执行的。当编辑一个文件时，Vite 只需要精
 
 缺点：生态不行，打包用的rollup，esbuild对于js和css代码分割不友好
 
-## 热更新原理
 
-Hot Module Replacement，简称HMR，无需完全刷新整个页面的同时，更新模块。HMR的好处，在日常开发工作中体会颇深：节省宝贵的开发时间、提升开发体验。
-
-详细：https://juejin.cn/post/6844904008432222215
-
-大致流程：
-webpack-dev-server：
-1.在启动本地服务时，另外开启了websocket用于通知浏览器热更新
-2.修改了webpack的entry，添加了而外的一些代码，主要包括浏览器端websocket的程序，接收处理相应
-3.HotModuleReplacementPlugin为每个module添加对应的热更新操作函数，做旧模块删除新模块替换
