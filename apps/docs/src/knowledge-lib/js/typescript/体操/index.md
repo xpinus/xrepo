@@ -213,6 +213,21 @@ Replace the `camelCase` or `PascalCase` string with `kebab-case`.
 
 <<< ./src/00612-kebabCase.ts
 
+## 00612-KebabCase
+
+Replace the `camelCase` or `PascalCase` string with `kebab-case`.
+
+`FooBarBaz -> foo-bar-baz`
+
+<<< ./src/00612-KebabCase.ts
+
+## 00645-diff
+
+获取两个接口类型中的差值属性。
+
+<<< ./src/00645-diff.ts
+
+
 ## 00898-Includes
 
 在类型系统里实现 JavaScript 的 Array.includes 方法，这个类型接受两个参数，返回的类型要么是 true 要么是 false。

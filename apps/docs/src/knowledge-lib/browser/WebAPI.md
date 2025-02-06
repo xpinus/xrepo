@@ -74,3 +74,19 @@ function getLocation() {
     } 
 }
 ```
+
+## 页面可见性
+
+document.hidden  boolean  用户当前是否正在观看该页面
+
+document.visibilityState  visible  hidden
+
+visibilitychange事件
+
+## 页面可见性
+
+document.hidden  boolean  用户当前是否正在观看该页面
+
+document.visibilityState  visible  hidden
+
+visibilitychange事件

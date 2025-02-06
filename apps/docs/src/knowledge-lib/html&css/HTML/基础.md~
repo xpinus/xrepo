@@ -123,7 +123,6 @@ html5新特性中移除的元素：basefont、big、center、font、s、strike�
 堆叠上下文（stack context）: 页面的层次
 position,z-index或transform让元素产生独立的层
 
-
 ## 行内元素有哪些？块级元素？空（void）元素？行内元素和块级元素的区别？
 
 - 行内元素有：`a span img input button label textarea select strong b`等

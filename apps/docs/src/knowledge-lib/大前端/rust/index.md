@@ -178,3 +178,135 @@ fn main() {
 
 > 结构体
 
+结构体（Struct）与元组（Tuple）都可以将若干个类型不一定相同的数据捆绑在一起形成整体，但结构体的每个成员和其本身都有一个名字，这样访问它成员的时候就不用记住下标了。
+
+元组常用于非定义的多值传递，而结构体用于规范常用的数据结构。
+
+结构体必须掌握字段值所有权，因为结构体失效的时候会释放所有字段
+
+
+```rust
+#[derive(Debug)]
+
+// 定义一个结构体
+struct Site {
+    domain: String,
+    name: String,
+    nation: String,
+    found: u32
+}
+
+println!("rect1 is {:?}", rect1);   // 导入调试库 #[derive(Debug)] ，就可以用 {:?} 占位符输出一整个结构体
+
+// 实现
+let runoob = Site {
+    domain: String::from("www.runoob.com"),
+    name: String::from("RUNOOB"),
+    nation: String::from("China"),
+    found: 2013
+};
+
+
+// 元组结构体
+struct Color(u8, u8, u8);
+
+let black = Color(0, 0, 0);
+
+println!("black = ({}, {}, {})", black.0, black.1, black.2);
+```
+
+rust不是面向对象的，为了实现类似类的方案，采用了impl 
+
+定义结构体方法（类似类内方法）、函数（类似类静态函数的概念）
+
+结构体 impl 块可以写几次，效果相当于它们内容的拼接！
+
+> 枚举类
+结构体（Struct）与元组（Tuple）都可以将若干个类型不一定相同的数据捆绑在一起形成整体，但结构体的每个成员和其本身都有一个名字，这样访问它成员的时候就不用记住下标了。
+
+元组常用于非定义的多值传递，而结构体用于规范常用的数据结构。
+
+结构体必须掌握字段值所有权，因为结构体失效的时候会释放所有字段
+
+
+```rust
+#[derive(Debug)]
+
+// 定义一个结构体
+struct Site {
+    domain: String,
+    name: String,
+    nation: String,
+    found: u32
+}
+
+println!("rect1 is {:?}", rect1);   // 导入调试库 #[derive(Debug)] ，就可以用 {:?} 占位符输出一整个结构体
+
+// 实现
+let runoob = Site {
+    domain: String::from("www.runoob.com"),
+    name: String::from("RUNOOB"),
+    nation: String::from("China"),
+    found: 2013
+};
+
+
+// 元组结构体
+struct Color(u8, u8, u8);
+
+let black = Color(0, 0, 0);
+
+println!("black = ({}, {}, {})", black.0, black.1, black.2);
+```
+
+rust不是面向对象的，为了实现类似类的方案，采用了impl 
+
+定义结构体方法（类似类内方法）、函数（类似类静态函数的概念）
+
+结构体 impl 块可以写几次，效果相当于它们内容的拼接！
+
+> 枚举类
+结构体（Struct）与元组（Tuple）都可以将若干个类型不一定相同的数据捆绑在一起形成整体，但结构体的每个成员和其本身都有一个名字，这样访问它成员的时候就不用记住下标了。
+
+元组常用于非定义的多值传递，而结构体用于规范常用的数据结构。
+
+结构体必须掌握字段值所有权，因为结构体失效的时候会释放所有字段
+
+
+```rust
+#[derive(Debug)]
+
+// 定义一个结构体
+struct Site {
+    domain: String,
+    name: String,
+    nation: String,
+    found: u32
+}
+
+println!("rect1 is {:?}", rect1);   // 导入调试库 #[derive(Debug)] ，就可以用 {:?} 占位符输出一整个结构体
+
+// 实现
+let runoob = Site {
+    domain: String::from("www.runoob.com"),
+    name: String::from("RUNOOB"),
+    nation: String::from("China"),
+    found: 2013
+};
+
+
+// 元组结构体
+struct Color(u8, u8, u8);
+
+let black = Color(0, 0, 0);
+
+println!("black = ({}, {}, {})", black.0, black.1, black.2);
+```
+
+rust不是面向对象的，为了实现类似类的方案，采用了impl 
+
+定义结构体方法（类似类内方法）、函数（类似类静态函数的概念）
+
+结构体 impl 块可以写几次，效果相当于它们内容的拼接！
+
+> 枚举类

@@ -1,11 +1,15 @@
 // 我的实现：
-type KebabCase<S extends string> = S extends `${infer S1}${infer S2}` ?
-    S2 extends Uncapitalize<S2> ? `${Uncapitalize<S1>}${KebabCase<S2>}` : `${Uncapitalize<S1>}-${KebabCase<S2>}`
-    : S
+type KebabCase<T extends string> = T extends `${infer Char}${infer Rest}`
+    ? Rest extends `${Uncapitalize<Rest>}`
+        ? `${Uncapitalize<Char>}${KebabCase<Rest>}`
+        : `${Uncapitalize<Char>}-${KebabCase<Rest>}`
+    : T;
+
+// Uncapitalize 用于将首字母转换为小写
 
 // 用例：
-type FooBarBaz = KebabCase<"FooBarBaz">
-const foobarbaz: FooBarBaz = "foo-bar-baz"
+type FooBarBaz = KebabCase<'FooBarBaz'>;
+const foobarbaz: FooBarBaz = 'foo-bar-baz';
 
-type DoNothing = KebabCase<"do-nothing">
-const doNothing: DoNothing = "do-nothing"
+type DoNothing = KebabCase<'do-nothing'>;
+const doNothing: DoNothing = 'do-nothing';
