@@ -1,7 +1,7 @@
 # webpack设计理念
 > Webpack 本质上是一个函数，它接受一个配置信息作为参数，执行后返回一个 compiler 对象，调用 compiler 对象中的 run 方法就会启动编译。run 方法接受一个回调，可以用来查看编译过程中的错误信息或编译信息
 
-![pack](![img.png](img.png))
+![pack](./asset/pack.png)
 
 > 核心思想
 1. 首先，根据配置信息（webpack.config.js）找到入口文件（src/index.js）

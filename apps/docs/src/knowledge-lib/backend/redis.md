@@ -177,7 +177,7 @@ appendonly yes
 ### 主从复制
 将一台redis的数据复制到另一台
 主节点（负责写操作）   ===（单向）===》  从节点（负责读操作）
-![redis-role.png](配置方式tips)
+![配置方式tips](/redis-role.png)
 redis.config     
     port
     pidfile

@@ -7,24 +7,25 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
-    "lint": {
-      "dependsOn": ["^lint"]
-    },
-    "check-types": {
-      "dependsOn": ["^check-types"]
-    },
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "docs#build": {
+      "cache": false,
+      "outputs": ["dist/**"],
+      "dependsOn": ["^@xrepo/ui#build"]
     },
     "docs#dev": {
       "cache": false,
       "persistent": true,
       "dependsOn": ["^@xrepo/ui#build"]
     },
-    "auto-test#dev": {
-      "cache": true,
-      "persistent": true
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
     },
     "lint:stage": {
       "dependsOn": ["^lint"]

@@ -89,13 +89,13 @@
 
 ## 00020-Promise.all
 
-给函数PromiseAll指定类型，它接受元素为 Promise 或者类似 Promise 的对象的数组，返回值应为Promise<T>，其中T是这些 Promise 的结果组成的数组。
+给函数PromiseAll指定类型，它接受元素为 Promise 或者类似 Promise 的对象的数组，返回值应为`Promise<T>`，其中T是这些 Promise 的结果组成的数组。
 
 <<< ./src/00020-promise-all.ts
 
 ## 00043-Exclude
 
-实现内置的 Exclude<T, U> 类型，但不能直接使用它本身。
+实现内置的 `Exclude<T, U>` 类型，但不能直接使用它本身。
 
 > 从联合类型 T 中排除 U 中的类型，来构造一个新的类型。
 
@@ -117,7 +117,7 @@
 
 实现`Trim<T>`，它接受一个明确的字符串类型，并返回一个新字符串，其中两端的空白符都已被删除。
 
-<<< ./src/00108-medium-trim.
+<<< ./src/00108-medium-trim.ts
 
 ## 00110-Capitalize
 
@@ -204,14 +204,6 @@
 将两个类型合并成一个类型，第二个类型的键会覆盖第一个类型的键。
 
 <<< ./src/00599-merge.ts
-
-## 00612-KebabCase
-
-Replace the `camelCase` or `PascalCase` string with `kebab-case`.
-
-`FooBarBaz` -> `foo-bar-baz`
-
-<<< ./src/00612-kebabCase.ts
 
 ## 00612-KebabCase
 

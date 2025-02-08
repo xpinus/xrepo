@@ -77,21 +77,13 @@ react利用virtual DOM将内存中的虚拟dom转换成真实dom的过程，最�
 
 ![image-20220902112242039](https://imagehost-1311720054.cos.ap-nanjing.myqcloud.com/blog/%E5%8D%9A%E5%AE%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/image-20220902112242039.png)
 
- ![image-20220902112412296](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902112412296.png)
 
 更新
 
-![image-20220902112456068](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902112456068.png)
-
-![image-20220902112813234](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902112813234.png)
-
-![image-20220902112832826](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902112832826.png)
-
-![image-20220902112926545](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902112926545.png)
 
 组件更新时一气呵成，不可阻断，当组件比较复杂，这时发生用户输入、点击，因为浏览器优先处理渲染或更新，会让用户感到卡顿
 
-![image-20220902113002653](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902113002653.png)
+[//]: # (![image-20220902113002653]&#40;C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902113002653.png&#41;)
 
 setState在大部分情况下是异步的，当setState时在更新会立即执行，否则放入dirty队列，因为react执行的代码都是宏任务，如果是微任务promise中调用setState会立即执行 *？*
 
@@ -99,27 +91,12 @@ setState在大部分情况下是异步的，当setState时在更新会立即执�
 
 实现连续的更新，stack是断断续续的更新
 
-![image-20220902113622739](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902113622739.png)
 
-![image-20220902114127969](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902114127969.png)
 
-![image-20220902114406284](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902114406284.png)
-
-![image-20220902114529610](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902114529610.png)
-
-![image-20220902114632915](D:\PigGo\image-20220902114632915.png)
-
-![image-20220902114911907](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902114911907.png)
-
-![image-20220902115046553](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902115046553.png)
 
 stack和Fiber
 
-![image-20220902115505416](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902115505416.png)
 
-![image-20220902120000349](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902120000349.png)
-
-![image-20220902120225210](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902120225210.png)
 
 
 
@@ -129,31 +106,16 @@ stack和Fiber
 
 老
 
-![image-20220902135502774](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902135502774.png)
 
 新
 
 因为fiber,要求组件渲染之前需要是纯函数行为不能setState或异步，willcomponentMount滥用
 
- ![image-20220902140339148](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902140339148.png)
 
-![image-20220902141403330](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902141403330.png)
-
-![image-20220902141413176](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902141413176.png)
-
-![image-20220902141346719](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902141346719.png)
-
-![image-20220902141433196](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902141433196.png)
 
 ## 新版组件升级
 
-![image-20220902141916622](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902141916622.png)
 
-![image-20220902142008185](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902142008185.png)
-
-![image-20220902142101880](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902142101880.png)
-
-![image-20220902143232766](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902143232766.png)
 
 17之后不行
 
@@ -161,21 +123,8 @@ stack和Fiber
 
 ## Hooks使命
 
-![image-20220902145305753](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902145305753.png)
 
-![image-20220902145555106](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902145555106.png)
-
-![image-20220902150056674](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902150056674.png)
-
-![image-20220902150302862](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902150302862.png)
 
 ## Hooks原理
 
 no magic, just arrays
-
-![image-20220902150444605](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902150444605.png)
-
-![image-20220902150558203](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902150558203.png)
-
-![image-20220902150632990](C:\Users\pinus\AppData\Roaming\Typora\typora-user-images\image-20220902150632990.png)
-

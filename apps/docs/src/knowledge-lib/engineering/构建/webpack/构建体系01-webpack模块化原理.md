@@ -13,7 +13,7 @@ console.log(Object.prototype.toString.call(obj)) //'[object Module]'改变了类
 
 ## CommonJS实现模块化的原理
 
-![CommonJS实现模块化的原理 ](./cjs.png)
+![CommonJS实现模块化的原理 ](./asset/cjs.png)
 
 - 在nodejs中实现了`require`和`export`相关的api
 - 当执行遇到`require`时
@@ -79,7 +79,7 @@ console.log(author, "author");
 - 这里给`exports`赋值的方式是通过代理做到的
 - 标识这是一个`ES Module`
 
-![ESM实现模块化的原理 ](./esm.png)
+![ESM实现模块化的原理 ](./asset/esm.png)
 
 > 简单原理实现：
 
