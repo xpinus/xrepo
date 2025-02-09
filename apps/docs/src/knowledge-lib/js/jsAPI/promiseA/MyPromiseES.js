@@ -9,21 +9,23 @@ function isPromise(obj) {
     return !!(obj && obj.then && typeof obj.then === 'function');
 }
 
-// 微任务
-function runMircoTask(task) {
-    if (process && process.nextTick) {
-        process.nextTick(task);
-    } else if (MutationObserver && typeof MutationObserver === 'function') {
-        const span = document.createElement('span');
-        const observer = new MutationObserver(task);
-        observer.observe(span, {
-            childList: true,
-        });
-        span.innerHTML = '1';
-    } else {
-        setTimeout(task);
-    }
-}
+// 微任务 （惰性函数）
+var runMircoTask = (function() {
+        if (process && process.nextTick) {
+            return (task) => process.nextTick(task);
+        } else if (MutationObserver && typeof MutationObserver === 'function') {
+            return (task) => {
+                const span = document.createElement('span');
+                const observer = new MutationObserver(task);
+                observer.observe(span, {
+                    childList: true,
+                });
+                span.innerHTML = '1';
+            }
+        } else {
+            return (task) => setTimeout(task);
+        }
+})()
 
 class MyPromise {
     _status = PENDING;

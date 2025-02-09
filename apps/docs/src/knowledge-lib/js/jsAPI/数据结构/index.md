@@ -107,6 +107,10 @@ symbol 是一种基本数据类型（primitive data type）。Symbol() 函数会
 1. JavaScript 会自动将浮点数的二进制近似值转换回十进制并显示。
 2. console.log() 对输出的浮点数进行了格式化处理，它展示的是一个易于理解的结果，即最接近的十进制表示
 
+> toFixed() 方法在遇到5的时候怎么有时进位有时舍弃？
+
+精度问题， 可以用Number.toPresision(20)验证
+
 > 判断数据类型的几种方法
 - `Object.prototype.toString.call()`: 返回数据类型的字符串
   - 可以区分 null 、 string 、boolean 、 number 、 undefined 、 array 、 function 、 object 、 date 、 math 数据类型

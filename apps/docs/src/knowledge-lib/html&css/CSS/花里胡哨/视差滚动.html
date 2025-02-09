@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        section {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        section h2 {
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        section {
+            background: url("https://images.laozuo.org/other/10.jpg") no-repeat center / cover;
+        }
+        section:nth-child(2) {
+            background-image: url("https://images.laozuo.org/other/9.jpg");
+        }
+        section:nth-child(3) {
+            background-image: url("https://images.laozuo.org/other/8.jpg");
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h2>图片背景1</h2>
+    </section>
+    <section>
+        <h2>图片背景2</h2>
+    </section>
+    <section>
+        <h2>图片背景3</h2>
+    </section>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+<script>
+    const sections = document.querySelectorAll('section');
+    gsap.registerPlugin(ScrollTrigger);
+    sections.forEach((section, index) => {
+        gsap.fromTo(section, {
+            backgroundPositionY: `-${window.innerHeight / 2}px`
+        }, {
+            backgroundPositionY: `${window.innerHeight / 2 }px`,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: section,
+                scrub: true
+            }
+        })
+    })
+</script>
+</html>

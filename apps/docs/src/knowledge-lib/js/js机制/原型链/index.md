@@ -42,6 +42,9 @@
 <run-script codePath="knowledge-lib/js/js机制/原型链/questions/f3.js">
 </run-script>
 
+<run-script name="闭包代码的提权漏洞" codePath="knowledge-lib/js/js机制/原型链/questions/f4.js">
+</run-script>
+
 
 
 

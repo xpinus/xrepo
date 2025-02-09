@@ -6,30 +6,33 @@ function macroTask(task) {
 }
 
 /**
- * @description 创建一个微任务
+ * @description 创建一个微任务 (惰性函数实现)
  */
 function microTask(task) {
 
     if (typeof queueMicrotask !== 'undefined') {
-        queueMicrotask(task);
+        microTask = (task) =>queueMicrotask(task);
     }
     else if (typeof Promise === 'function') {
-        Promise.resolve().then(task);
+        microTask = (task) => Promise.resolve().then(task);
     }
     else if (process && process.nextTick) {
-        process.nextTick(task);
-    } else if (typeof Promise !== 'undefined') {
-        Promise.resolve().then(task);
-    } else if (typeof MutationObserver !== 'undefined') {
-        const span = document.createElement('span');
-        const observer = new MutationObserver(task);
-        observer.observe(span, {
-            childList: true,
-        });
-        span.innerHTML = '1';
-    } else {
-        setTimeout(task);
+        microTask = (task) => process.nextTick(task);
     }
+    else if (typeof MutationObserver !== 'undefined') {
+        microTask = (task) => {
+            const span = document.createElement('span');
+            const observer = new MutationObserver(task);
+            observer.observe(span, {
+                childList: true,
+            });
+            span.innerHTML = '1';
+        }
+    } else {
+        microTask = (task) => setTimeout(task);
+    }
+
+    microTask(task); // 第一次执行后需要主动调用
 }
 
 console.log('start');
