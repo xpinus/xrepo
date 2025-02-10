@@ -1,0 +1,371 @@
+# Vue2
+
+## 响应式系统
+
+**大概原理**：`Vue `内部通过 `Object.defineProperty`方法属性拦截的方式，把 `data` 对象里每个数据的读写转化成 `getter`/`setter`，当数据变化时通知视图更新。
+
+![1.gif](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/1/16c4a3ce0b13bc14~tplv-t2oaga2asx-watermark.awebp)
+
+![3.png](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/1/16c4a3ce0bcb0d91~tplv-t2oaga2asx-watermark.awebp)
+
+主要通过以下 4 个步骤来实现数据双向绑定的：
+- 实现一个监听器 `Observer`，用来劫持并监听所有属性，对数据对象进行递归遍历，利用 `Object.defineProperty()` 对属性都加上 `setter` 和 `getter`。如果属性发生变化，就通知订阅者。
+- 实现一个订阅者 `Watcher`，可以收到属性的变化通知并执行相应的方法，从而更新视图；订阅者是`Observer `和`Compile `之间通信的桥梁 ，主要的任务是订阅`Observer `中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。
+- 实现一个订阅器 `Dep`，用来收集订阅者，对监听器 `Observer` 和 订阅者 `Watcher` 进行统一管理；
+- 实现一个解析器 `Compile`，可以解析 `Vue `模板指令，将模板中的变量都替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，调用更新函数进行数据更新。
+
+### 监听器 Observer
+
+监听器 `Observer` 的实现，主要是指让数据对象变得“可观测”，即每次数据读或写时，我们能感知到数据被读取了或数据被改写了。要使数据变得“可观测”，`Vue 2.0` 源码中用到 `Object.defineProperty()`  来劫持各个数据属性的 `setter / getter`，`Object.defineProperty` 方法，在 MDN 上是这么定义的：
+
+```js
+/**
+  * 循环遍历数据对象的每个属性
+  */
+function observable(obj) {
+    if (!obj || typeof obj !== 'object') {
+        return;
+    }
+    let keys = Object.keys(obj);
+    // 对每个属性都进行绑定操作
+    keys.forEach((key) => {
+        defineReactive(obj, key, obj[key])
+    })
+    return obj;
+}
+/**
+ * 将对象的属性用 Object.defineProperty() 进行设置
+ */
+function defineReactive(obj, key, val) {
+    Object.defineProperty(obj, key, {
+        get() {
+            console.log(`${key}属性被读取了...`);
+            return val;
+        },
+        set(newVal) {
+            console.log(`${key}属性被修改了...`);
+            val = newVal;
+        }
+    })
+}
+
+// 使用
+let person = observable({
+    name: 'tom',
+    age: 15
+});
+```
+
+### 订阅器Dep实现
+
+* **发布-订阅设计模式**又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态改变时，所有依赖于它的对象都将得到通知。
+* **订阅器 Dep 实现**：订阅器 `Dep` 主要负责收集订阅者，然后当数据变化的时候后执行对应订阅者的更新函数。
+
+```js
+function Dep () {
+    this.subs = [];
+}
+Dep.prototype = {
+    addSub: function(sub) {
+        this.subs.push(sub);
+    },
+    notify: function() {
+        this.subs.forEach(function(sub) {
+            sub.update();
+        });
+    }
+};
+Dep.target = null;
+```
+
+* 将订阅器植入监听器
+
+```js
+function defineReactive(obj, key, val) {
+	var dep = new Dep();
+    Object.defineProperty(obj, key, {
+    	enumerable: true,
+		configurable: true,
+		get: function getter () {
+			if (Dep.target) {
+				dep.addSub(Dep.target);
+			}
+			return val;
+		},
+		set: function setter (newVal) {
+			if (newVal === val) {
+				return;
+			}
+			val = newVal;
+			dep.notify();
+		}
+    })
+}
+```
+
+我们设计了一个订阅器 `Dep` 类，该类里面定义了一些属性和方法，这里需要特别注意的是它有一个静态属性 `Dep.target`，这是一个全局唯一的`Watcher`，因为在同一时间只能有一个全局的 `Watcher` 被计算，另外它的自身属性 `subs` 也是 `Watcher` 的数组。
+
+### 订阅者Watcher实现
+
+订阅者 `Watcher` 在初始化的时候需要将自己添加进订阅器 `Dep` 中，那该如何添加呢？
+
+在订阅者 `Watcher` 初始化的时候触发对应的 `get` 函数去执行添加订阅者操作即可，核心原因就是因为我们使用了 `Object.defineProperty( )` 进行数据监听。
+
+这里还有一个细节点需要处理，我们只要在订阅者 `Watcher` 初始化的时候才需要添加订阅者，所以需要做一个判断操作，因此可以在订阅器上做一下手脚：在 `Dep.target` 上缓存下订阅者，添加成功后再将其去掉就可以了。订阅者 `Watcher` 的实现如下：
+
+```js
+function Watcher(vm, exp, cb) {
+    this.vm = vm;
+    this.exp = exp;
+    this.cb = cb;
+    this.value = this.get();  // 将自己添加到订阅器的操作
+}
+
+Watcher.prototype = {
+    update: function() {
+        this.run();
+    },
+    run: function() {
+        var value = this.vm.data[this.exp];
+        var oldVal = this.value;
+        if (value !== oldVal) {
+            this.value = value;
+            this.cb.call(this.vm, value, oldVal);
+        }
+    },
+    get: function() {
+        Dep.target = this; // 全局变量 订阅者 赋值
+        var value = this.vm.data[this.exp]  // 强制执行监听器里的get函数
+        Dep.target = null; // 全局变量 订阅者 释放
+        return value;
+    }
+};
+```
+
+订阅者 `Watcher` 分析如下：
+
+订阅者 `Watcher` 是一个 类，在它的构造函数中，定义了一些属性：
+
+- `vm`一个 Vue 的实例对象；
+- `exp`是 `node` 节点的 `v-model` 等指令的属性值 或者插值符号中的属性。如 `v-model="name"`，`exp` 就是`name`;
+- `cb`是 `Watcher` 绑定的更新函数;
+
+当我们去实例化一个渲染 `watcher` 的时候，首先进入 `watcher` 的构造函数逻辑，就会执行它的 `this.get()` 方法，进入 `get` 函数，首先会执行：
+
+```
+Dep.target = this;  // 将自己赋值为全局的订阅者
+```
+
+实际上就是把 `Dep.target` 赋值为当前的渲染 `watcher` ,接着又执行了：
+
+```
+let value = this.vm.data[this.exp]  // 强制执行监听器里的get函数
+```
+
+在这个过程中会对 `vm` 上的数据访问，其实就是为了触发数据对象的 `getter`。
+
+每个对象值的 `getter` 都持有一个 `dep`，在触发 `getter` 的时候会调用 `dep.depend()` 方法，也就会执行`this.addSub(Dep.target)`，即把当前的 `watcher` 订阅到这个数据持有的 `dep` 的 `watchers` 中，这个目的是为后续数据变化时候能通知到哪些 `watchers` 做准备。
+
+这样实际上已经完成了一个依赖收集的过程。那么到这里就结束了吗？其实并没有，完成依赖收集后，还需要把 `Dep.target` 恢复成上一个状态，即：
+
+```
+Dep.target = null;  // 释放自己
+```
+
+而 `update()` 函数是用来当数据发生变化时调用 `Watcher` 自身的更新函数进行更新的操作。先通过 `let value = this.vm.data[this.exp];` 获取到最新的数据,然后将其与之前 `get()` 获得的旧数据进行比较，如果不一样，则调用更新函数 `cb` 进行更新。
+
+至此，简单的订阅者 `Watcher` 设计完毕。
+
+### 解析器 Compile 实现
+
+通过监听器 `Observer` 订阅器 `Dep` 和订阅者 `Watcher` 的实现，其实就已经实现了一个双向数据绑定的例子，但是整个过程都没有去解析 `dom` 节点，而是直接固定某个节点进行替换数据的，所以接下来需要实现一个解析器 `Compile` 来做解析和绑定工作。解析器 `Compile` 实现步骤：
+
+- 解析模板指令，并替换模板数据，初始化视图；
+- 将模板指令对应的节点绑定对应的更新函数，初始化相应的订阅器；
+
+我们下面对 '{{变量}}' 这种形式的指令处理的关键代码进行分析，感受解析器 `Compile` 的处理逻辑，关键代码如下：
+
+```
+compileText: function(node, exp) {
+	var self = this;
+	var initText = this.vm[exp]; // 获取属性值
+	this.updateText(node, initText); // dom 更新节点文本值
+    // 将这个指令初始化为一个订阅者，后续 exp 改变时，就会触发这个更新回调，从而更新视图
+	new Watcher(this.vm, exp, function (value) { 
+		self.updateText(node, value);
+	});
+}
+```
+
+### 简单实现一个 Vue 实例
+
+完成监听器 `Observer` 、订阅器 `Dep` 、订阅者 `Watcher` 和解析器 `Compile` 的实现，我们就可以模拟初始化一个`Vue` 实例，来检验以上的理论的可行性了。我们通过以下代码初始化一个 `Vue` 实例，该实例的源码已经放到 github 上面：[github.com/fengshi123/…](https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Ffengshi123%2Fmvvm_example) ，有兴趣的可以 git clone：
+
+```
+<body>
+    <div id="mvvm-app">
+        <input v-model="title">
+        <h2>{{title}}</h2>
+        <button v-on:click="clickBtn">数据初始化</button>
+    </div>
+</body>
+<script src="../dist/bundle.js"></script>
+<script type="text/javascript">
+    var vm = new MVVM({
+        el: '#mvvm-app',
+        data: {
+            title: 'hello world'
+        },
+
+        methods: {
+            clickBtn: function (e) {
+                this.title = 'hello world';
+            }
+        },
+    });
+</script>
+```
+
+
+## 生命周期
+
+### 对 Vue 生命周期的理解？
+
+**1）生命周期是什么？**
+
+Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模版、挂载 Dom -> 渲染、更新 -> 渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。
+
+**（2）各个生命周期的作用**
+
+| 生命周期        | 描述                                                         |
+| --------------- | ------------------------------------------------------------ |
+| `beforeCreate`  | 组件实例被创建之初，组件的属性生效之前                       |
+| `created`       | 组件实例已经完全创建，属性也绑定，但真实 dom 还没有生成，$el 还不可用 |
+| `beforeMount`   | 在挂载开始之前被调用：相关的 render 函数首次被调用           |
+| `mounted`       | el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子    |
+| `beforeUpdate`  | 组件数据更新之前调用，发生在虚拟 DOM 打补丁之前              |
+| `update`        | 组件数据更新之后                                             |
+| `activited`     | keep-alive 专属，组件被激活时调用                            |
+| `deactivated`   | keep-alive 专属，组件被销毁时调用                            |
+| `beforeDestory` | 组件销毁前调用                                               |
+| `destoryed`     | 组件销毁后调用                                               |
+
+<img src="https://cn.vuejs.org/images/lifecycle.png" alt="Vue 实例生命周期" style="zoom: 50%;" />
+
+### Vue 的父组件和子组件生命周期钩子函数执行顺序？
+
+Vue 的父组件和子组件生命周期钩子函数执行顺序可以归类为以下 4 部分：
+
+- 加载渲染过程
+
+  ```
+  父 beforeCreate -> 父 created -> 父 beforeMount -> 
+  
+  		子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted 
+  
+  -> 父 mounted
+  ```
+
+- 子组件更新过程
+
+  ```
+  父 beforeUpdate -> 
+  
+  		子 beforeUpdate -> 子 updated 
+  
+  -> 父 updated
+  ```
+
+- 父组件更新过程
+
+  ```
+  父 beforeUpdate -> 父 updated
+  ```
+
+- 销毁过程
+
+  ```
+  父 beforeDestroy -> 
+  		子 beforeDestroy -> 子 destroyed 
+  -> 父 destroyed
+  ```
+
+### 在哪个生命周期内调用异步请求？
+
+可以在钩子函数 `created`、`beforeMount`、`mounted` 中进行调用，因为在这三个钩子函数中，data 已经创建，可以将服务端端返回的数据进行赋值。但是推荐在 created 钩子函数中调用异步请求，因为在 created 钩子函数中调用异步请求有以下优点：
+
+- 能更快获取到服务端数据，减少页面 loading 时间；
+- **SSR**不支持 `beforeMount `、`mounted` 钩子函数，所以放在 `created `中有助于一致性；
+    - https://zhuanlan.zhihu.com/p/57375824
+    - https://www.jianshu.com/p/10b6074d772c
+
+### 在什么阶段才能访问操作DOM？
+
+在钩子函数 `mounted `被调用前，Vue 已经将编译好的模板挂载到页面上，所以在 mounted 中可以访问操作 DOM。
+
+### 父组件可以监听到子组件的生命周期吗？
+
+- 比如有父组件 Parent 和子组件 Child，如果父组件监听到子组件挂载 mounted 就做一些逻辑处理，可以通过手动通过 $emit 触发父组件的事件，- 
+- 更简单的方式可以在父组件引用子组件时通过 @hook 来监听即可，当然 @hook 方法不仅仅是可以监听 mounted，其它的生命周期事件，例如：created，updated 等都可以监听。
+
+    * ```html
+    <Child @hook:mounted="doSomething"/>
+    ```
+
+## keep-alive
+
+keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状态，避免重新渲染 ，其有以下特性：
+
+```html
+<!-- 失活的组件将会被缓存！-->
+<keep-alive>
+  <component v-bind:is="currentTabComponent"></component>
+</keep-alive>
+```
+
+- 一般结合路由和动态组件一起使用，用于缓存组件；
+- 提供 include 和 exclude 属性，两者都支持字符串或正则表达式， include 表示只有名称匹配的组件会被缓存，exclude 表示任何名称匹配的组件都不会被缓存 ，其中 exclude 的优先级比 include 高；
+- 对应两个钩子函数 activated 和 deactivated ，当组件被激活时，触发钩子函数 activated，当组件被移除时，触发钩子函数 deactivated。
+
+
+## filter 过滤器
+
+## Vue2 使用冻结对象提升效率
+`Object.freeze(obj)`
+vue3中可以使用shallowRef
+
+## 问题
+
+### 组件中 data 为什么是一个函数？
+
+为什么组件中的 data 必须是一个函数，然后 return 一个对象，而 new Vue 实例里，data 可以直接是一个对象？
+
+因为组件是用来复用的，且 JS 里对象是引用关系，如果组件中 data 是一个对象，那么这样作用域没有隔离，子组件中的 data 属性值会相互影响，如果组件中 data 选项是一个函数，那么每个实例可以维护一份被返回对象的独立的拷贝，组件实例之间的 data 属性值不会互相影响；而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题。
+
+### 如何给vue自定义组件添加点击事件？
+
+需要在@click后面加上.native,官方对于native的解释为：
+
+.native 监听组件根元素的原生事件
+
+### 为什么避免 v-if 和 v-for 用在一起
+
+当 Vue 处理指令时，v-for 比 v-if 具有更高的优先级，通过v-if 移动到容器元素，不会再重复遍历列表中的每个值。取而代之的是，我们只检查它一次，且不会在 v-if 为否的时候运算 v-for。
+
+### vue-loader是什么？使用它的用途有哪些？
+
+解析.vue文件的一个加载器，跟template/js/style转换成js模块。
+
+### 直接给一个数组项赋值，Vue 能检测到变化吗？
+
+由于 Object.defineProperty 只能拦截读写操作，因此 Vue 不能检测到以下数组的变动：
+- 当你利用索引直接设置一个数组项时，例如：vm.items[indexOfItem] = newValue
+- 当你修改数组的长度时，例如：vm.items.length = newLength
+
+Vue2 提供了以下操作方法：`vm.$set()`来实现为对象添加响应式属性
+- 如果目标是数组，直接使用数组的 splice 方法触发相应式，因为Vue在数组的原型链上重写`push、pop、shift、unshift、sort、reverse、splice`方法
+- 如果目标是对象，会先判读属性是否存在、对象是否是响应式，最终如果要对属性进行响应式处理，则是通过调用 defineReactive 方法进行响应式处理（ defineReactive 方法就是 Vue 在初始化对象时，给对象属性采用 Object.defineProperty 动态添加 getter 和 setter 的功能所调用的方法）
+
+
+
+

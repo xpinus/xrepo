@@ -15,6 +15,7 @@ export default function (target, prop, value, receiver) {
     if (!isSameValue(oldValue, value)) {
         trigger(target, prop, type);
 
+        // 当数组的长度发生变化时的特别操作
         if (Array.isArray(target) && oldLen !== target.length) {
             if (prop !== 'length') {
                 // length 发生了隐式变化

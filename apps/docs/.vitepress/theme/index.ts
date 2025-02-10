@@ -14,7 +14,6 @@ import hljsVuePlugin from '@highlightjs/vue-plugin';
 
 import Preview from './components/preview/index.vue';
 import RunScript from './components/runScript/index.vue';
-import WebView from './components/webView/index.vue';
 
 export default {
     extends: DefaultTheme,
@@ -29,7 +28,6 @@ export default {
         app.component('x-button', Button);
         app.component('preview', Preview); // 注册预览功能的组件
         app.component('runScript', RunScript);
-        app.component('webView', WebView);
         app.use(hljsVuePlugin);
     },
 } satisfies Theme;

@@ -1,4 +1,4 @@
-import { activeEffect } from './effect.js';
+import { activeEffect, targetMap } from './effect.js';
 import { ITERATE_PROP } from '../util.js';
 
 let trackable = true;
@@ -10,12 +10,6 @@ export function pauseTracking() {
 export function enableTracking() {
     trackable = true;
 }
-
-/**
- *  targetMap<target, propMap>
- *  存储对象和其属性的依赖关系
- */
-export const targetMap = new WeakMap();
 
 export default function (target, prop, type) {
     if (!trackable || !activeEffect) return;
