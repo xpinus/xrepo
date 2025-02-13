@@ -4,14 +4,6 @@
 
 [Jenkins操作手册 - 巨详细，一篇足矣！](https://www.cnblogs.com/gltou/p/15329634.html)
 
-https://juejin.cn/post/6844903864466948110
-
-https://juejin.cn/post/6844903992481284104
-
-https://juejin.cn/post/7377643248187146251
-
-https://blog.csdn.net/wangooo/article/details/109208813
-
 ## 安装
 
 [https://developer.aliyun.com/article/892646](https://developer.aliyun.com/article/892646)
@@ -69,6 +61,8 @@ vim /var/jenkins_home/hudson.model.UpdateCenter.xml
    进入【首页】–【系统管理】–【全局配置】，拉到最下面maven–maven安装
 
 ### 创建任务
+
+https://juejin.cn/post/6844903992481284104
 
 1. 新建任务  点击【新建任务】，输入任务名称，点击构建一个自由风格的软件项目
 2. 点击【源码管理】–【Git】，输入仓库地址，添加凭证，选择好凭证即可。
