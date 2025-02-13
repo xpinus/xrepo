@@ -211,7 +211,7 @@ Replace the `camelCase` or `PascalCase` string with `kebab-case`.
 
 `FooBarBaz -> foo-bar-baz`
 
-<<< ./src/00612-KebabCase.ts
+<<< ./src/00612-kebabCase.ts
 
 ## 00645-diff
 
