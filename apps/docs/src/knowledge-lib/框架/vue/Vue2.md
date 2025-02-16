@@ -11,12 +11,16 @@
 主要通过以下 4 个步骤来实现数据双向绑定的：
 - 实现一个监听器 `Observer`，用来劫持并监听所有属性，对数据对象进行递归遍历，利用 `Object.defineProperty()` 对属性都加上 `setter` 和 `getter`。如果属性发生变化，就通知订阅者。
 - 实现一个订阅者 `Watcher`，可以收到属性的变化通知并执行相应的方法，从而更新视图；订阅者是`Observer `和`Compile `之间通信的桥梁 ，主要的任务是订阅`Observer `中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。
-- 实现一个订阅器 `Dep`，用来收集订阅者，对监听器 `Observer` 和 订阅者 `Watcher` 进行统一管理；
+- 实现一个发布者 `Dep`，记录依赖，也就是数据和 watcher 之间的映射关系；
 - 实现一个解析器 `Compile`，可以解析 `Vue `模板指令，将模板中的变量都替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，调用更新函数进行数据更新。
 
 ### 监听器 Observer
 
-监听器 `Observer` 的实现，主要是指让数据对象变得“可观测”，即每次数据读或写时，我们能感知到数据被读取了或数据被改写了。要使数据变得“可观测”，`Vue 2.0` 源码中用到 `Object.defineProperty()`  来劫持各个数据属性的 `setter / getter`，`Object.defineProperty` 方法，在 MDN 上是这么定义的：
+监听器 `Observer` 的实现，主要是指让数据对象变得“可观测”，即每次数据读或写时，我们能感知到数据被读取了或数据被改写了。
+
+具体实现上，它会递归遍历对象的所有属性，以完成深度的属性转换。
+
+要使数据变得“可观测”，`Vue 2.0` 源码中用到 `Object.defineProperty()`  来劫持各个数据属性的 `setter / getter`，`Object.defineProperty` 方法，在 MDN 上是这么定义的：
 
 ```js
 /**
@@ -56,10 +60,10 @@ let person = observable({
 });
 ```
 
-### 订阅器Dep实现
+### 发布者Dep实现
 
-* **发布-订阅设计模式**又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态改变时，所有依赖于它的对象都将得到通知。
-* **订阅器 Dep 实现**：订阅器 `Dep` 主要负责收集订阅者，然后当数据变化的时候后执行对应订阅者的更新函数。
+- **发布-订阅设计模式**又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态改变时，所有依赖于它的对象都将得到通知。
+- **订阅器 Dep 实现**：发布者 `Dep` 主要负责收集订阅者，然后当数据变化的时候后执行对应订阅者的更新函数。
 
 ```js
 function Dep () {
@@ -334,9 +338,15 @@ vue3中可以使用shallowRef
 
 ## 组件间通讯
 
-- 父子通信： 父向子传递数据是通过 `props`，子向父是通过 `events（ $emit）`；通过父链 / 子链也可以通信`（ $parent / $children）`；`ref` 也可以访问组件实例；`provide / inject API`； `$attrs`和`$listeners`
-- 兄弟通信： Bus；`Vuex`
-- 跨级通信： Bus；`Vuex`；provide / inject API、 `$attrs`和`$listeners`
+- 父子通信： 
+  - 父向子传递数据是通过 `props`，子向父是通过 `events（ $emit）`；
+  - 通过父链 / 子链也可以通信`（ $parent / $children）`；
+  - `ref` 也可以访问子组件实例；
+  - `provide / inject API`； 
+  - `$attrs`和`$listeners`
+  - `$slots`和`$scopedSlots`
+- 兄弟通信： eventbus；`Vuex`
+- 跨级通信： eventbus；`Vuex`；provide / inject API、 `$attrs`和`$listeners`
 
 ### `props/$emit`
 
@@ -472,21 +482,17 @@ export default new Vuex.Store({
 
 ###  `$attrs`和`$listeners`
 
-多级组件嵌套需要传递数据时，通常使用的方法是通过vuex。但如果仅仅是传递数据，而不做中间处理，使用 vuex 处理，未免有点大材小用。为此Vue2.4 版本提供了另一种方法---- `$attrs`/ `$listeners`。**`$attrs`与 $listeners 是两个对象，`$attrs`里存放的是父组件中绑定的非`Props`属性， `$listeners`里存放的是父组件中绑定的非原生事件**
+多级组件嵌套需要传递数据时，通常使用的方法是通过vuex。但如果仅仅是传递数据，而不做中间处理，使用 vuex 处理，未免有点大材小用。为此Vue2.4 版本提供了另一种方法
 
-*
-  * `attrs`：包含了父作用域中不被`prop`所识别(且获取)的特性绑定(`class`和`style`除外)。当一个组件没有声明任何`prop`时，这里会包含所有父作用域的绑定(`class`和`style`除外)，并且可以通过`v-bind="$attrs"`传入内部组件。通常配合 `interitAttrs` 选项一起使用。
-  * `listeners`：包含了父 作用域中的(不含`.native` 修饰器的)`v-on` 事件监听器 。它可以通过`v-on="$listeners"`传入内部组件
-* *示例*
+- `attrs`：包含了父作用域中不被`prop`所识别(且获取)的特性绑定(`class`和`style`除外)。当一个组件没有声明任何`prop`时，这里会包含所有父作用域的绑定(`class`和`style`除外)，并且可以通过`v-bind="$attrs"`传入内部组件。通常配合 `interitAttrs` 选项一起使用。
+- `listeners`：包含了父 作用域中的(不含`.native` 修饰器的，其将事件注册到子组件的根元素上)`v-on` 事件监听器 。它可以通过`v-on="$listeners"`传入内部组件
+
 
 *Father*作为顶层的组件，要向下传递多层数据，其内部直接使用*Child1*
-
 ```html
 <Child1 :dataA='A' :dataB='B' :dataC='C'></Child1>
 ```
-
 *Child1*中仅仅定义了自己需求的dataA属性，包含*Child2*
-
 ```html
 <Child2 v-bind="$attrs" ></Child2>
 ```
@@ -501,7 +507,6 @@ created() {
 ```
 
 *Child2*中定义属性dataB
-
 ```js
 props: {
     dataA: String   // dataA作为Child1的属性
@@ -513,7 +518,9 @@ created() {
 
 ### `provide`和`inject`
 
-* 这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。一言而蔽之：祖先组件中通过`provider`来提供变量，然后在子孙组件中通过`inject`来注入变量。这对API主要解决了跨级组件间的通信问题，不过它的使用场景，主要是子组件获取上级组件的状态，跨级组件间建立了一种主动提供与依赖注入的关系。
+这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效。
+
+一言而蔽之：祖先组件中通过`provider`来提供变量，然后在子孙组件中通过`inject`来注入变量。这对API主要解决了跨级组件间的通信问题，不过它的使用场景，主要是子组件获取上级组件的状态，跨级组件间建立了一种主动提供与依赖注入的关系。
 
 * *示例*
 * ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190527111339833.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzQ2MDM3Mg==,size_16,color_FFFFFF,t_70)

@@ -13,6 +13,60 @@ Vue的优缺点
   - 首屏性能问题
   - SEO
 
+## 变化
+
+- 源码上的变化
+  - 改为monirep源码管理模式
+  - typescript支持
+- 性能的变化
+  - 代码体积缩小，移除像filter等冷门功能，采用rollup tree-shaking打包
+  - 数据劫持优化：Proxy
+  - 编译优化：
+    - 静态提升
+    - 预字符串化
+    - 缓存事件处理函数
+    - Block Tree
+    - PatchFlag
+  - diff算法优化：
+    - vue2 双端diff
+    - vue3 快速diff
+- 语法API的变化
+  - Vue2 OptionsAPI，逻辑代码按照 data、methods、computed、props 进行分类
+  - Vue3.x: OptionsAPI + CompositionAPI（推荐）
+    - CompositionAPI优点：查看一个功能的实现时候，不需要在文件跳来跳去；并且这种风格代码可复用的粒度更细，高内聚
+  - 优化逻辑复用: vue2使用mi'xing，vue3使用组合式函数
+  - 更改了创建vue实例的方式
+    - vue2: new Vue(options) 这种方式缺点在于一个页面如果存在多个 Vue 应用，部分配置会影响所有的 Vue 应用
+    - vue3: createApp(options)
+- 引入RFC: RFC 全称是 Request For Comments. 这是一种在软件开发和开源项目中常用的提案流程，用于收集社区对某个新功能、改动或标准的意见和建议
+
+> 面试题：为什么 Vue3 中去掉了 Vue 构造函数？
+
+参考答案：
+
+Vue2 的全局构造函数带来了诸多问题：
+- 调用构造函数的静态方法会对所有vue应用生效，不利于隔离不同应用
+- Vue2 的构造函数集成了太多功能，不利于 tree shaking，Vue3 把这些功能使用普通函数导出，能够充分利用 tree shaking 优化打包体积
+- Vue2 没有把组件实例和 Vue 应用两个概念区分开，在 Vue2 中，通过 new Vue 创建的对象，既是一个 Vue 应用，同时又是一个特殊的 Vue 组件。Vue3 中，把两个概念区别开来，通过 createApp 创建的对象，是一个 Vue 应用，它内部提供的方法是针对整个应用的，而不再是一个特殊的组件。
+
+> 说一下 Vue3 相比 Vue2 有什么新的变化？
+
+Vue3 相比 Vue2 的整体变化，可以分为好几大类：
+
+- 源码优化
+- 性能优化
+- 语法 API 优化
+- 引入 RFC
+源码优化体现在使用 typescript 重构整个 Vue 源码，对冷门的功能进行了删除，并且整个源码的结构变为了使用 Monorepo 进行管理，这样粒度更细，不同的包可以独立测试发布。用户也可以单独引入某一个包使用，而不用必须引入 Vue.
+
+性能上的优化是整个 Vue3 最核心的变化，通过优化响应式、diff算法、模板编译，Vue3 的性能相比 Vue2 有质的飞跃，基本上将性能这一块儿做到了极致。所以 Vue 的新项目建议都使用 Vue3 来搭建。
+
+不过性能层面的优化，开发者无法直接的感知，开发者能够直接感知的，是语法上的优化，例如 Vue3 提出的 CompositionAPI，用于替代 Vue2 时期的 OptionsAPI. 这样能够让功能逻辑更加集中，无论是在阅读还是修改都更加方便。另外 CompositionAPI 让代码复用的粒度上更细，不需要再像以前一样使用 mixin 复用逻辑，而是推荐使用组合式函数来复用逻辑。
+
+不过 Vue3 也不是完全废弃了 OptionsAPI，在 Vue3 中，OptionsAPI 成为了一种编码风格。
+
+最后就是引入 RFC，尤雨溪和核心团队广泛采用了 RFC 的流程来处理新功能和重大更改。
+
 ## 属性透传
 一些没有被组件声明为 props、emits 或自定义事件的属性，但依然能传递给子组件，例如常见的 class、style 和 id
 
@@ -417,8 +471,17 @@ React 中，数据更改的时候，会导致重新 render，重新 render 又�
 - 通过ref操作dom获取值，不用v-model
 - v-model.lazy: 内部是监听改为监听change事件
 
+## 组件name的作用
 
+在 Vue 中，组件的 name 选项有多个作用，虽然它不是必须的，但在某些场景下它非常有用。
 
+1. 通过名字找到对应的组件
+   - 递归组件
+   - 跨级组件通信
+2. 通过 name 属性指定要缓存的组件
 
+3. 使用 vue-devtools 进行调试时，组件名称也是由 name 决定的
+
+即使在没有上述特殊需求的情况下，添加 name 也有助于提高代码的可读性，尤其是在调试和分析性能时。为组件命名可以使开发者更清楚地了解每个组件的用途和角色。
 
 

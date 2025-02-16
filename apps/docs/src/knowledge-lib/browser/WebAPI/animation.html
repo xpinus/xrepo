@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>点击小球跟随</title>
+    <style>
+        #ball {
+            width: 64px;
+            height: 64px;
+            background-color: #d5393e;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="ball"></div>
+</body>
+<script>
+    const ball = document.getElementById('ball');
+
+    function move(x, y) {
+        const rect = ball.getBoundingClientRect();
+        const ballX = rect.left + rect.width / 2;
+        const ballY = rect.top + rect.height / 2;
+        ball.getAnimations().forEach(a => a.cancel())
+
+        ball.animate([
+            {
+                transform: `translate(${ballX}px, ${ballY}px)`
+            },
+            {
+                transform: `translate(${ballX}px, ${ballY}px) scaleX(1.5)`,
+                offset: 0.6
+            },
+            {
+                transform: `translate(${ballX}px, ${ballY}px)`,
+                offset: 0.8
+            },
+            {
+                transform: `translate(${x}px, ${y}px)`
+            }
+        ], {
+            duration: 1000,
+            fill: 'forwards'
+        })
+    }
+
+    (function() {
+        move(window.innerWidth / 2, window.innerHeight / 2);
+    })()
+
+    window.addEventListener('click', (e) => {
+        move(e.clientX, e.clientY);
+    })
+</script>
+</html>

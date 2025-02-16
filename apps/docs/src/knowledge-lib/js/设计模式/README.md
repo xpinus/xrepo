@@ -2,6 +2,8 @@
 
 https://cloud.tencent.com/developer/user/7565276/articles  7
 
+https://gitee.com/dev-edu/design-pattern
+
 ## 单一职责原则
 > Single Responsibility Principle，简称是SRP
 

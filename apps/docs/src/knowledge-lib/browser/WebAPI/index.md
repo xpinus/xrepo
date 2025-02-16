@@ -90,3 +90,10 @@ document.hidden  boolean  用户当前是否正在观看该页面
 document.visibilityState  visible  hidden
 
 visibilitychange事件
+
+## Web Animation API
+
+浏览器提供的原生js动画方案
+
+https://www.bilibili.com/video/BV15E4m1R7tq/?spm_id_from=333.1387.0.0&vd_source=13577946ef3878abe2197cc65b72005c
+

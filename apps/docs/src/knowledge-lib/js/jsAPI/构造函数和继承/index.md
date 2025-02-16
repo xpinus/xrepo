@@ -73,3 +73,5 @@ console.log(p1.say === p2.say); // true
 2. 类继承
 
 <run-script codePath="knowledge-lib/js/jsAPI/构造函数和继承/src/f3.js"></run-script>
+
+<run-script name="类的函数实现" codePath="knowledge-lib/js/jsAPI/构造函数和继承/src/q.js"></run-script>
