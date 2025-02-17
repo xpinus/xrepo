@@ -271,3 +271,16 @@ proxy get receiver：Proxy或者继承Proxy的对象
 
 <run-script codePath="knowledge-lib/js/jsAPI/基础/src/receiver.js">
 </run-script>
+
+## 函数签名
+> 函数名 + 函数列表 + 返回值
+
+## Array.prototype.sort()
+> sort() 方法就地对数组的元素进行排序，并返回对相同数组的引用。默认排序是将元素转换为字符串，然后按照它们的 UTF-16 码元值升序排序
+
+> 由于它取决于具体实现，因此无法保证排序的时间和空间复杂度
+
+由厂家自己实现的，core-js是[这样](https://github.com/zloirock/core-js/blob/master/packages/core-js/internals/array-sort.js)
+- 当length < 8, 插入排序
+- 当length >= 8, 归并排序
+

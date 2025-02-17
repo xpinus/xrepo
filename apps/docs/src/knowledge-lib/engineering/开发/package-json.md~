@@ -86,8 +86,6 @@ RC - 稳定
 - repository: 项目仓库地址相关
 - bugs: 项目bug地址
 - homepage: 项目主页地址
-- dependencies
-- devDependencies
 
 > 非标
 - module: 导入文件路径,去哪找
