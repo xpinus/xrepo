@@ -9,20 +9,21 @@
 
 ## Blob
 > 在 JavaScript 中，Blob（Binary Large Object）对象用于表示不可变的、原始的二进制数据。 它可以用来存储文件、图片、音频、视频、甚至是纯文本等各种类型的数据。
+
 > Blob 提供了一种高效的方式来操作数据文件，而不需要将数据全部加载到内存中，这在处理大型文件或二进制数据时非常有用。
 
-### 创建
-- xhr返回的responseType='blob'
-- fetch返回结果设置为的blob
-- canvas.toBlob
+### 创建方式
 - 手动创建
 ```js
 // blobParts: 一个数组，包含将被放入 Blob 对象中的数据，可以是字符串、数组缓冲区（ArrayBuffer）、TypedArray、Blob 对象等
 // options: 一个可选的对象，可以设置 type（MIME 类型）和 endings（用于表示换行符如何写入默认transparent）
 // const blob = new Blob(blobParts, options);
-
 const blob = new Blob(["Hello, world!"], { type: "text/plain" });
 ```
+- xhr返回的responseType='blob'
+- fetch返回结果设置为的blob
+- canvas.toBlob()
+
 **主要属性**
 - size: 返回 Blob 对象的大小（以字节为单位）
 - type: 返回 Blob 对象的 MIME 类型
@@ -34,18 +35,18 @@ const blob = new Blob(["Hello, world!"], { type: "text/plain" });
 - stream：作为一个 ReadableStream 返回，允许你以流的方式处理数据，适合处理大文件
 
 **MIME**
-text/plain 纯文本文档 
-text/html HTML文档
-text/javascript JavaScript文件
-text/css CSS文件
-application/json JSON文件
-application/pdf  PDF文件
-application/xml XML文件
-image/jpeg JPEG图像
-image/png PNG图像
-image/svg+xml SVG图像
-audio/mpeg MP3文件
-video/mpeg MP4文件
+- text/plain 纯文本文档 
+- text/html HTML文档
+- text/javascript JavaScript文件
+- text/css CSS文件
+- application/json JSON文件
+- application/pdf  PDF文件
+- application/xml XML文件
+- image/jpeg JPEG图像
+- image/png PNG图像
+- image/svg+xml SVG图像
+- audio/mpeg MP3文件
+- video/mpeg MP4文件
 
 ### 使用场景
 1. 生成文件下载
@@ -107,23 +108,21 @@ reader.onloadend = function () {
 reader.readAsDataURL(blob); // 将 Blob 文件读取为 Base64 编码的 Data URL
 ```
 
+**FileReader**
+> 允许 Web 应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据
+- readAsDataURL：将文件的数据表示为 base64 编码字符串
+- readAsText：包含表示文件内容的文本字符串
+- readAsArrayBuffer：包含一个表示文件数据的 ArrayBuffer，将文件读取为数组缓冲区
+- abort： 中止读取操作
+
 ## File
 > File 是 JavaScript 中代表文件的数据结构, 包含文件的元数据（如文件名、文件大小、类型等）
 > 继承自 Blob 对象，可以将 File 对象看作是带有文件信息的 Blob
 
 **创建**
-- `<input type="file">`选择文件时上传
-- 文件拖放`odrop`时的`e.dataTransfer.files`
 - `new File([], filename, options)` 手动创建
-
-## FileReader
-> 允许 Web 应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据
-
-实例方法
-- readAsDataURL：将文件的数据表示为 base64 编码字符串
-- readAsText：包含表示文件内容的文本字符串
-- readAsArrayBuffer：包含一个表示文件数据的 ArrayBuffer，将文件读取为数组缓冲区
-- abort： 中止读取操作
+- `<input type="file">`选择文件时上传
+- 文件拖放`ondrop`时的`e.dataTransfer.files`
 
 ## Base64
 > Base64 是一种将二进制数据转换为 ASCII 字符串的编码方式，用于在文本环境中传输二进制数据

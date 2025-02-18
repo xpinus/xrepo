@@ -226,6 +226,18 @@ Replace the `camelCase` or `PascalCase` string with `kebab-case`.
 
 <<< ./src/00898-includes.ts
 
+## 00949-AnyOf
+
+在类型系统中实现类似于 Python 中 any 函数。类型接收一个数组，如果数组中任一个元素为真，则返回 true，否则返回 false。如果数组为空，返回 false。
+
+<<< ./src/00949-anyof.ts
+
+## 001042-isNever
+
+实现一个类型 isNever 判断传入的类型 T 是否是 Never
+
+<<< ./src/001042-isNever.ts
+
 ## 03057-push
 
 在类型系统里实现通用的 Array.push

@@ -34,7 +34,10 @@ symbol 是一种基本数据类型（primitive data type）。Symbol() 函数会
 > 有哪些内置的symbol
 
 ### 包装类型
-> 除了 null 和 undefined 以外，所有的原始类型都有对应的`对象包装类型`，它们为处理原始值提供了有用的方法。当在原始值上访问属性时，JavaScript 会自动将值包装成对应的包装对象，并访问对象上的属性。
+> `Boolean` `Number` `String`有对应的`对象包装类型`，它们为处理原始值提供了有用的方法。当在原始值上访问属性时，JavaScript 会自动将值包装成对应的包装对象，并访问对象上的属性。
+1. 自动创建一个对应的包装类型的实例
+2. 调用实例上的方法
+3. 销毁实例
 
 <run-script name="下列代码运行结果，解释一下" codePath="knowledge-lib/js/jsAPI/数据结构/src/q2.js"></run-script>
 

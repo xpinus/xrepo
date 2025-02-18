@@ -354,6 +354,14 @@ const loadComponent = (name) => {
 </script>
 ```
 
+> 某项目中的实践与问题
+```js
+const searchResultComponent = computed(() => {
+  searchType.value; // ! 这是必不可少的，用于触发依赖收集
+  return defineAsyncComponent(() => import(`./${searchType.value}SearchResult.vue`));
+});
+```
+
 ## Suspense
 
 主要用来在组件树中协调对异步依赖的处理
@@ -401,46 +409,10 @@ const loadComponent = (name) => {
   - 本质上是设计模式里面的观察者模式，有一个对象（事件总线）维护一组依赖于它的对象（事件监听器），当自身状态发生变化的时候会通过所有的事件监听器
 - 数据仓库：pinia
 
-
-
-## vuex和pinia的区别
-
-pinia: 响应式、store分离、类型安全、热更新、持久化
-
-## 如何获得v-for生成的批量ref
-
-
-```js
-const itemRefs = [];
-
-const setItemRef = (el) => {
-    if (el) {
-        itemRefs.push(el);
-    }
-};
-
-// 
-// <li v-for="(item, index) in list" :key="index" :ref="setItemRef">
-```
-
-
-
-## 插槽
-
-当父组件需要向子组件传递模板内容时
-
-实现：子组件内添加slot，父组件在使用子组件时，在子组件子元素之间书写的内容会放在插槽处
-
-## Vue3中ref('张三')和ref({name: '张三'})有什么区别
-
-ref 是用来创建响应式引用的函数。
-- 当使用 ref 包装 基本类型 时，Vue 会对RefImpl的value属性拦截getter和setter将这个基本值变成响应式，更新时触发视图更新。
-- 当使用 ref 包装 对象 时，Vue 还会用toReactive将对象本身变成响应式对象。访问和修改这些属性时同样会触发视图更新。
-
 ## Vue3.0 编译做了哪些优化？
 
 - 生成 Block tree
-  - Vue.js 2.x 的数据更新并触发重新渲染的粒度是组件级的，单个组件内部需要遍历该 组件的整个 vnode 树。在 2.0 里，渲染效率的快慢与组件大小成正相关：组件越大， 渲染效率越慢。并且，对于一些静态节点，又无数据更新，这些遍历都是性能浪费。 Vue.js 3.0 做到了通过编译阶段对静态模板的分析，编译生成了 Block tree。 
+  - Vue.js 2.x 的数据更新并触发重新渲染的粒度是组件级的，单个组件内部需要遍历该 组件的整个 vnode 树。在 2.0 里，渲染效率的快慢与组件大小成正相关：组件越大， 渲染效率越慢。并且，对于一些静态节点，又无数据更新，这些遍历都是性能浪费。 Vue.js 3.0 做到了通过编译阶段对静态模板的分析，编译生成了 Block tree。
   - Block tree是一个将模版基于动态节点指令切割的嵌套区块，每个区块内部的节点结构是固定的， 每个区块只需要追踪自身包含的动态节点。所以，在 3.0 里，渲染效率不再与模板大 小成正相关，而是与模板中动态节点的数量成正相关
 - slot 编译优化
   - Vue.js 2.x 中，如果有一个组件传入了 slot，那么每次父组件更新的时候，会强制使 子组件 update，造成性能的浪费
@@ -449,27 +421,56 @@ ref 是用来创建响应式引用的函数。
   - Vue2.x 中的虚拟 dom 是进行全量的对比。
   - Vue3.0 中新增了静态标记（PatchFlag）：在与上次虚拟结点进行对比的时候，只对 比带有 patch flag 的节点，并且可以通过 flag 的信息得知当前节点要对比的具体内容化
 - hoistStatic 静态提升
-  - Vue2.x : 无论元素是否参与更新，每次都会重新创建。 
+  - Vue2.x : 无论元素是否参与更新，每次都会重新创建。
   - Vue3.0 : 对不参与更新的元素，只会被创建一次，之后会在每次渲染时候被不停的复 用。
 - cacheHandlers 事件侦听器缓存
   - 默认情况下 onClick 会被视为动态绑定，所以每次都会去追踪它的变化但是因为是同 一个函数，所以没有追踪变化，直接缓存起来复用即可。
 
+> Composition API 与 React.js 中 Hooks 的异同点
 
-## Vue3.0 新特性 —— Composition API 与 React.js 中 Hooks 的异同点
-
-React hook 底层是基于链表实现，调用的条件是每次组件被 render 的时候都会顺序 执行所有的 hooks。 
+React hook 底层是基于链表实现，调用的条件是每次组件被 render 的时候都会顺序 执行所有的 hooks。
 
 Vue hook 只会被注册调用一次，Vue 能避开这些麻烦的问题，原因在于它对数据的 响应是基于 proxy 的，对数据直接代理观察。（这种场景下，只要任何一个更改 data 的地方，相关的 function 或者 template 都会被重新计算，因此避开了 React 可能遇 到的性能上的问题）。
 
 React 中，数据更改的时候，会导致重新 render，重新 render 又会重新把 hooks 重 新注册一次，所以 React 复杂程度会高一些
 
-## vue 要做权限管理该怎么做？如果控制到按钮级别的权限怎么做？
+## 其它
 
-## 双向绑定造成的效率问题
+### vuex和pinia的区别
 
-频繁修改v-model造成的卡顿：
-- 通过ref操作dom获取值，不用v-model
-- v-model.lazy: 内部是监听改为监听change事件
+pinia: 响应式、store分离、类型安全、热更新、持久化
+
+### 如何获得v-for生成的批量ref
+
+> Vue 3.5之前
+```js
+// <li v-for="(item, index) in list" :key="index" :ref="setItemRef">
+
+const itemRefs = [];
+
+const setItemRef = (el) => {
+    if (el) {
+        itemRefs.push(el);
+    }
+};
+```
+> Vue 3.5以后
+```js
+// <li v-for="(item, index) in list" :key="index" :ref="items">
+
+const items = ref([]);
+```
+
+### Vue3中ref('张三')和ref({name: '张三'})有什么区别
+
+ref 是用来创建响应式引用的函数。
+- 当使用 ref 包装 基本类型 时，Vue 会对RefImpl的value属性拦截getter和setter将这个基本值变成响应式，更新时触发视图更新。
+- 当使用 ref 包装 对象 时，Vue 还会用toReactive将对象本身变成响应式对象。访问和修改这些属性时同样会触发视图更新。
+
+
+### vue 要做权限管理该怎么做？如果控制到按钮级别的权限怎么做？
+
+
 
 ## 组件name的作用
 

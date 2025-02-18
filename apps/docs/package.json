@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@faker-js/faker": "^9.4.0",
     "@highlightjs/vue-plugin": "^2.1.2",
     "@xrepo/ui": "workspace:^",
     "element-plus": "^2.9.4",

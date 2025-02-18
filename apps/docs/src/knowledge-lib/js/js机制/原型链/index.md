@@ -31,6 +31,15 @@
 
 ![原型链](./asset/原型链.png)
 
+## 原型链相关方法
+
+- `Object.getPrototypeOf()` 获取对象的原型对象
+- `Object.setPrototypeOf()` 设置对象的原型对象
+- `instanceof` 判断一个对象是否是一个构造函数的实例
+- `isPrototypeOf()` 判断一个对象是否是一个另一个对象的原型对象
+- `Object.create()` 创建对象
+- `hasOwnProperty()` 判断对象是否本身拥有某个属性, 不会查看继承自原型的属性
+
 ## 面试题
 
 <run-script codePath="knowledge-lib/js/js机制/原型链/questions/f1.js">

@@ -15,3 +15,5 @@
 - 通过缓存，减少构建时间
 - 支持任务编排
 
+
+https://ksh7.com/posts/pnpm-use-workspace/index.html#pnpm-workspace-yaml

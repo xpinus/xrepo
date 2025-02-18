@@ -1,12 +1,12 @@
 # 确定`this`指向
 
-- 无法应用其他 3 种规则时就是默认绑定，严格模式下 this 为 undefined，非严格模式下为全局对象
-- 函数在调用位置有上下文对象时，this 会隐式绑定到这个对象
-- 可以通过 call，apply，bind 显式地改变 this 的指向
-- 通过 new 调用时，this 会绑定到调用函数，new 绑定是优先级最高的绑定
-- 箭头函数中的 this 由外层作用域来决定
+- 在函数体中，非显式或隐式地简单调用函数时，在严格模式下，函数内的 this 会被绑定到 undefined 上，在非严格模式下则会被绑定到全局对象 window/global 上。
+- 一般使用 new 方法调用构造函数时，构造函数内的 this 会被绑定到新创建的对象上。
+- 一般通过 call/apply/bind 方法显式调用函数时，函数体内的 this 会被绑定到指定参数的对象上。
+- 一般通过上下文对象调用函数时，函数体内的 this 会被绑定到该对象上，也就是“谁调用它，this 就指向谁”
+- 在箭头函数中，this 的指向是由外层（函数或全局）作用域来决定的。
 
-## 默认绑定
+## 全局环境中的 this
 
 **非严格模式下，this 指向全局对象，严格模式下，this 会绑定到 undefined**。
 
@@ -27,9 +27,7 @@ function bar() {
 bar(); // Uncaught TypeError: Cannot read property 'a' of undefined，严格模式下，this 会绑定到 undefined，尝试从 undefined 读取属性会报错
 ```
 
-## 隐式绑定
-
-**如果函数在调用位置有上下文对象，this 就会隐式地绑定到这个对象上**
+## 上下文对象调用中的 this
 
 ```js
 var obj = {
@@ -40,19 +38,16 @@ var obj = {
 obj.foo(); // 2，foo 在调用位置有上下文对象 obj，this 会隐式地绑定到 obj，this.a 相当于 obj.a
 ```
 
-- 特殊情况 1：使用函数别名调用时
-
+1. 使用函数别名调用时
 ```js
 var bar = obj.foo; // bar === foo了，跟obj就没关系了
 
 bar();
 // 1，赋值并不会改变引用本身，使用函数别名调用时，
 // bar 虽然是 obj.foo 的一个引用，但是实际上引用的还是 foo 函数本身，
-// 所以这里隐式绑定并没有生效， this 应用的是默认绑定
 ```
 
-- 特殊情况 2：函数作为参数传递时
-
+2. 函数作为参数传递时
 ```js
 function bar(fn) {
 	fn(); // <-- 调用位置
@@ -60,6 +55,8 @@ function bar(fn) {
 
 bar(obj.foo); // 1, 参数传递也是一种隐式赋值，即使传入的是函数，这里相当于 fn = obj.foo，所以 fn 实际上引用的还是 foo 函数本身，this 应用默认绑定
 ```
+
+3. this 指向绑定事件的元素。注意它和 target 的区别，target 是指向触发事件的元素
 
 ## 显式绑定
 
@@ -69,41 +66,38 @@ bar(obj.foo); // 1, 参数传递也是一种隐式赋值，即使传入的是函
 
 `call`: call方法的第一个参数也是this的指向，后面传入的是一个参数列表（注意和apply传参的区别）。当一个参数为null或undefined的时候，表示指向window（在浏览器中），和apply一样，call也只是临时改变一次this指向，并立即执行。
 
-```js
-// bind 调用后不会执行，而是会返回一个硬绑定的函数，所以通过 bind 可以解决绑定丢失的问题
-var bar = foo.bind(obj);
+<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q4.js">
+</run-script>
 
-bar(); // 2，bar 是通过 bind 返回后的一个硬绑定函数，其内部应用了显式绑定
-```
-
-## `new`绑定
-
-new 会返回一个对象，这个对象绑定到构造函数的 this
 
 ## 箭头函数
+箭头函数的 this 指向始终为外层的作用域。简单来说，箭头函数的 `this` 就是它**外面第一个不是箭头函数的函数的 this**.
 
-ES6 中新增了一种函数类型，**箭头函数**[2]，箭头函数中 `this` 不会应用上述规则，而是**根据最外层的词法作用域来确定 this**，简单来说，箭头函数的 `this` 就是它**外面第一个不是箭头函数的函数的 this**：
+> js箭头函数本质上是一个匿名函数表达式，其内this的指向是对应语句在创建执行上下文时确定的，而不是在调用时确定的
+
+<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q5.js">
+</run-script>
 
 ## 实现绑定this的方法
 
-<run-script name="手写apply" codePath="knowledge-lib/js/js机制-this指向/questions/apply.js">
+<run-script name="手写apply" codePath="knowledge-lib/js/js机制/this指向/questions/apply.js">
 </run-script>
 
-<run-script name="手写call" codePath="knowledge-lib/js/js机制-this指向/questions/call.js">
+<run-script name="手写call" codePath="knowledge-lib/js/js机制/this指向/questions/call.js">
 </run-script>
 
-<run-script name="手写bind" codePath="knowledge-lib/js/js机制-this指向/questions/bind.js">
+<run-script name="手写bind" codePath="knowledge-lib/js/js机制/this指向/questions/bind.js">
 </run-script>
 
 ## 面试题
 
-<run-script codePath="knowledge-lib/js/js机制-this指向/questions/q1.js">
+<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q1.js">
 </run-script>
 
-<run-script codePath="knowledge-lib/js/js机制-this指向/questions/q2.js">
+<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q2.js">
 </run-script>
 
-<run-script codePath="knowledge-lib/js/js机制-this指向/questions/q3.js">
+<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q3.js">
 </run-script>
 
 手写 call、apply、bind

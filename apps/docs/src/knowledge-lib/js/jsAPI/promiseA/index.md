@@ -19,55 +19,28 @@ const promise = new Promise((resolve, reject) => {
 ```
 
 2. 实例方法
+- `Promise.prototype.then()`: 为 promise 添加被兑现和被拒绝状态的回调函数，其以回调函数的返回值兑现 promise。若不处理已兑现或者已拒绝状态（例如，onFulfilled 或 onRejected 不是一个函数），则返回 promise 被敲定时的值。
+- `Promise.prototype.catch()`: 为 promise 添加一个被拒绝状态的回调函数，并返回一个新的 promise，若回调函数被调用，则兑现其返回值，否则兑现原来的 promise 兑现的值。
+- `Promise.prototype.finally()`: 为 promise 添加一个回调函数，并返回一个新的 promise。这个新的 promise 将在原 promise 被兑现时兑现。而传入的回调函数将在原 promise 被敲定（无论被兑现还是被拒绝）时被调用。
 
-```js
-// 为 promise 添加被兑现和被拒绝状态的回调函数，其以回调函数的返回值兑现 promise。若不处理已兑现或者已拒绝状态（例如，onFulfilled 或 onRejected 不是一个函数），则返回 promise 被敲定时的值。
-Promise.prototype.then();
-
-// 为 promise 添加一个被拒绝状态的回调函数，并返回一个新的 promise，若回调函数被调用，则兑现其返回值，否则兑现原来的 promise 兑现的值。
-Promise.prototype.catch();
-
-// 为 promise 添加一个回调函数，并返回一个新的 promise。这个新的 promise 将在原 promise 被兑现时兑现。而传入的回调函数将在原 promise 被敲定（无论被兑现还是被拒绝）时被调用。
-Promise.prototype.finally();
-```
 
 3. 静态方法
-
-```js
-// iterable一般传进去一个由多个Promise对象组成的数组
-// 返回：一个新的 promise 对象，等到所有的 promise 对象都成功或有任意一个 promise 失败。
-// 结果：
-// 	- 成功：iterable 里所有 promise 返回值的数组作为成功回调的返回值。顺序跟 iterable 的顺序保持一致。
-//  - 失败：一旦有**任意一个** iterable 里面的 promise 对象失败则立即以该 promise 对象失败的理由来拒绝这个新的 promise。
-Promise.all(iterable);
-
-// 与all类似的输入
-// 输出区别：当**所有**的 promises 都已经结束无论是完成状态或者是失败状态，它都会返回一个 promise，这个 promise 将会包含一个关于描述每个 promise 状态结果的对象数组。
-// [ {status: 'xxx', value: xxx} ]
-Promise.allSettled(iterable);
-
-// 接收一个 promise 对象的集合，当其中的任意一个 promise 成功，就返回那个成功的 promise 的值。
-// 不关心是否失败，关心第一个成功的，谁成功都行
-Promise.any(iterable);
-
-// 等到任意一个 promise 的状态变为已敲定。
-// 关心第一个成功或者失败的结果
-Promise.race(iterable);
-
-// 返回一个状态为已拒绝的 Promise 对象，并将给定的失败信息传递给对应的处理函数。
-Promise.reject(reason);
-
-/* 
-	返回一个状态由给定 value 决定的 Promise 对象。如果该值是 thenable（即，带有 then 方法的对象），返回的Promise 对象的最终状态由 then 方法执行结果决定；否则，返回的 Promise 对象状态为已兑现，并且将该 value 传递给对应的 then 方法。
-  	通常而言，如果你不知道一个值是否是 promise 对象，使用 Promise.resolve(value) 来返回一个 Promise 对象，这样就能将该 value 以 promise 对象形式使用。*/
-Promise.resolve(value);
-```
+- `Promise.all(iterable)`: 一个新的 promise 对象，等到所有的 promise 对象**都成功**或有**任意一个失败**。
+  - 接受一个promise组成的可迭代对象
+  - 结果：
+    - 成功：iterable 里所有 promise 返回值的数组作为成功回调的返回值。顺序跟 iterable 的顺序保持一致。
+    - 失败：一旦有**任意一个** iterable 里面的 promise 对象失败则立即以该 promise 对象失败的理由来拒绝这个新的 promise。
+- `Promise.allSettled(iterable)`: 当**所有**的 promises 都已经结束无论是完成状态或者是失败状态，它都会返回一个 promise，这个 promise 将会包含一个关于描述每个 promise 状态结果的对象数组。
+  - 结果：`[ {status: 'xxx', value: xxx}, ... ]`
+- `Promise.any(iterable)`: 当其中的任意一个 promise 成功，就返回那个成功的 promise 的值。**不关心是否失败，关心第一个成功的**，谁成功都行
+- `Promise.race(iterable)`: 等到任意一个 promise 的状态变为已敲定。关心**第一个成功或者失败**的结果。
+- `Promise.reject(reason)`和`Promise.resolve(value)`: 返回一个状态已兑现的 Promise 对象，并将给定的信息传递给对应的处理函数
 
 ## 手写promise
 
 [手写promise](https://www.cnblogs.com/dennisj/p/12660388.html) 
 
-<run-script name="promise" codePath="knowledge-lib/js/jsAPI/promiseA/MyPromiseES.js">
+<run-script codePath="knowledge-lib/js/jsAPI/promiseA/MyPromiseES.js">
 </run-script>
 
 ## async 和 await

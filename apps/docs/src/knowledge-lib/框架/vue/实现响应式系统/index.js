@@ -41,33 +41,33 @@ import watch from './watch.js';
 //
 // proxyObj.a = 2;
 
-// const state = reactive({
-//     a: 1,
-//     b: 2,
-// });
-// const sum = computed(() => {
-//     console.log('计算属性进行计算了');
-//     return state.a + state.b;
-// });
-//
-// effect(() => {
-//     // 假设这个是渲染函数，依赖了 sum 这个计算属性
-//     console.log('render', sum.value);
-// });
-//
-// state.a = 100;
-
-const x = reactive({
+const state = reactive({
     a: 1,
     b: 2,
 });
-watch(
-    () => x.a + x.b,
-    (newValue, oldValue) => {
-        console.log(`sum is ${newValue},last sum is ${oldValue}`);
-    },
-    {
-        immediate: false,
-    },
-);
-x.a++;
+const sum = computed(() => {
+    console.log('计算属性进行计算了');
+    return 1;
+});
+
+effect(() => {
+    // 假设这个是渲染函数，依赖了 sum 这个计算属性
+    console.log('render', sum.value);
+});
+
+state.a = 100;
+
+// const x = reactive({
+//     a: 1,
+//     b: 2,
+// });
+// watch(
+//     () => x.a + x.b,
+//     (newValue, oldValue) => {
+//         console.log(`sum is ${newValue},last sum is ${oldValue}`);
+//     },
+//     {
+//         immediate: false,
+//     },
+// );
+// x.a++;
