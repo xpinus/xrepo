@@ -12,3 +12,5 @@ const [a, b] = {
     b: 4
 }  // error:  {(intermediate value)(intermediate value)} is not iterable
 ```
+
+<run-script codePath="knowledge-lib/js/jsAPI/迭代器和生成器/src/f1.js"></run-script>

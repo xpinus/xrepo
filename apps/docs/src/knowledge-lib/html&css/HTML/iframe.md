@@ -27,7 +27,7 @@ let idoc = iframe.contentDocument; // 获取iframe的document对象
 
 **iframe使用父级内容**
 `window.self`，`window.parent`，`window.top`
-![iframe](https://upload-images.jianshu.io/upload_images/7162582-53d566dcd1f1505f.png?imageMogr2/auto-orient/strip|imageView2/2/w/800/format/webp)
+![iframe](./asset/iframe.png)
 
 **iframe跨域**
 

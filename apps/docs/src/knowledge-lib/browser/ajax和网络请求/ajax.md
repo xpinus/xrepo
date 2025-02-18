@@ -36,5 +36,3 @@ xhr.onreadystatechange = function () {
 };
 ```
 
-## 常用库对比
-

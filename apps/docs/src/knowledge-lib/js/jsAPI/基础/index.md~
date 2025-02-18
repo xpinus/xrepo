@@ -284,4 +284,3 @@ proxy get receiver：Proxy或者继承Proxy的对象
 - 当length < 8, 插入排序
 - 当length >= 8, 归并排序
 
-## reduce第二个参数不传，默认会是第一项

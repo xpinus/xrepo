@@ -34,7 +34,7 @@ Content-Security-Policy: child-src 'none'
 
 **什么是CSRF**
 
-（Cross Site Request Forgery, 跨站域请求伪造）是一种网络的攻击方式，它在 2007 年曾被列为互联网 20 大安全隐患之一,也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（[XSS](https://link.jianshu.com?t=http://baike.baidu.com/view/50325.htm)），但它与XSS非常不同，并且攻击方式几乎相左。XSS利用站点内的信任用户，而CSRF则通过`伪装来自受信任用户`的请求来利用受信任的网站。与[XSS](https://link.jianshu.com?t=http://baike.baidu.com/view/50325.htm)攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和`难以防范`，所以被认为比[XSS](https://link.jianshu.com?t=http://baike.baidu.com/view/50325.htm)`更具危险性`。
+（Cross Site Request Forgery, 跨站域请求伪造）是一种网络的攻击方式，CSRF通过`伪装来自受信任用户`的请求来利用受信任的网站。与[XSS](https://link.jianshu.com?t=http://baike.baidu.com/view/50325.htm)攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和`难以防范`，所以被认为比[XSS](https://link.jianshu.com?t=http://baike.baidu.com/view/50325.htm)`更具危险性`。
 
 ![img](https://pic1.zhimg.com/80/v2-05b0dd2744a82edca44ff41da4f68698_720w.jpg)
 
@@ -59,7 +59,7 @@ Content-Security-Policy: child-src 'none'
 
 **防御CSRF**
 
-- 1 验证HTTP Referer字段
+- **1 验证HTTP Referer字段**
 
 根据 HTTP 协议，在 HTTP 头中有一个字段叫 Referer，它记录了该 HTTP 请求的来源地址。在通常情况下，访问一个安全受限页面的请求来自于同一个网站，因此，要防御 CSRF 攻击，网站只需要对于每一个转账请求验证其 Referer 值，如果是以 bank.example 开头的域名，则说明该请求是来自银行网站自己的请求，是合法的。如果 Referer 是其他网站的话，则有可能是黑客的 CSRF 攻击，拒绝该请求。
 
@@ -70,7 +70,7 @@ Content-Security-Policy: child-src 'none'
 * 即便是使用最新的浏览器，黑客无法篡改 Referer 值，这种方法仍然有问题。因为 Referer 值会记录下用户的访问来源，有些用户认为这样会侵犯到他们自己的隐私权，特别是有些组织担心 Referer 值会把组织内网中的某些信息泄露到外网中。因此，用户自己可以设置浏览器使其在发送请求时不再提供 Referer。当他们正常访问银行网站时，网站会因为请求没有 Referer 值而认为是 CSRF 攻击，拒绝合法用户的访问。
 * 当将攻击页面（包含form提交）以base64编码直接付给iframe的src时，不会产生referencer字段，因此无法防御CSRF
 
-- 2 在请求地址中添加token并验证
+- **2 在请求地址中添加token并验证**
 
 CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 cookie 中（真实的），因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 cookie 来通过安全验证。
 
@@ -84,14 +84,14 @@ CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请
 
 像知乎等会进行提示
 
-- 3 在HTTP头中自定义属性并验证
+- **3 在HTTP头中自定义属性并验证**
 
 这种方法也是使用 token 并进行验证，和上一种方法不同的是，这里并不是把 token 以参数的形式置于 HTTP 请求之中，而是把它放到 HTTP 头中自定义的属性里。通过 XMLHttpRequest 这个类，可以一次性给所有该类请求加上 csrftoken 这个 HTTP 头属性，并把 token 值放入其中。这样解决了上种方法在请求中加入 token 的不便，同时，通过 XMLHttpRequest 请求的地址不会被记录到浏览器的地址栏，也不用担心 token 会透过 Referer 泄露到其他网站中去。
  然而这种方法的局限性非常大。XMLHttpRequest 请求通常用于 Ajax 方法中对于页面局部的异步刷新，并非所有的请求都适合用这个类来发起，而且通过该类请求得到的页面不能被浏览器所记录下，从而进行前进，后退，刷新，收藏等操作，给用户带来不便。另外，对于没有进行 CSRF 防护的遗留系统来说，要采用这种方法来进行防护，要把所有请求都改为 XMLHttpRequest 请求，这样几乎是要重写整个网站，这代价无疑是不能接受的。
 
-- 4 设置SameSite
+- **4 设置SameSite**
 
-* SameSite=Strict：
+  - SameSite=Strict：
 
 严格模式，表明这个 cookie 在任何情况下都不可能作为第三方 cookie，绝无例外。比如说假如 b.com 设置了如下 cookie：
 
@@ -102,7 +102,7 @@ Set-Cookie: bar=2
 
 你在 a.com 下发起的对 b.com 的任意请求中，foo 这个 cookie 都不会被包含在 Cookie 请求头中，但 bar 会。举个实际的例子就是，假如淘宝网站用来识别用户登录与否的 cookie 被设置成了 SameSite=Strict，那么用户从百度搜索页面甚至天猫页面的链接点击进入淘宝后，淘宝都不会是登录状态，因为淘宝的服务器不会接受到那个 cookie，其它网站发起的对淘宝的任意请求都不会带上那个 cookie。
 
-* SameSite=Lax：
+  - SameSite=Lax：
 
 宽松模式，比 Strict 放宽了点限制：假如这个请求是我上面总结的那种同步请求（改变了当前页面或者打开了新页面）且同时是个 GET 请求（因为从语义上说 GET 是读取操作，比 POST 更安全），则这个 cookie 可以作为第三方 cookie。比如说假如 b.com 设置了如下 cookie：
 
@@ -114,7 +114,7 @@ Set-Cookie: baz=3
 
 当用户从 a.com 点击链接进入 b.com 时，foo 这个 cookie 不会被包含在 Cookie 请求头中，但 bar 和 baz 会，也就是说用户在不同网站之间通过链接跳转是不受影响了。但假如这个请求是从 a.com 发起的对 b.com 的异步请求，或者页面跳转是通过表单的 post 提交触发的，则 bar 也不会发送。
 
-* 该用哪种模式？
+  - 该用哪种模式？
 
 该用哪种模式，要看你的需求。比如你的网站是一个少数人使用的后台管理系统，所有人的操作方式都是从自己浏览器的收藏夹里打开网址，那我看用 Strict 也无妨。如果你的网站是微博，用了 Strict 会这样：有人在某个论坛里发了帖子“快看这个微博多搞笑 http://weibo.com/111111/aaaaaa”，结果下面人都回复“打不开啊”；如果你的网站是淘宝，用了 Strict 会这样：某微商在微博上发了条消息“新百伦正品特卖5折起 https://item.taobao.com/item.htm?id=1111111”，结果点进去顾客买不了，也就是说，这种超多用户的、可能经常需要用户从别的网站点过来的网站，就不适合用 Strict 了。
 

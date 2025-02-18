@@ -1,4 +1,5 @@
 # Fetch
+
 符合关注分离，没有将输入、输出和用事件来跟踪的状态混杂在一个对象里
 更好更方便的写法
 更加底层，提供的API丰富（request, response）
@@ -18,4 +19,6 @@
   - headers
   - ...
 
-## [fetch发送2次请求的原因](https://blog.nowcoder.net/n/4c9fbf7fdaa44eba91d05eb626d0242d?from=nowcoder_improve#:~:text=fetch%20%E5%8F%91%E9%80%81post%20%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E6%80%BB%E6%98%AF%E5%8F%91%E9%80%812%20%E6%AC%A1%EF%BC%8C%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%8A%B6%E6%80%81%E7%A0%81%E6%98%AF204%EF%BC%8C%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%89%8D%E6%88%90%E5%8A%9F%E3%80%82%20%E5%8E%9F%E5%9B%A0%E5%BE%88%E7%AE%80%E5%8D%95%EF%BC%8C%E5%9B%A0%E4%B8%BA%E4%BD%A0%E7%94%A8,fetch%20%E7%9A%84%20post%20%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8Cfetch%20%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%8F%91%E9%80%81%E4%BA%86%E4%B8%80%E4%B8%AA%20Options%E8%AF%B7%E6%B1%82%EF%BC%8C%E8%AF%A2%E9%97%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E4%BF%AE%E6%94%B9%E7%9A%84%E8%AF%B7%E6%B1%82%E5%A4%B4%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%94%AF%E6%8C%81%EF%BC%8C%E5%88%99%E5%9C%A8%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%B8%AD%E5%8F%91%E9%80%81%E7%9C%9F%E6%AD%A3%E7%9A%84%E8%AF%B7%E6%B1%82%E3%80%82)
+## [fetch发送2次请求的原因](https://blog.csdn.net/u012149969/article/details/108172195)
+
+之所以会发送2次请求，那是因为我们使用了**带预检(Preflighted)**的跨域请求。该请求会在发送真实的请求之前发送一个类型为OPTIONS的预检请求。预检请求会检测服务器是否支持我们的真实请求所需要的跨域资源，唯有资源满足条件才会发送真实的请求。比如我们在请求头部增加了authorization项，那么在服务器响应头中需要放入Access-Control-Allow-Headers，并且其值中必须要包含authorization，否则OPTIONS预检会失败，从而导致不会发送真实的请求。

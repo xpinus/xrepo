@@ -331,7 +331,7 @@ Content-Type: text/html; charset=iso-8859-1
 {"name": "qiu", "age": 25}
 ```
 
-## # 几种重要的content-type 的应用
+##  几种重要的content-type 的应用
 
 参考：https://juejin.cn/post/6966874464323633183
 

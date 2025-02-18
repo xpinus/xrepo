@@ -1,3 +1,3 @@
 # pinia
 
-![](./asset/pinia.png)
+![](./asset/pinia.jpg)
