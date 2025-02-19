@@ -75,4 +75,9 @@ export default defineConfig({
         socialLinks: [{ icon: 'github', link: 'https://github.com/xpinus/xrepo' }],
     },
     ignoreDeadLinks: true,
+    vite: {
+        server: {
+            port: 4000,
+        },
+    },
 });
