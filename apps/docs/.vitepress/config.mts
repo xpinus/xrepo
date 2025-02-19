@@ -12,20 +12,15 @@ export default defineConfig({
         // 右上头部导航栏
         nav: [
             { text: 'Home', link: '/' },
-            {
-                text: '知识库',
-                items: [
-                    { text: '博客', link: '/knowledge-lib/blogs' },
-                    { text: '浏览器', link: '/knowledge-lib/browser' },
-                    { text: 'html&css', link: '/knowledge-lib/html&css' },
-                    { text: 'javascript', link: '/knowledge-lib/js/es6' },
-                    { text: '框架', link: '/knowledge-lib/框架' },
-                    { text: '工程化', link: '/knowledge-lib/engineering' },
-                    { text: '后端', link: '/knowledge-lib/backend' },
-                    { text: 'AI', link: '/knowledge-lib/AI' },
-                    { text: '大前端', link: '/knowledge-lib/大前端/' },
-                ],
-            },
+            // { text: '博客', link: '/knowledge-lib/blogs' },
+            { text: '浏览器', link: '/knowledge-lib/browser' },
+            { text: 'html&css', link: '/knowledge-lib/html&css' },
+            { text: 'javascript', link: '/knowledge-lib/js/es6' },
+            { text: '框架', link: '/knowledge-lib/框架' },
+            { text: '工程化', link: '/knowledge-lib/engineering' },
+            { text: '后端', link: '/knowledge-lib/backend' },
+            { text: 'AI', link: '/knowledge-lib/AI' },
+            { text: '大前端', link: '/knowledge-lib/大前端/' },
             { text: '组件库', link: '/components/button' },
         ],
         // 左侧边栏

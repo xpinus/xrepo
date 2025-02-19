@@ -81,11 +81,10 @@
 - 需要要对元素进行复杂的操作时，可以先隐藏(`display:"none"`)，操作完成后再显示
 - 需要创建多个`DOM`节点时，使用`DocumentFragment`创建完后一次性的加入`document`
 - 缓存`Layout`属性值，如：`var left = elem.offsetLeft;` 这样，多次使用 `left` 只产生一次回流
-- 尽量避免用`table`布局（`table`元素一旦触发回流就会导致 table 里所有的其它元素回流）
-- 避免使用`css`表达式(`expression`)，因为每次调用都会重新计算值（包括加载页面）
-- 尽量使用 `css` 属性简写，如：用 `border` 代替 `border-width`, `border-style`, `border-color`
 - 批量修改元素样式：`elem.className` 和 `elem.style.cssText` 代替 `elem.style.xxx`
+- 使用fragment，批量操作
 - 在某些地方使用`el.style.top`直接从dom上读取属性而不是读取几何信息
+- 让元素脱离文档流，使用`position:absolute`等，减少回流
 
 **2. 为什么transform效率高  ?**
 

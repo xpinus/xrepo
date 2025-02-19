@@ -285,3 +285,26 @@ proxy get receiver：Proxy或者继承Proxy的对象
 - 当length >= 8, 归并排序
 
 ## reduce第二个参数不传，默认会是第一项
+
+## 隐藏类
+> v8引擎中，当多个属性一致的js对象会重用一个隐藏类，减少new Class的开销
+
+<run-script name="哪段代码效率更高" codePath="knowledge-lib/js/jsAPI/基础/src/q1.js">
+
+指导代码习惯：定义类或对象时，尽可能保证顺序一致
+
+## 数组的快速模式和字典模式
+
+<run-script name="哪段代码效率更高" codePath="knowledge-lib/js/jsAPI/基础/src/q2.js">
+
+v8是c++实现的，在实现数组时有多种实现方式
+- “数组从0到length-1无空洞” 或者长度小于10万，会进入快速模式，存放为array
+- “数组存在空洞”,会进入字典模式，存放为HashMap. 牺牲遍历性能，换取访问性能
+
+编码习惯：从零开始初始化数组，让数组保持紧凑
+
+## 判断object是否为空
+
+最后一种更严谨
+
+<run-script codePath="knowledge-lib/js/jsAPI/基础/src/q3.js"></run-script>
