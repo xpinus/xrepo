@@ -7,13 +7,13 @@ import demo2 from './demoProxy.vue';
 
 ## Object.defineProperty
 
-<preview codePath="knowledge-lib/js/手写/双向数据绑定/demoDefineProperty.vue">
+<preview codePath="knowledge-lib/js/算法/经典手写/双向数据绑定/demoDefineProperty.vue">
   <demo1 />
 </preview>
 
 ## proxy实现
 
-<preview codePath="knowledge-lib/js/手写/双向数据绑定/demoProxy.vue">
+<preview codePath="knowledge-lib/js/算法/经典手写/双向数据绑定/demoProxy.vue">
   <demo2 />
 </preview>
 

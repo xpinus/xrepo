@@ -599,6 +599,19 @@ inject: {
 
 ### 直接给一个数组项赋值，Vue 能检测到变化吗？
 
+不能，因为直接蟹盖数组的值并不能触发vue的拦截，引起视图更新。
+
+要想改动数组，应该使用`Vue.set`或其它Array方法
+
+**注意: Object.defineProperty可以拦截数组的读写**，但vue2却并没有用它去拦截数组
+<run-script codePath="knowledge-lib/框架/vue/asset/q1.js">
+</run-script>
+原因：
+- 性能问题，数组通常包含大量元素，如果都拦截会带来巨大的性能开销
+- 而且Obejct.defineProperty只能对已知的属性进行拦截，而数组的长度和内容可能动态变化，可能会导致框架的性能不稳定
+- Proxy当时还没有被广泛支持
+
+
 由于 Object.defineProperty 只能拦截读写操作，因此 Vue 不能检测到以下数组的变动：
 - 当你利用索引直接设置一个数组项时，例如：vm.items[indexOfItem] = newValue
 - 当你修改数组的长度时，例如：vm.items.length = newLength
@@ -606,6 +619,9 @@ inject: {
 Vue2 提供了以下操作方法：`vm.$set()`来实现为对象添加响应式属性
 - 如果目标是数组，直接使用数组的 splice 方法触发相应式，因为Vue在数组的原型链上重写`push、pop、shift、unshift、sort、reverse、splice`方法
 - 如果目标是对象，会先判读属性是否存在、对象是否是响应式，最终如果要对属性进行响应式处理，则是通过调用 defineReactive 方法进行响应式处理（ defineReactive 方法就是 Vue 在初始化对象时，给对象属性采用 Object.defineProperty 动态添加 getter 和 setter 的功能所调用的方法）
+
+
+
 
 
 

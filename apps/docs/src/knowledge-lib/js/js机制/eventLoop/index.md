@@ -1,8 +1,18 @@
 # 事件循环EventLoop
 
-[带你彻底弄懂Event Loop](https://segmentfault.com/a/1190000016278115)
+> js是一个单线程同步执行的语言
+> 
+> 异步：某些函数不会立即执行，需要等到某个时机才会执行，叫异步函数
 
-![loop](https://segmentfault.com/img/remote/1460000016278118)
+浏览器的线程：
+- js执行引擎：负责执行js代码
+- 渲染线程：负责渲染页面
+- 计时器线程
+- 事件监听线程：负责监听事件
+- http网络线程：负责网络线程
+
+
+[带你彻底弄懂Event Loop](https://segmentfault.com/a/1190000016278115)
 
 > 宏任务和微任务都有哪些 
 
