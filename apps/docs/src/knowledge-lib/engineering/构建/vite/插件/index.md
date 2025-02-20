@@ -70,20 +70,30 @@ Vite 插件扩展了设计出色的 Rollup 接口，带有一些 Vite 独有的�
 
 ## 插件执行顺序
 > 同级别会按照数组从前到后的顺序执行
+
 > 插件可以额外指定一个 enforce 属性（类似于 webpack 加载器）来调整它的应用顺序。enforce 的值可以是pre 或 post。解析后的插件将按照以下顺序排列：
 
 - Alias
-- 带有 enforce: 'pre' 的用户插件
+- 带有 enforce: 'pre' 的用户插件，在 Vite 核心插件之后调用该插件
 - Vite 核心插件
-- 没有 enforce 值的用户插件
+- 没有 enforce 值的用户插件，在 Vite 核心插件之后调用该插件
 - Vite 构建用的插件
-- 带有 enforce: 'post' 的用户插件
+- 带有 enforce: 'post' 的用户插件，在 Vite 构建插件之后调用该插件
 - Vite 后置构建插件（最小化，manifest，报告）
 - 情景应用
 
 ## 插件应用情景
-> 默认情况下插件在开发（serve）和构建（build）模式中都会调用
+默认情况下插件在开发（serve）和构建（build）模式中都会调用
 
-> 使用`apply`属性指明它们仅在 'build' 或 'serve' 模式时调用
+使用`apply`属性指明它们仅在 'build' 或 'serve' 模式时调用
+
+apply: 'build'
+
+## 常用插件
+
+例如，要想为传统浏览器提供支持，可以按下面这样使用官方插件 @vitejs/plugin-legacy
 
 ## 实现“约定大于配置”的自动路由配置插件
+
+
+

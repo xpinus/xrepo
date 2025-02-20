@@ -1,4 +1,5 @@
 # Docker
+> 解决线上线下环境不同的问题
 
 [Docker](https://juejin.cn/post/6964289384845672478)是一种容器化技术，可以在镜像的基础上创建独立的容器，每个容器都类似一个单独的机器环境，使得不同项目之间的不会因为基础配置不同互项干扰。
 
@@ -215,7 +216,7 @@ CMD yarn start
 > 个人博客后端的部署架构（那时我还是个孩子）
 > 其中home、blog、qingyun分别是我的网站统一主页，博客项目、中台系统容器，backend是后端项目容器，db是mysql的容器。
 
-![架构](/structure.jpg)
+![架构](./asset/structure.jpg)
 
 ```yaml
 version: "3"

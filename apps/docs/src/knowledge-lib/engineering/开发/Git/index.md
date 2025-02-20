@@ -1,5 +1,22 @@
 # Git
 
+## 初始提交
+```shell
+# …or create a new repository on the command line
+echo "# xrepo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/xpinus/xrepo.git
+git push -u origin main
+
+# …or push an existing repository from the command line
+git remote add origin https://github.com/xpinus/xrepo.git
+git branch -M main
+git push -u origin main
+```
+
 ## tag
 - 列出标签
 ```shell
@@ -22,21 +39,7 @@ git push [origin] --tags
 ## git 提交，文件名大小写的修改提交不上去
 
 https://blog.csdn.net/weixin_44137575/article/details/112801991
-```shell
-# …or create a new repository on the command line
-echo "# xrepo" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/xpinus/xrepo.git
-git push -u origin main
 
-# …or push an existing repository from the command line
-git remote add origin https://github.com/xpinus/xrepo.git
-git branch -M main
-git push -u origin main
-```
 
 ## git错误`fatal: unable to access`
 1. 检查网络连接
@@ -92,11 +95,20 @@ rebase 特点：会合并之前的 commit 历史
 git reset、git revert 和 git checkout 的共同点：用来撤销代码仓库中的某些更改。
 不同点：
 - 从 commit 层面来说：
-  - git reset 可以将一个分支的末端指向之前的一个 commit。然后再 下次 git 执行垃圾回收的时候，会把这个 commit 之后的 commit
-    都扔掉。
-  - git checkout 可以将 HEAD 移到一个新的分支，并更新工作目 录。因为可能会覆盖本地的修改，所以执行这个指令之前，你需 要 stash 或者 commit 暂存区和工作区的更改。
+  - git reset 可以将一个分支的末端指向之前的一个 commit。然后再 下次 git 执行垃圾回收的时候，会把这个 commit 之后的 commit 都扔掉。
+  - git checkout 可以将 HEAD 移到一个新的分支，并更新工作目录。因为可能会覆盖本地的修改，所以执行这个指令之前，你需 要 stash 或者 commit 暂存区和工作区的更改。
   - git revert 和 git reset 的目的是一样的，但是做法不同，它会以创 建新的 commit 的方式来撤销 commit，这样能保留之前的 commit 历史，比较安全。另外，同样因为可能会覆盖本地的修改，所以执行 这个指令之前， 你需要 stash 或者 commit 暂存区和工作区的更改。
 - 从文件层面来说：
   - git reset 只是把文件从历史记录区拿到暂存区，不影响工作区的内容
   - git checkout 则是把文件从历史记录拿到工作区，不影响暂存区的内容
   - git revert 不支持文件层面的操作
+
+## git pull和git pull --rebase的使用
+
+当多人开发时，遇到别人先提交，你再提交导致冲突的情况
+
+用git pull命令把"origin"分支上的修改pull下来与本地提交合并（merge）成版本M，但这样会形成图中的菱形，让人很困惑
+![](./asset/git_merge.png)
+
+git rebase
+![](./asset/git_rebase.png)

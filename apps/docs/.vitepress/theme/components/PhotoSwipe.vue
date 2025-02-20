@@ -61,4 +61,8 @@ onMounted(() => {
 .VPDoc img:hover {
     cursor: url(/pre.ico), zoom-in;
 }
+
+#gallery--getting-started {
+    display: none;
+}
 </style>

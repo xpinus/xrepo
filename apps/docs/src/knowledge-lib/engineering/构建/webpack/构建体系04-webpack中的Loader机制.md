@@ -3,19 +3,21 @@
 
 [【万字长文｜趣味图解】彻底弄懂Webpack中的Loader机制](https://juejin.cn/post/7157739406835580965)
 
-Loader 的本质是什么？
-在 Webpack 中如何使用自定义 Loader？有几种方式？
-Loader 的类型有哪几种？它们的运行顺序是怎么样的？如何控制它们的运行顺序？
-什么是 Normal Loader？什么是 Pitching Loader？它们的运行机制有什么不同？
-如果一个文件指定了多个 Loader，如何控制使得只执行特定的 Loader，忽略其他的 Loader?
-Loader 为什么是自右向左执行的？如何做到的？
-项目中对.css、.less、.scss、.tsx、.vue等文件是如何做解析的？它们的原理是什么？
-Webpack 中完整的 Loader 运行机制是怎么样的？
-为什么最后的 Loader 处理结果必须是JS类型的字符串？
-给你个需求：需要在打包过程中移除console.log函数，你会通过哪种方式进行处理？是通过 Loader 还是 Babel Plugin？再或者是 Webpack Plugin？给出你的理由
+- Loader 的本质是什么？
+- 在 Webpack 中如何使用自定义 Loader？有几种方式？
+- Loader 的类型有哪几种？它们的运行顺序是怎么样的？如何控制它们的运行顺序？
+- 什么是 Normal Loader？什么是 Pitching Loader？它们的运行机制有什么不同？
+- 如果一个文件指定了多个 Loader，如何控制使得只执行特定的 Loader，忽略其他的 Loader?
+- Loader 为什么是自右向左执行的？如何做到的？
+- 项目中对.css、.less、.scss、.tsx、.vue等文件是如何做解析的？它们的原理是什么？
+- Webpack 中完整的 Loader 运行机制是怎么样的？
+- 为什么最后的 Loader 处理结果必须是JS类型的字符串？
+- 给你个需求：需要在打包过程中移除console.log函数，你会通过哪种方式进行处理？是通过 Loader 还是 Babel Plugin？再或者是 Webpack Plugin？给出你的理由
 
-> Loader 本质上是 loader本质上是一个函数，它的作用是将某个源码字符串转换成另一个源码字符串返回
+> **loader本质上是一个函数，它的作用是将某个源码字符串转换成另一个源码字符串返回**
+
 > 它接收资源文件或者上一个 Loader 产生的结果作为入参，也可以用多个 Loader 函数组成 loader chain（链），最终输出转换后的结果。
+
 > loader chain（链），它们的执行顺序是从右向左，或者说是从下往上执行的
 ```js
 /**
@@ -44,7 +46,7 @@ function webpackLoader(content, map, meta) {
 
 
 
-> 配置loader的三种方式：
+## 配置loader的三种方式
 - 配置 Loader 的绝对路径
 ```js
 {
@@ -105,11 +107,11 @@ module: {
   },
 ```
 
-> loader的四种类型
+## loader的四种类型
 
 Loader 按[类型](https://webpack.docschina.org/configuration/module/#ruleenforce)分可以分为四种：前置(pre)、普通(normal)、行内(inline)、后置(post)。
 
-我们平常使用的大多数就是 普通(normal)类型的，这里要说明的一个点是 Loader 的类型和它本身没有任何关系，而是和配置的 enforce属性有关系。
+我们平常使用的大多数就是 普通(normal)类型的，**Loader 的类型和它本身没有任何关系，而是和配置的 enforce属性有关系**。
 ```js
   module: {
     rules: [
@@ -156,7 +158,7 @@ Loader 按[类型](https://webpack.docschina.org/configuration/module/#ruleenfor
   },
 ```
 
-思考题：像上面这样配置前置 Loader 去校验文件，它是在编译前先校验所有的 .js 文件再编译，还是校验一个编译一个呢？这样真的能够更早的发现错误吗？
+>思考题：像上面这样配置前置 Loader 去校验文件，它是在编译前先校验所有的 .js 文件再编译，还是校验一个编译一个呢？这样真的能够更早的发现错误吗？
 
 答案：校验一个编译一个，可以更早地发现单个文件的错误，而不需要等待所有文件都校验完。如果某个文件有错误，Webpack 会立即停止处理该文件，并抛出错误，避免无效的编译。
 

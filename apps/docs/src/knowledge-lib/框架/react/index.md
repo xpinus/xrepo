@@ -1,8 +1,5 @@
----
-sort: 1
----
+# React 相关
 
-# 基本知识
 ## React有什么特点
 
 1. 它使用**虚拟DOM**而不是真正的DOM。
@@ -11,23 +8,23 @@ sort: 1
 
 ## Real DOM 和 Virtual DOM
 
-|       **Real DOM**        |     **Virtual DOM**      |
-| :-----------------------: | :----------------------: |
-|         更新缓慢          |         更新更快         |
-|     可以直接更新 HTML     |    无法直接更新 HTML     |
-| 如果元素更新，则创建新DOM | 如果元素更新，则更新 JSX |
-|      DOM操作代价很高      |     DOM 操作非常简单     |
-|      消耗的内存较多       |      很少的内存消耗      |
+|   **Real DOM**   |     **Virtual DOM**      |
+|:----------------:| :----------------------: |
+|       更新缓慢       |         更新更快         |
+| 可以直接更新 HTML      |    无法直接更新 HTML     |
+|  如果元素更新，则创建新DOM  | 如果元素更新，则更新 JSX |
+|    DOM操作代价很高     |     DOM 操作非常简单     |
+|     消耗的内存较多      |      很少的内存消耗      |
 
-* JSX: 
-  * 是JavaScript XML 的简写。是 React 使用的一种文件，它利用 JavaScript 的表现力和类似 HTML 的模板语法。这使得 HTML 文件非常容易理解。此文件能使应用非常可靠，并能够提高其性能。
-  * 浏览器无法读取JSX？浏览器只能处理 JavaScript 对象，而不能读取常规 JavaScript 对象中的 JSX。所以为了使浏览器能够读取 JSX，首先，需要用像 Babel 这样的 JSX 转换器将 JSX 文件转换为 JavaScript 对象，然后再将其传给浏览器。
+* JSX:
+    * 是JavaScript XML 的简写。是 React 使用的一种文件，它利用 JavaScript 的表现力和类似 HTML 的模板语法。这使得 HTML 文件非常容易理解。此文件能使应用非常可靠，并能够提高其性能。
+    * 浏览器无法读取JSX？浏览器只能处理 JavaScript 对象，而不能读取常规 JavaScript 对象中的 JSX。所以为了使浏览器能够读取 JSX，首先，需要用像 Babel 这样的 JSX 转换器将 JSX 文件转换为 JavaScript 对象，然后再将其传给浏览器。
 
 ## state 和 props 和 变量的区别
 
 * `state`: 状态是 React 组件的核心，是数据的来源，必须尽可能简单。基本上状态是确定组件呈现和行为的对象。与props 不同，它们是可变的，并创建动态和交互式组件。可以通过 `this.state()` 访问它们，通过`this.setState()`更改。
 * `props`: 组件内不能更改
-* `variables`: 
+* `variables`:
 
 ## 设计组件注意
 
@@ -53,49 +50,49 @@ sort: 1
 ![image-20211217111544311](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a7d8676f379d4d96bbf0ebd9a8528594~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
 
 * 挂载：当组件实例被创建并插入DOM时，其生命周期调用顺序如下
-  * `constructor()`构造函数：
-    * **如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数。**
-    * 内部首先调用`super(props)`，否则可能出现`this.props`未定义错误
-    * 要避免在构造函数中引入任何副作用或订阅。如遇到此场景，请将对应的操作放置在 `componentDidMount` 中。例如把props的值赋给state，及毫无必要，又在props更新时state不改变，除非你需要这样
-  * `static getDerivedStateFromProps()`
-    * 存在只有一个目的：让组件在 **props 变化**时更新 state。
-    * 误解：认为该方法只在props改变时才会调用，实际只要父级重新渲染就会调用，**直接复制 prop 到 state 是一个非常糟糕的想法**
-  * `render()` class 组件中唯一必须实现的方法
-    * 为纯函数，这意味着在不修改组件 state 的情况下，每次调用时都返回相同的结果，并且它不会直接与浏览器交互
-    * 如果 `shouldComponentUpdate()` 返回 false，则不会调用 `render()`。
-  * `componentDidMount()`会在组件挂载后（插入 DOM 树中）立即调用。依赖于 DOM 节点的初始化应该放在这里。如需通过网络请求获取数据，此处是实例化请求的好地方。
+    * `constructor()`构造函数：
+        * **如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数。**
+        * 内部首先调用`super(props)`，否则可能出现`this.props`未定义错误
+        * 要避免在构造函数中引入任何副作用或订阅。如遇到此场景，请将对应的操作放置在 `componentDidMount` 中。例如把props的值赋给state，及毫无必要，又在props更新时state不改变，除非你需要这样
+    * `static getDerivedStateFromProps()`
+        * 存在只有一个目的：让组件在 **props 变化**时更新 state。
+        * 误解：认为该方法只在props改变时才会调用，实际只要父级重新渲染就会调用，**直接复制 prop 到 state 是一个非常糟糕的想法**
+    * `render()` class 组件中唯一必须实现的方法
+        * 为纯函数，这意味着在不修改组件 state 的情况下，每次调用时都返回相同的结果，并且它不会直接与浏览器交互
+        * 如果 `shouldComponentUpdate()` 返回 false，则不会调用 `render()`。
+    * `componentDidMount()`会在组件挂载后（插入 DOM 树中）立即调用。依赖于 DOM 节点的初始化应该放在这里。如需通过网络请求获取数据，此处是实例化请求的好地方。
 * 更新：当组件的 props 或 state 发生变化时会触发更新。
-  * `static getDerivedStateFromProps()`
-  * `shouldComponentUpdate(nextProps, nextState)`
-    * 根据返回值，判断 React 组件的输出是否受当前 state 或 props 更改的影响。默认行为是 state 每次发生变化组件都会重新渲染
-    * 此方法仅作为**[性能优化的方式](https://react.docschina.org/docs/optimizing-performance.html)**而存在。不要企图依靠此方法来“阻止”渲染，因为这可能会产生 bug。
-    * **考虑使用内置的 `PureComponent` 组件**，而不是手动编写。`PureComponent` 会对 props 和 state 进行浅层比较，并减少了跳过必要更新的可能性。
-    * 不建议进行深层比较或使用 `JSON.stringify()`。这样非常影响效率，且会损害性能。
-  * `render()`
-  * `getSnapshotBeforeUpdate()`在最近一次渲染输出（提交到 DOM 节点）之前调用。它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）。此生命周期的任何返回值将作为参数传递给 `componentDidUpdate()`。
-    * 应返回 snapshot 的值（或 `null`）。
-  * `componentDidUpdate()`
-    * 会在更新后会被立即调用。首次渲染不会执行此方法。
-    * 你也可以在 `componentDidUpdate()` 中**直接调用 `setState()`**，但请注意**它必须被包裹在一个条件语句里**，正如上述的例子那样进行处理，否则会导致死循环。
-    * 它还会导致额外的重新渲染，虽然用户不可见，但会影响组件性能。
-    * 不要将 props “镜像”给 state，请考虑直接使用 props。
+    * `static getDerivedStateFromProps()`
+    * `shouldComponentUpdate(nextProps, nextState)`
+        * 根据返回值，判断 React 组件的输出是否受当前 state 或 props 更改的影响。默认行为是 state 每次发生变化组件都会重新渲染
+        * 此方法仅作为**[性能优化的方式](https://react.docschina.org/docs/optimizing-performance.html)**而存在。不要企图依靠此方法来“阻止”渲染，因为这可能会产生 bug。
+        * **考虑使用内置的 `PureComponent` 组件**，而不是手动编写。`PureComponent` 会对 props 和 state 进行浅层比较，并减少了跳过必要更新的可能性。
+        * 不建议进行深层比较或使用 `JSON.stringify()`。这样非常影响效率，且会损害性能。
+    * `render()`
+    * `getSnapshotBeforeUpdate()`在最近一次渲染输出（提交到 DOM 节点）之前调用。它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）。此生命周期的任何返回值将作为参数传递给 `componentDidUpdate()`。
+        * 应返回 snapshot 的值（或 `null`）。
+    * `componentDidUpdate()`
+        * 会在更新后会被立即调用。首次渲染不会执行此方法。
+        * 你也可以在 `componentDidUpdate()` 中**直接调用 `setState()`**，但请注意**它必须被包裹在一个条件语句里**，正如上述的例子那样进行处理，否则会导致死循环。
+        * 它还会导致额外的重新渲染，虽然用户不可见，但会影响组件性能。
+        * 不要将 props “镜像”给 state，请考虑直接使用 props。
 * 卸载：当组件从 DOM 中移除时会调用如下方法
-  * `componentWillUnmount()`
-    * 会在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作，例如，清除 timer，取消网络请求或清除在 `componentDidMount()` 中创建的订阅等。
+    * `componentWillUnmount()`
+        * 会在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作，例如，清除 timer，取消网络请求或清除在 `componentDidMount()` 中创建的订阅等。
 
 * 其它
-  * 错误处理
-    * `static getDerivedStateFromError()`
-    * `componentDidCatch()`
-  * 其它APIs
-    * `setState()`
-    * `forceUpdate()`
-  * class属性
-    * `defaultProps`
-    * `displayName()`
-  * 实例属性
-    * `state`
-    * `props`
+    * 错误处理
+        * `static getDerivedStateFromError()`
+        * `componentDidCatch()`
+    * 其它APIs
+        * `setState()`
+        * `forceUpdate()`
+    * class属性
+        * `defaultProps`
+        * `displayName()`
+    * 实例属性
+        * `state`
+        * `props`
 
 ## 函数组件和Hooks
 
@@ -108,8 +105,8 @@ sort: 1
 * **Hook 将组件中相互关联的部分拆分成更小的函数（比如设置订阅或请求数据）**，而并非强制按照生命周期划分。你还可以使用 reducer 来管理组件的内部状态，使其更加可预测。
 * **Hook 使你在非 class 的情况下可以使用更多的 React 特性。** 从概念上讲，React 组件一直更像是函数。而 Hook 则拥抱了函数，同时也没有牺牲 React 的精神原则。
 * Hook 就是 JavaScript 函数，但是使用它们会有两个额外的规则：
-  - 只能在**函数最外层**调用 Hook。不要在循环、条件判断或者子函数中调用。
-  - 只能在 **React 的函数组件**中调用 Hook。不要在其他 JavaScript 函数中调用。（还有一个地方可以调用 Hook —— 就是自定义的 Hook 中，我们稍后会学习到。）
+    - 只能在**函数最外层**调用 Hook。不要在循环、条件判断或者子函数中调用。
+    - 只能在 **React 的函数组件**中调用 Hook。不要在其他 JavaScript 函数中调用。（还有一个地方可以调用 Hook —— 就是自定义的 Hook 中，我们稍后会学习到。）
 
 ### useState
 
@@ -124,15 +121,15 @@ sort: 1
 
 * 参数是一个obj（对象）时，如果obj地址不变，那么React就认为数据没有变化，因此必须创建一个新的对象
 
-* ```jsx
+```jsx
   const [state,setState] = useState(()=>{return initialState})
   ```
 
   JS引擎每次都会解析初始值，写成箭头函数，函数不会立即执行，里面的内容不用每次都加载。减少计算过程，只在第一次初始化用到函数的时候解析返回值，减少计算过程。
 
 * 修改state后，如果直接调用此state，会发现state的值未发生改变。当调用setState时，react是**异步更新state**的，如果setState后立即获取state的值，此时state尚未更新，因此为旧的状态。
-  * 解决方法一：通过useEffect方法监听该state，再去触发获取最新的值
-  * 法二：使用`useRef`, newStr = "现在数字是" + numRef.current
+    * 解决方法一：通过useEffect方法监听该state，再去触发获取最新的值
+    * 法二：使用`useRef`, newStr = "现在数字是" + numRef.current
 
 ### useEffect
 
@@ -250,8 +247,8 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 把“创建”函数和依赖项数组作为参数传入 `useMemo`，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。
 
 * `useMemo`和`useCallback`的<span style="color:red;">异同</span>
-  * `useMemo`和`useCallback`接收的参数都是一样，都是在其依赖项发生变化后才执行，都是返回缓存的值，区别在于`useMemo`返回的是函数运行的结果，`useCallback`返回的是函数。
-  * `useCallback(fn，deps)`相当于`useMemo( ()=>fn, deps)`
+    * `useMemo`和`useCallback`接收的参数都是一样，都是在其依赖项发生变化后才执行，都是返回缓存的值，区别在于`useMemo`返回的是函数运行的结果，`useCallback`返回的是函数。
+    * `useCallback(fn，deps)`相当于`useMemo( ()=>fn, deps)`
 
 ### useRef
 
@@ -281,15 +278,15 @@ function TextInputWithFocusButton() {
 
 * 在函数组件中的一个**全局变量**，不会因为重复 `render` 重复申明， 类似于类组件的 `this.xxx`
 
-  * 有些情况下，我们需要保证函数组件每次 render 之后，某些变量不会被重复申明，比如说 Dom 节点，定时器的 id 等等。
+    * 有些情况下，我们需要保证函数组件每次 render 之后，某些变量不会被重复申明，比如说 Dom 节点，定时器的 id 等等。
 
-  * 在类组件中，我们完全可以通过给类添加一个自定义属性来保留，比如说 this.xxx， 但是函数组件没有 this，我们就需要使用 **useRef** 来实现。
+    * 在类组件中，我们完全可以通过给类添加一个自定义属性来保留，比如说 this.xxx， 但是函数组件没有 this，我们就需要使用 **useRef** 来实现。
 
 * 与`createRef`的区别
 
-  * 挂载阶段，useRef与createRef没有差别
-  * **更新阶段，**createRef每次都会返回个新的引用;而useRef不会随着组件的更新而重新创建
-  * 销毁阶段，两者都会销毁
+    * 挂载阶段，useRef与createRef没有差别
+    * **更新阶段，**createRef每次都会返回个新的引用;而useRef不会随着组件的更新而重新创建
+    * 销毁阶段，两者都会销毁
 
 > https://blog.csdn.net/u011705725/article/details/115634265  必看
 
@@ -337,38 +334,38 @@ hook怎么实现生命周期
 Refs 提供了一种方式，允许我们访问 DOM 节点或在 render 方法中创建的 React 元素。
 
 * 何时使用Refs
-  * 管理焦点，文本选择或媒体播放。
-  * 触发强制动画。
-  * 集成第三方 DOM 库。
-  * 勿过度使用
+    * 管理焦点，文本选择或媒体播放。
+    * 触发强制动画。
+    * 集成第三方 DOM 库。
+    * 勿过度使用
 
 - 创建Refs
 
-  - ```jsx
-    class MyComponent extends React.Component {
-      constructor(props) {
-        super(props);
-        this.myRef = React.createRef(); // 创建
-      }
-      render() {
-        return <div ref={this.myRef} />;   // 通过ref属性附加到React元素
-      }
-    }
-    
-    // 或者  ref={(input) => this.input = input}
-    ```
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef(); // 创建
+  }
+  render() {
+    return <div ref={this.myRef} />;   // 通过ref属性附加到React元素
+  }
+}
+
+// 或者  ref={(input) => this.input = input}
+```
 
 * 访问
 
-  * ref 的值根据节点的类型而有所不同：
+    * ref 的值根据节点的类型而有所不同：
 
-    - 当 `ref` 属性用于 HTML 元素时，构造函数中使用 `React.createRef()` 创建的 `ref` 接收底层 DOM 元素作为其 `current` 属性。
+        - 当 `ref` 属性用于 HTML 元素时，构造函数中使用 `React.createRef()` 创建的 `ref` 接收底层 DOM 元素作为其 `current` 属性。
 
-    - 当 `ref` 属性用于自定义 class 组件时，`ref` 对象接收组件的挂载实例作为其 `current` 属性。
+        - 当 `ref` 属性用于自定义 class 组件时，`ref` 对象接收组件的挂载实例作为其 `current` 属性。
 
-    - **你不能在函数组件上使用 `ref` 属性**，因为他们没有实例
+        - **你不能在函数组件上使用 `ref` 属性**，因为他们没有实例
 
-    - ```jsx
+        - ```jsx
       class CustomTextInput extends React.Component {
         constructor(props) {
           super(props);
@@ -404,11 +401,11 @@ Refs 提供了一种方式，允许我们访问 DOM 节点或在 render 方法�
 
 * 函数组件
 
-  * 默认情况下，**你不能在函数组件上使用 `ref` 属性**，因为它们没有实例：
+    * 默认情况下，**你不能在函数组件上使用 `ref` 属性**，因为它们没有实例：
 
-  * 如果要在函数组件中使用 `ref`，你可以使用 `forwardRef`（可与 `useImperativeHandle` 结合使用），或者可以将该组件转化为 class 组件。
+    * 如果要在函数组件中使用 `ref`，你可以使用 `forwardRef`（可与 `useImperativeHandle` 结合使用），或者可以将该组件转化为 class 组件。
 
-  * ```jsx
+    * ```jsx
     function CustomTextInput(props) {
       // textInput must be declared here so the ref can refer to it
       const textInput = useRef(null);
@@ -469,8 +466,8 @@ const BlogPostWithSubscription = withSubscription(BlogPost,
 ```
 
 - HOC的优缺点∶
-  - 优点∶ 逻辑服用、不影响被包裹组件的内部逻辑。
-  - 缺点∶ hoc传递给被包裹组件的props容易和被包裹后的组件重名，进而被覆盖
+    - 优点∶ 逻辑服用、不影响被包裹组件的内部逻辑。
+    - 缺点∶ hoc传递给被包裹组件的props容易和被包裹后的组件重名，进而被覆盖
 
 ## Render props
 
@@ -695,23 +692,23 @@ developtools React Profile
 
 * React.memo：是 React 16.6 新的一个 API，用来缓存组件的渲染，避免不必要的更新，其实也是一个高阶组件，与 PureComponent 十分类似，但不同的是， React.memo只能用于函数组件。
 
-  * ```jsx
+    * ```jsx
     const MyComponent = React.memo(function MyComponent(props) {
       /* 使用 props 渲染 */
     });
     ```
 
-  * 仅检查 props 变更，默认情况下其只会对复杂对象做浅层对比，如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现。
-  * 此方法仅作为**[性能优化](https://zh-hans.reactjs.org/docs/optimizing-performance.html)**的方式而存在
+    * 仅检查 props 变更，默认情况下其只会对复杂对象做浅层对比，如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现。
+    * 此方法仅作为**[性能优化](https://zh-hans.reactjs.org/docs/optimizing-performance.html)**的方式而存在
 
 # 16 哪些方法会触发 React 重新渲染？重新渲染 render 会做些什么？
 
 * `setState()`被调用时，传入null例外
 * 父组件重新渲染，哪怕props没有改变，子组件也会重新渲染
 * `render`做些什么？
-  * 会对新旧 VNode 进行对比，也就是我们所说的Diff算法
-  * 对新旧两棵树进行一个深度优先遍历，这样每一个节点都会一个标记，在到深度遍历的时候，每遍历到一和个节点，就把该节点和新的节点树进行对比，如果有差异就放到一个对象里面
-  * 遍历差异对象，根据差异的类型，根据对应对规则更新VNode
+    * 会对新旧 VNode 进行对比，也就是我们所说的Diff算法
+    * 对新旧两棵树进行一个深度优先遍历，这样每一个节点都会一个标记，在到深度遍历的时候，每遍历到一和个节点，就把该节点和新的节点树进行对比，如果有差异就放到一个对象里面
+    * 遍历差异对象，根据差异的类型，根据对应对规则更新VNode
 
 React 的处理 render 的基本思维模式是每次一有变动就会去重新渲染整个应用。在 Virtual DOM 没有出现之前，最简单的方法就是直接调用 innerHTML。Virtual DOM厉害的地方并不是说它比直接操作 DOM 快，而是说不管数据怎么变，都会尽量以最小的代价去更新 DOM。React 将 render 函数返回的虚拟 DOM 树与老的进行比较，从而确定 DOM 要不要更新、怎么更新。当 DOM 树很大时，遍历两棵树进行各种比对还是相当耗性能的，特别是在顶层 setState 一个微小的修改，默认会去遍历整棵树。尽管 React 使用高度优化的 Diff 算法，但是这个过程仍然会损耗性能.
 
@@ -778,5 +775,3 @@ React的StrictMode是一种帮助程序组件，可以帮助您编写更好的re
 - 验证[内部组件](https://www.zhihu.com/search?q=内部组件&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A91725031})是否遵循某些推荐做法，如果不在控制台中，则会发出警告。
 - 验证不赞成使用的方法，如果使用了严格模式，则会在控制台中警告您。
 - 通过识别潜在风险来帮助您预防某些副作用。
-
-## 

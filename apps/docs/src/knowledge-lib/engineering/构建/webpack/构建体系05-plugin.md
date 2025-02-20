@@ -5,6 +5,7 @@
 [Tapable](https://juejin.cn/post/7164175171358556173)
 
 > tapable与webpack：Webpack 本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是 tapable。
+
 > Webpack 内部通过 tapable 会提前定义好一系列不同阶段的 hook ，然后在固定的时间点去执行（触发 call 函数）。而插件要做的就是通过 tap 函数注册自定义事件，从而让其控制在 Webapack 事件流上运行
 - tapable: 类似于 Node.js 中的 EventEmitter 的库，但它更专注于自定义事件的触发和处理。通过 tapable 我们可以注册自定义事件，然后在适当的时机去触发执行
   - 类比到 Vue 和 React 框架中的生命周期函数，它们就是到了固定的时间节点就执行对应的生命周期，tapable 做的事情就和这个差不多，可以先注册一系列的生命周期函数，然后在合适的时间点执行
@@ -18,15 +19,16 @@
 > Compiler 和 Compilation 
 - compiler 对象代表了完整的 webpack 生命周期.
   - 在启动 Webpack 时被一次性建立，并配置好所有可操作的设置，包括 options，loader 和 plugin。当在 Webpack 环境中应用一个插件时，插件将收到此 compiler 对象的引用。可以使用它来访问 Webpack 的主环境
-  - [compiler上挂载的 hook](https://webpack.docschina.org/api/compiler-hooks/) ，
+  - [compiler上挂载的 hook](https://webpack.docschina.org/api/compiler-hooks/) 
 - compilation 对象代表了一次资源版本构建
   - 当运行 Webpack 开发环境中间件（ webpack-dev-server）时，每当检测到一个文件变化，就会创建一个新的 compilation，从而生成一组新的编译资源。一个 compilation 对象表现了当前的模块资源、编译生成资源、变化的文件、以及被跟踪依赖的状态信息。compilation 对象也提供了很多关键时机的回调，以供插件做自定义处理时选择使用
   - [compilation上挂载的 hook](https://webpack.docschina.org/api/compilation-hooks/)
 
 ![](./asset/compiler.png)
 
-> 编写插件
+## 编写插件
 > plugin的本质是一个带有apply方法的类
+
 > apply函数会在初始化阶段，创建好Compiler对象后运行
 
 ```js

@@ -154,8 +154,8 @@ const message = inject('message')
   - 使用 readonly 来提供只读值 `provide('read-only-count', readonly(count)) // import { ref, provide, readonly } from 'vue' `
 - 使用Symbol作为数据名防止冲突
 
-## 组合式函数
-组合式函数，本质上也就是代码复用的一种方式。
+## 组合式函数 useHook
+组合式函数，本质上也就是代码复用的一种方式。本质是**基于组合式 API 封装的逻辑函数**
 - 组件：对结构、样式、逻辑进行复用
 - 组合式函数：侧重于对 有状态 的逻辑进行复用
 
@@ -170,9 +170,9 @@ const message = inject('message')
   - 可以在像 onMounted 生命周期钩子中调用：在某些情况下，可以在如 onMounted 生命周期钩子中调用组合式函数。这些生命周期钩子也是同步执行的，并且在组件实例已经被初始化后调用，因此可以安全地使用组合式函数。
 
 > 解决了 Vue2 时期 mixin 的一些问题。
-- 不清晰的数据来源：当使用多个 minxin 的时候，实例上的数据属性来自于哪一个 mixin 不太好分辨。
-- 命名空间冲突：如果多个 mixin 来自于不同的作者，可能会注册相同的属性名，造成命名冲突
-- 隐式的跨mixin交流
+- **不清晰的数据来源**：当使用多个 minxin 的时候，实例上的数据属性来自于哪一个 mixin 不太好分辨。
+- **命名空间冲突**：如果多个 mixin 来自于不同的作者，可能会注册相同的属性名，造成命名冲突
+- **隐式的跨mixin交流**
 
 ```js
 const mixinA = {
@@ -352,6 +352,21 @@ const loadComponent = (name) => {
   currentComponent.value = defineAsyncComponent(() => import(`./components/${name}.vue`))
 }
 </script>
+```
+
+> 与 () => temp.vue 方式相比的优势
+
+语义更清晰，更多的配置选项和灵活性，尤其是在需要控制加载状态、错误处理或自定义懒加载行为时
+
+```js
+const AsyncComponent = defineAsyncComponent({
+  loader: () => import('./MyComponent.vue'),
+  loadingComponent: () => import('./LoadingSpinner.vue'),  // 加载状态
+  errorComponent: () => import('./ErrorPage.vue'), // 加载失败
+  retry: 3, // 如果加载失败，尝试重新加载的次数
+  delay: 200, // 延迟时间
+  timeout: 3000 // 超时时间
+})
 ```
 
 > 某项目中的实践与问题
