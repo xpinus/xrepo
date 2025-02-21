@@ -1,0 +1,36 @@
+@import "./normalize.less";
+
+body {
+	--yunzhou-default-font-size: 14px;
+	--yunzhou-theme: #4a7cfe;
+	--yunzhou-theme-light: #edf2fc;
+	--yunzhou-black: #1d2129;
+	--yunzhou-black-0: #4e5969;
+	--yunzhou-black-1: #86909c;
+	--yunzhou-gray: #c9cdd4;
+	--yunzhou-white: #fff;
+
+	font-size: var(--yunzhou-default-font-size);
+	color: var(--yunzhou-black);
+	font-family: "PingFang SC";
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+	*::-webkit-scrollbar {
+		width: 6px;
+		height: 6px;
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background: #c9cdd4;
+		border-radius: 6px;
+	}
+}
+
+@supports not (selector(::-webkit-scrollbar)) {
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: #c9cdd4 #c9cdd4;
+	}
+}

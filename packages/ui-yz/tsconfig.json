@@ -1,0 +1,16 @@
+{
+  "extends": "@yunzhou/config/vue.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["esnext", "dom"],
+    "target": "ES2015",
+    "noEmit": true,
+    "baseUrl": ".",
+    // 配置别名
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

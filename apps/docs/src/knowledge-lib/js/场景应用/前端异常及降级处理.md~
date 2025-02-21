@@ -27,4 +27,3 @@ Vue.config.errorHandler = function (err, vm, info) {
 
 ## HTTP
 
-添加响应拦截器
