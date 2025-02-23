@@ -42,7 +42,7 @@
 - 出现的时间、地点(官方、社区)不同
 - 浏览器服务器支持情况不同
   - 原生浏览器不支持 require/exports，可使用支持 CommonJS 模块规范的 Browsersify、webpack 等打包工具，它们会将 require/exports 转换成能在浏览器使用的代码。
-  - import/export 在浏览器中无法直接使用，我们需要在引入模块的 <script> 元素上添加type="module" 属性。
+  - import/export 在浏览器中无法直接使用，我们需要在引入模块的 `<script>` 元素上添加type="module" 属性。
   - 即使 Node.js 13.2+ 可以通过修改文件后缀为 .mjs 来支持 ES6 模块 import/export，但是Node.js 官方不建议在正式环境使用。目前可以使用 babel 将 ES6 的模块系统编译成 CommonJS 规范
 - CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
 - CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。

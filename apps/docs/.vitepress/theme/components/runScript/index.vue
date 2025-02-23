@@ -46,7 +46,7 @@ onMounted(() => {
 
 async function loadSourceCode() {
     console.log(props.codePath);
-    const data = await import(`../../../../src/${props.codePath}?raw`);
+    const data = await import(`@/${props.codePath}?raw`);
     sourceCode.value = data.default;
 }
 

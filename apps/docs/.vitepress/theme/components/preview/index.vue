@@ -50,7 +50,7 @@ const showCode = ref(props.show);
 const sourceCode = ref('');
 
 async function loadSourceCode() {
-    const data = await import(`../../../../src/${props.codePath}?raw`);
+    const data = await import(`@/${props.codePath}?raw`);
     sourceCode.value = data.default;
 }
 </script>

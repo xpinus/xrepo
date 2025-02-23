@@ -39,7 +39,10 @@ export default defineConfig({
         emptyOutDir: false,
     },
     plugins: [
-        ElementPlus({}),
+        ElementPlus({
+            // 导入scss而不是css
+            useSource: false,
+        }),
         vue() as any,
         vueJsx(),
         dts({

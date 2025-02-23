@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
 import { generateSidebar, hash } from './utils';
+import path from 'path';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -110,8 +111,16 @@ export default defineConfig({
     },
     ignoreDeadLinks: true,
     vite: {
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, '../src'),
+            },
+        },
         server: {
             port: 4000,
+        },
+        ssr: {
+            noExternal: ['element-plus'],
         },
     },
 });
