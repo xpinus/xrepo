@@ -1,13 +1,16 @@
 import { src, dest } from 'gulp';
-import less from 'gulp-less';
-import autoprefixer from 'gulp-autoprefixer';
 import { ROOT_PATH, PKG_OUTPUT } from '../utils/index.js';
 
+import less from 'gulp-less';
+import postcss from 'gulp-postcss';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+
 export function buildStyle() {
-    return src(`${ROOT_PATH}/src/**/style/**.less`)
+    const plugins = [autoprefixer(), cssnano()];
+
+    return src(`${ROOT_PATH}/src/**/**.less`)
         .pipe(less())
-        .pipe(autoprefixer())
-        .pipe(dest(`${PKG_OUTPUT}/lib/src`))
-        .pipe(dest(`${PKG_OUTPUT}/es/src`))
-        .pipe(dest(`${PKG_OUTPUT}/umd/src`));
+        .pipe(postcss(plugins))
+        .pipe(dest(`${PKG_OUTPUT}`));
 }

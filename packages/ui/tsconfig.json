@@ -1,5 +1,5 @@
 {
-  "extends": "@xrepo/tsconfig/vue.json",
+  "extends": "@xrepo/config/tsconfig/vue.json",
   "compilerOptions": {
     "jsx": "preserve",
     "module": "ESNext",
@@ -11,6 +11,8 @@
     // 配置别名
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false
   }
 }

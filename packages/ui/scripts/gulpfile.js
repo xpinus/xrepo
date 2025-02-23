@@ -5,9 +5,9 @@ export * from './tasks/index.js';
 
 export default series(
     runTask('logo'),
-    withTaskName('clean', () => run('pnpm run clean')),
+    withTaskName('clean', () => run('npm run clean')),
     parallel(
         runTask('buildStyle'),
-        withTaskName('buildComponent', () => run('pnpm run build:vite')),
+        withTaskName('buildComponent', () => run('npm run build:vite')),
     ),
 );

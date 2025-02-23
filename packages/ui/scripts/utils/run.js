@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 import chalk from 'chalk';
 import consola from 'consola';
-import { ROOT_PATH } from '../utils/index.js';
+import { ROOT_PATH } from './index.js';
 
 // 创建子进程来执行命令行语句
 export const run = async (command, cwd = ROOT_PATH) =>
@@ -29,4 +29,4 @@ export const run = async (command, cwd = ROOT_PATH) =>
 export const withTaskName = (name, fn) => Object.assign(fn, { displayName: name });
 
 // 执行一个gulp任务
-export const runTask = (name) => withTaskName(`shellTask:${name}`, () => run(`pnpm run build ${name}`));
+export const runTask = (name) => withTaskName(`shellTask:${name}`, () => run(`npm run build ${name}`));

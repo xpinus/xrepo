@@ -11,7 +11,11 @@
 <run-script codePath="knowledge-lib/js/算法/经典手写/数组相关/f2.js">
 </run-script>
 
+## 数组打乱顺序
 
-## 数组取交集
+<run-script codePath="knowledge-lib/js/算法/经典手写/数组相关/f3.js">
+</run-script>
 
-## 数组按首位排序
+> 为什么不用sort, 如`arr.sort((a, b) => Math.random() - 0.5)`
+> 
+> sort算法会导致程序不稳定，极端条件下可能不会打乱顺序

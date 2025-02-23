@@ -26,7 +26,6 @@
 <script setup>
 import { onMounted, ref, reactive } from 'vue';
 import 'highlight.js';
-import XButton from '@xrepo/ui/src/button/src/button.vue';
 
 const props = defineProps({
     codePath: {
@@ -46,6 +45,7 @@ onMounted(() => {
 });
 
 async function loadSourceCode() {
+    console.log(props.codePath);
     const data = await import(`../../../../src/${props.codePath}?raw`);
     sourceCode.value = data.default;
 }

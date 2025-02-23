@@ -29,6 +29,7 @@ const test = {
     action: function () {
         console.log(this.name);
     },
+    s: new Set([1, 2, 3]),
 };
 test.children.circle = test; // 循环引用
 
