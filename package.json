@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "cross-env": "^7.0.3",
-    "vue": "^3.5.12"
+    "vue": "^3.5.12",
+    "turbo": "^2.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
@@ -51,7 +52,6 @@
     "rimraf": "^6.0.1",
     "rollup-plugin-visualizer": "^5.12.0",
     "tslib": "^2.6.3",
-    "turbo": "^2.3.0",
     "typescript": "5.5.4"
   }
 }
