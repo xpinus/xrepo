@@ -1,5 +1,13 @@
 version: '3'
 services:
+  https_proxy:
+    container_name: 'https-container'
+    image: nginx
+    restart: always
+    ports:
+      - 443:443
+    volumes:
+      - ./packages/config/nginx/:/etc/nginx/
   docs: #项目的service name
     container_name: 'docs-container' #容器名称
     image: nginx #指定镜像
