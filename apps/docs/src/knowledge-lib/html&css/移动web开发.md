@@ -8,7 +8,7 @@ PWA 全称 Progressive Web App，即渐进式 WEB 应用。一个 PWA 应用首�
 
 - 根据端来开发不同页面
 - 根据不同端加载不同css
-- 根据响应式，来运行不同的规则样式（**）
+- 根据响应式，来运行不同的规则样式
 
 考虑问题：
 1. 设置视窗
@@ -16,6 +16,16 @@ PWA 全称 Progressive Web App，即渐进式 WEB 应用。一个 PWA 应用首�
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 2. 掌握媒体查询
+
+|        断点         | 类中缀  | 分辨率 |
+|:-----------------:|:----:| :---: |
+|      X-Small      | None | <576px | 
+|       Small       | sm   | ≥576px |
+|      Medium       |  md  | ≥768px |
+|      Large        |  lg  | ≥992px |
+|    Extra large    |  xl  | ≥1200px |
+| Extra extra large | xxl  | ≥1400px |
+
 
 rem
 
@@ -53,7 +63,26 @@ https://juejin.cn/post/6972416642600927246
 
 ## 移动端兼容性
 
-> ios移动端问题
+### touch和click事件的冲突
+> 移动设备上的浏览器将会在 click 事件触发时延迟 300ms ，以确保这是一个“单击”事件而非“双击”事件。而对于 touchstart 事件而言，则会在用户手指触碰屏幕的一瞬间触发所绑定的事件。
+
+当一个元素被同时绑定touchstart和click事件时，在移动端会被依次触发两次
+
+解决方法：
+1. 在touchstart中添加preventDefault, 虽然click不是默认事件，但浏览器实现了这种方式
+2. 惰性函数，动态判断应该使用哪种方法绑定点击事件
+
+## ios移动端问题
+> 设置z-index不生效问题
+```css
+.sider {
+    -webkit-transform: translateZ(1px);
+  	-moz-transform: translateZ(1px);
+    -o-transform: translateZ(1px);
+    transform: translateZ(1px);
+    z-index: 999;
+ }
+```
 
 > touchstart selection问题
 

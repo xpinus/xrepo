@@ -61,8 +61,6 @@ const searchResultComponent = computed(() => {
 });
 ```
 
-
-
 **老项目开发流程优化搭建组件库**
 
 项目背景：老项目
