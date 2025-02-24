@@ -106,6 +106,9 @@ importers:
       typescript:
         specifier: 5.5.4
         version: 5.5.4
+      vite-plugin-compression2:
+        specifier: ^1.3.3
+        version: 1.3.3(vite@5.4.11)
       vitepress:
         specifier: ^1.5.0
         version: 1.5.0(@algolia/client-search@5.19.0)(@types/node@22.10.5)(less@4.2.1)(search-insights@2.17.3)(typescript@5.5.4)
@@ -4237,7 +4240,7 @@ packages:
       vue: ^3.2.25
     dependencies:
       vite: 5.4.11(@types/node@22.10.5)(less@4.2.1)(sass-embedded@1.85.0)
-      vue: 3.5.13(typescript@5.6.3)
+      vue: 3.5.13(typescript@5.5.4)
     dev: true
 
   /@volar/language-core@2.4.11:
@@ -4429,7 +4432,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.5.13
       '@vue/shared': 3.5.13
-      vue: 3.5.13(typescript@5.6.3)
+      vue: 3.5.13(typescript@5.5.4)
 
   /@vue/shared@3.5.13:
     resolution: {integrity: sha512-/hnE/qP5ZoGpol0a5mDi45bOd7t3tjYJBjsgCsivow7D48cJeV5l05RD82lPqi7gRiphZM37rnhW1l6ZoCNNnQ==}
@@ -12278,6 +12281,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /tar-mini@0.2.0:
+    resolution: {integrity: sha512-+qfUHz700DWnRutdUsxRRVZ38G1Qr27OetwaMYTdg8hcPxf46U0S1Zf76dQMWRBmusOt2ZCK5kbIaiLkoGO7WQ==}
+    dev: true
+
   /teex@1.0.1:
     resolution: {integrity: sha512-eYE6iEI62Ni1H8oIa7KlDU6uQBtqr4Eajni3wX7rpfXD8ysFx8z0+dri+KWEPWpBsxXfxu58x/0jvTVT1ekOSg==}
     dependencies:
@@ -13154,6 +13161,18 @@ packages:
       remove-trailing-separator: 1.1.0
       replace-ext: 2.0.0
       teex: 1.0.1
+    dev: true
+
+  /vite-plugin-compression2@1.3.3(vite@5.4.11):
+    resolution: {integrity: sha512-Mb+xi/C5b68awtF4fNwRBPtoZiyUHU3I0SaBOAGlerlR31kusq1si6qG31lsjJH8T7QNg/p3IJY2HY9O9SvsfQ==}
+    peerDependencies:
+      vite: ^2.0.0||^3.0.0||^4.0.0||^5.0.0 ||^6.0.0
+    dependencies:
+      '@rollup/pluginutils': 5.1.4
+      tar-mini: 0.2.0
+      vite: 5.4.11(@types/node@22.10.5)(less@4.2.1)(sass-embedded@1.85.0)
+    transitivePeerDependencies:
+      - rollup
     dev: true
 
   /vite-plugin-dts@4.5.0(@types/node@22.10.5)(typescript@5.6.3)(vite@5.4.11):

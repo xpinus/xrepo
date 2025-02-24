@@ -25,6 +25,9 @@ out/
 build
 dist
 
+# 允许特定目录下的 dist
+!apps/docs/.vitepress/dist/
+
 
 # Debug
 npm-debug.log*

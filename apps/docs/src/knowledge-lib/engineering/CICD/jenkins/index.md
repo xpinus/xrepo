@@ -95,3 +95,13 @@ https://juejin.cn/post/6844903992481284104
       docker ps 查看是否有自己的容器
       docker logs 自己的容器名 查看日志是否正确
       浏览器访问项目试一试
+
+```js
+echo $PATH
+export NODE_OPTIONS="--max-old-space-size=4096"
+npm config set registry https://registry.npmmirror.com
+pnpm config set registry https://registry.npmmirror.com
+pnpm install
+pnpm run docs:build
+docker-compose up -d
+```

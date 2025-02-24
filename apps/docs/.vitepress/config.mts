@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress';
 import { generateSidebar, hash } from './utils';
 import path from 'path';
+import { compression } from 'vite-plugin-compression2';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
