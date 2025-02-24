@@ -567,3 +567,13 @@ v8是c++实现的，在实现数组时有多种实现方式
 最后一种更严谨
 
 <run-script codePath="knowledge-lib/js/jsAPI/基础/src/q3.js"></run-script>
+
+## Object.keys和Refleect.ownKeys
+
+Reflect.ownKeys(target) 是一个静态方法，它返回一个由目标对象自身的所有属性键组成的数组，包括不可枚举的属性和符号属性
+
+Object.keys(obj) 方法返回一个由对象自身的可枚举属性键组成的数组，不包括继承的属性和不可枚举的属性
+
+区别：
+- 属性类型：Reflect.ownKeys 返回所有属性键，包括不可枚举的和符号属性，而 Object.keys 只返回可枚举的属性键
+- 返回值：Reflect.ownKeys 返回的数组包含所有类型的属性键，而 Object.keys 只包含字符串类型的可枚举属性

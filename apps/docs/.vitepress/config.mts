@@ -109,6 +109,10 @@ export default defineConfig({
         ]),
 
         socialLinks: [{ icon: 'github', link: 'https://github.com/xpinus/xrepo' }],
+        footer: {
+            message: '苏ICP备2025160170号-1 | 前端进化之路 | Released under the MIT License.',
+            copyright: 'Copyright © 2024-present xpinus',
+        },
     },
     ignoreDeadLinks: true,
     vite: {
