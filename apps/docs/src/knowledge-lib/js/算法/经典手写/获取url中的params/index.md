@@ -1,8 +1,14 @@
 # 解析URL中的参数
 
+
+<script setup>
+import f1 from './f1.js?raw';
+import f2 from './f2.js?raw';
+</script>
+
 - 法1 浏览器API
-  <run-script codePath="knowledge-lib/js/算法/经典手写/获取url中的params/f1.js">
+  <run-script :code="f2">
   </run-script>
 - 法2
-  <run-script codePath="knowledge-lib/js/算法/经典手写/获取url中的params/f2.js">
+  <run-script :code="f1">
   </run-script>

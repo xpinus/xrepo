@@ -1,9 +1,10 @@
 <script setup>
 import demo from './demo.vue'
+import demoCode from './demo.vue?raw'
 </script>
 
 # Button 按钮
 
-<preview codePath="components/button/demo.vue">
+<preview :code="demoCode">
   <demo />
 </preview>

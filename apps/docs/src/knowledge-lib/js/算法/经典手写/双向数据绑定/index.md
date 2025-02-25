@@ -1,19 +1,22 @@
 <script setup>
 import demo1 from './demoDefineProperty.vue';
 import demo2 from './demoProxy.vue';
+
+import demo1Code from './demoDefineProperty.vue?raw';
+import demo2Code from './demoProxy.vue?raw';
 </script>
 
 # 请简单实现双向数据绑定`mvvm`
 
 ## Object.defineProperty
 
-<preview codePath="knowledge-lib/js/算法/经典手写/双向数据绑定/demoDefineProperty.vue">
+<preview :code="demo1Code">
   <demo1 />
 </preview>
 
 ## proxy实现
 
-<preview codePath="knowledge-lib/js/算法/经典手写/双向数据绑定/demoProxy.vue">
+<preview :code="demo2Code">
   <demo2 />
 </preview>
 

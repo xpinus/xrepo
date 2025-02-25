@@ -1,6 +1,16 @@
 # 数据类型和数据结构
 > ES中数据的分类分为基本数据类型和引用数据类型
 
+<script setup>
+import q1 from './src/q1.js?raw';
+import q2 from './src/q2.js?raw';
+import q3 from './src/q3.js?raw';
+import MySet from './src/MySet?raw';
+import MyMap from './src/MyMap?raw';
+import myInstanceof from './src/myInstanceof?raw';
+</script>
+
+
 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%B1%E7%B1%BB%E5%9E%8B)
 
 ## 原始值
@@ -39,7 +49,7 @@ symbol 是一种基本数据类型（primitive data type）。Symbol() 函数会
 2. 调用实例上的方法
 3. 销毁实例
 
-<run-script name="下列代码运行结果，解释一下" codePath="knowledge-lib/js/jsAPI/数据结构/src/q2.js"></run-script>
+<run-script name="下列代码运行结果，解释一下" :code="q2"></run-script>
 
 ## Object
 > 在 JavaScript 中，对象可以被看作是一个属性的集合
@@ -75,11 +85,11 @@ symbol 是一种基本数据类型（primitive data type）。Symbol() 函数会
 - `new Set()`: 接收参数为一个可迭代对象
 - 值的相等是基于`零值相等算法`
 
-<run-script name="手写Set" codePath="knowledge-lib/js/jsAPI/数据结构/src/MySet.js"></run-script>
+<run-script name="手写Set" :code="MySet"></run-script>
 
 #### Map
 
-<run-script  name="手写Map" codePath="knowledge-lib/js/jsAPI/数据结构/src/MyMap.js"></run-script>
+<run-script  name="手写Map" :code="MyMap"></run-script>
 
 #### WeakMap和WeakSet
 > WeakMap 和 WeakSet 只允许将可垃圾回收的值作为键，这些键要么是对象，要么是未注册的 symbol，即使键仍在集合中，也可能被回收。它们专门用于优化内存使用。
@@ -144,7 +154,7 @@ typeof {} // 'Object
 ```
 - `instanceof`: 返回 true 或者 false
   - 缺点：只能判断对象是否存在于目标对象的原型链上
-<run-script name="手写instaceof" codePath="knowledge-lib/js/jsAPI/数据结构/src/myInstanceof.js"></run-script>
+<run-script name="手写instaceof" :code="myInstanceof"></run-script>
 - `constructor.name`: 返回数据类型的构造函数的名称
 ```js
 var d = new Number(1) 
@@ -162,10 +172,10 @@ console.log(arr.constructor.name) // Array
 
 ## 面试题
  
-<run-script codePath="knowledge-lib/js/jsAPI/数据结构/src/q1.js"></run-script>
+<run-script :code="q1"></run-script>
 
 > typeof String(1) 和 typeof new String(1)
 > 返回值的区别？
 > 为什么都能调用substr方法
 
-<run-script codePath="knowledge-lib/js/jsAPI/数据结构/src/q3.js"></run-script>
+<run-script :code="q3"></run-script>

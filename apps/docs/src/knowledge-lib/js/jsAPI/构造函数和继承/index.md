@@ -14,7 +14,15 @@ new 就是在创建对象，从无到有，构造函数就是在为初始化的�
 - 使用`apply`调用构造器函数，属性和方法被添加到 `this`引用的对象中
 - 如果构造函数中没有返回其它对象，那么返回新创建的对象，否则，返回构造函数的结果
 
-<run-script name="实现new" codePath="knowledge-lib/js/jsAPI/构造函数和继承/src/myNew.js"></run-script>
+<script setup>
+import f1 from './src/f1.js?raw';
+import f3 from './src/f3.js?raw';
+import myNew from './src/myNew.js?raw';
+import q from './src/q.js?raw';
+</script>
+
+
+<run-script name="实现new" :code="myNew"></run-script>
 
 ## 构造函数上的方法
 
@@ -68,10 +76,10 @@ console.log(p1.say === p2.say); // true
   - 调用了两次父类构造函数 Person（耗内存），子类的构造函数会代替原型上的那个父类构造函数。
   - 父子构造函数的原型对象之间有共享问题
 
-<run-script codePath="knowledge-lib/js/jsAPI/构造函数和继承/src/f1.js"></run-script>
+<run-script :code="f1"></run-script>
 
 2. 类继承
 
-<run-script codePath="knowledge-lib/js/jsAPI/构造函数和继承/src/f3.js"></run-script>
+<run-script :code="f3"></run-script>
 
-<run-script name="类的函数实现细节" codePath="knowledge-lib/js/jsAPI/构造函数和继承/src/q.js"></run-script>
+<run-script name="类的函数实现细节" :code="q"></run-script>

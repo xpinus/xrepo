@@ -21,9 +21,10 @@
 
 <script setup>
 import demo from './demo.vue'
+import demoCode from './demo.vue?raw'
 </script>
 
-<preview codePath="knowledge-lib/js/jsAPI/webworker/demo.vue">
+<preview :code="demoCode">
     <demo />
 </preview>
 

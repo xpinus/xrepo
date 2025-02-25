@@ -4,6 +4,7 @@
 
 <script setup>
 import demo from './demo.vue'
+import demoCode from './demo.vue?raw'
 </script>
 
 # 多行文本展开收起
@@ -12,6 +13,6 @@ import demo from './demo.vue'
 
 ![参考](img.png)
 
-<preview codePath="knowledge-lib/html&css/多行文本展开收起/demo.vue">
+<preview :code="demoCode">
   <demo />
 </preview>

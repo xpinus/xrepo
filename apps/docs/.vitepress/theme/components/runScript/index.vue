@@ -11,7 +11,7 @@
                 <div class="code_content">
                     <highlightjs
                         autodetect
-                        :code="sourceCode"
+                        :code="props.code"
                     />
                 </div>
             </div>
@@ -24,11 +24,10 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive } from 'vue';
 import 'highlight.js';
 
 const props = defineProps({
-    codePath: {
+    code: {
         type: String,
         default: '',
     },
@@ -38,20 +37,9 @@ const props = defineProps({
     },
 });
 
-const sourceCode = ref('');
-
-onMounted(() => {
-    loadSourceCode();
-});
-
-async function loadSourceCode() {
-    console.log(props.codePath);
-    const data = await import(`@/${props.codePath}?raw`);
-    sourceCode.value = data.default;
-}
-
 function runScript() {
-    window.eval(sourceCode.value);
+    console.log('xx');
+    window.eval(props.code);
 }
 </script>
 

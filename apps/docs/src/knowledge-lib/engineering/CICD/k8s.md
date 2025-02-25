@@ -30,3 +30,9 @@ Pod 是可以在k8s中创建和管理的、最小的可部署的计算单元，�
 >  k8s 与 Docker Swarm
 
 Swarm 是 Docker 亲儿子，但依旧没有 k8s 流行，不流行很大程度是因为商业、生态的原因
+
+## Rancher
+
+Rancher 是为使用容器的公司打造的容器管理平台，通过 Rancher，企业不再需要使用一系列开源软件从零开始构建一个容器服务平台。同时 Rancher 还提供了一个全栈容器部署和管理平台，用于管理 Docker 和 Kubernetes。Rancher 官方
+
+https://blog.csdn.net/weixin_46902396/article/details/122433622

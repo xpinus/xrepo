@@ -1,4 +1,8 @@
 # 最长递增子序列
 
-<run-script codePath="knowledge-lib/js/算法/经典手写/最长递增子序列/f1.js">
+<script setup>
+import f1 from './f.js?raw';
+</script>
+
+<run-script :code="f1">
 </run-script>

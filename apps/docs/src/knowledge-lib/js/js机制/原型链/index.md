@@ -42,19 +42,27 @@
 
 ## 面试题
 
-<run-script codePath="knowledge-lib/js/js机制/原型链/questions/f1.js">
+<script setup>
+import f1 from './questions/f1.js?raw';
+import f2 from './questions/f2.js?raw';
+import f3 from './questions/f3.js?raw';
+import f4 from './questions/f4.js?raw';
+import f5 from './questions/f5.js?raw';
+</script>
+
+<run-script :code="f1">
 </run-script>
 
-<run-script codePath="knowledge-lib/js/js机制/原型链/questions/f2.js">
+<run-script :code="f2">
 </run-script>
 
-<run-script codePath="knowledge-lib/js/js机制/原型链/questions/f3.js">
+<run-script :code="f3">
 </run-script>
 
-<run-script name="闭包代码的提权漏洞" codePath="knowledge-lib/js/js机制/原型链/questions/f4.js">
+<run-script name="闭包代码的提权漏洞" :code="f4">
 </run-script>
 
-<run-script name="解释代码" codePath="knowledge-lib/js/js机制/原型链/questions/f5.js">
+<run-script name="解释代码" :code="f5">
 </run-script>
 
 

@@ -1,1 +1,0 @@
-import{a2 as e,t,q as s}from"./chunks/framework.jAttmLhR.js";const p=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"knowledge-lib/js/js机制/作用域.md","filePath":"knowledge-lib/js/js机制/作用域.md"}'),a={name:"knowledge-lib/js/js机制/作用域.md"};function o(n,r,c,d,i,l){return s(),t("div")}const m=e(a,[["render",o]]);export{p as __pageData,m as default};

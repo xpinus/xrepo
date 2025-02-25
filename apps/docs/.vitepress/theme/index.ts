@@ -7,9 +7,6 @@ import './style.css';
 import XUI from '@xrepo/ui';
 import '@xrepo/ui/dist/style.css';
 
-// import { Button } from '@xrepo/ui';
-// import '@xrepo/ui/dist/components/button/button.css';
-
 import 'highlight.js/styles/base16/summerfruit-light.css'; // 主题
 import hljsVuePlugin from '@highlightjs/vue-plugin';
 // import RelationGraph from 'relation-graph/vue3';

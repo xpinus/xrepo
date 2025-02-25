@@ -10,10 +10,12 @@
 
 <script setup>
 import FixedList from './fixed.vue'
+import fixed from './fixed.vue?raw'
 import DynamicList from './dynamic.vue'
+import dynamic from './dynamic.vue?raw'
 </script>
 
-<preview codePath="knowledge-lib/js/场景应用/虚拟列表/fixed.vue">
+<preview :code="fixed">
   <fixed-list />
 </preview>
 
@@ -40,7 +42,7 @@ import DynamicList from './dynamic.vue'
 对于结束索引，它是根据开始索引生成的，无需修改。
 
 
-<preview codePath="knowledge-lib/js/场景应用/虚拟列表/dynamic.vue">
+<preview :code="dynamic">
   <dynamic-list />
 </preview>
 

@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { ElButton } from 'element-plus';
 
-console.log(ElButton);
-
 defineOptions({
     name: 'XButton',
 });
@@ -10,7 +8,10 @@ defineOptions({
 
 <template>
     <div class="x-button">
-        <el-button v-bind="$attrs">
+        <el-button
+            v-bind="$attrs"
+            @click.stop
+        >
             <template v-for="(_, slot) in $slots">
                 <slot :name="slot" />
             </template>

@@ -43,7 +43,10 @@
     - 对象默认返回`[object Object]`
     - `[]`的`toString()`返回空字符串，默认`join(',')`
 
+<script setup>
+import q1 from './questions/q1.js?raw';
+</script>
 
-<run-script codePath="knowledge-lib/js/js机制/数值转换/questions/q1.js">
+<run-script :code="q1">
 </run-script>
 

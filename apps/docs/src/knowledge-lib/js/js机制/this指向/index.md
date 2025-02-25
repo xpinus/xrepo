@@ -66,7 +66,18 @@ bar(obj.foo); // 1, 参数传递也是一种隐式赋值，即使传入的是函
 
 `call`: call方法的第一个参数也是this的指向，后面传入的是一个参数列表（注意和apply传参的区别）。当一个参数为null或undefined的时候，表示指向window（在浏览器中），和apply一样，call也只是临时改变一次this指向，并立即执行。
 
-<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q4.js">
+<script setup>
+import q1Code from './questions/q1.js?raw';
+import q2Code from './questions/q2.js?raw';
+import q3Code from './questions/q3.js?raw';
+import q4Code from './questions/q4.js?raw';
+import q5Code from './questions/q5.js?raw';
+import apply from './questions/apply.js?raw';
+import call from './questions/call.js?raw';
+import bind from './questions/bind.js?raw';
+</script>
+
+<run-script :code="q4Code">
 </run-script>
 
 
@@ -75,29 +86,29 @@ bar(obj.foo); // 1, 参数传递也是一种隐式赋值，即使传入的是函
 
 > js箭头函数本质上是一个匿名函数表达式，其内this的指向是对应语句在创建执行上下文时确定的，而不是在调用时确定的
 
-<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q5.js">
+<run-script :code="q5Code">
 </run-script>
 
 ## 实现绑定this的方法
 
-<run-script name="手写apply" codePath="knowledge-lib/js/js机制/this指向/questions/apply.js">
+<run-script name="手写apply" :code="apply">
 </run-script>
 
-<run-script name="手写call" codePath="knowledge-lib/js/js机制/this指向/questions/call.js">
+<run-script name="手写call" :code="call">
 </run-script>
 
-<run-script name="手写bind" codePath="knowledge-lib/js/js机制/this指向/questions/bind.js">
+<run-script name="手写bind" :code="bind">
 </run-script>
 
 ## 面试题
 
-<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q1.js">
+<run-script :code="q1Code">
 </run-script>
 
-<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q2.js">
+<run-script :code="q2Code">
 </run-script>
 
-<run-script codePath="knowledge-lib/js/js机制/this指向/questions/q3.js">
+<run-script :code="q3Code">
 </run-script>
 
 手写 call、apply、bind

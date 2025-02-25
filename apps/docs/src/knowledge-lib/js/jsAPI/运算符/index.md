@@ -8,6 +8,10 @@ if(a == 1 && a == 2 && a == 3){
 }
 ```
 
-<run-script codePath="knowledge-lib/js/jsAPI/运算符/src/q1.js"></run-script>
+<script setup>
+import q1 from './src/q1.js?raw'
+</script>
+
+<run-script :code="q1"></run-script>
 
 

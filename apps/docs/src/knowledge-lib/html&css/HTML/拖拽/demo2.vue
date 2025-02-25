@@ -47,7 +47,10 @@ document.ondragover = function (e) {
     text-align: center;
 }
 
-h* {
+h1,
+h2,
+h3,
+h4 {
     user-select: none;
 }
 

@@ -13,4 +13,8 @@ const [a, b] = {
 }  // error:  {(intermediate value)(intermediate value)} is not iterable
 ```
 
-<run-script codePath="knowledge-lib/js/jsAPI/迭代器和生成器/src/f1.js"></run-script>
+<script setup>
+import f1 from './src/f1.js?raw';
+</script>
+
+<run-script :code="f1"></run-script>

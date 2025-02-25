@@ -27,7 +27,14 @@ method bubbleSort(array A, integer N) // 标准版本, N表示循环次数，通
 总时间 = c*N*(N−1)/2 = O(N^2).
 ```
 
-<run-script codePath="knowledge-lib/js/算法/排序/bubbleSort.js">
+<script setup>
+import bubble from './bubbleSort.js?raw';
+import selection from './selectionSort?raw';
+import insertion from './insertionSort?raw';
+import merge from './mergeSort?raw';
+</script>
+
+<run-script :code="bubble">
 </run-script>
 
 ## 选择排序
@@ -44,7 +51,7 @@ method selectionSort(array A[], integer N)
 总计: O(N2) — 准确地说，它类似于冒泡排序分析。
 ```
 
-<run-script codePath="knowledge-lib/js/算法/排序/selectionSort.js">
+<run-script :code="selection">
 </run-script>
 
 ## 插入排序
@@ -67,7 +74,7 @@ method insertionSort(array A[], integer N)
     A[j+1] = X // insert X at index j+1
 ```
 
-<run-script codePath="knowledge-lib/js/算法/排序/insertionSort.js">
+<run-script :code="insertion">
 </run-script>
 
 ## 归并排序
@@ -86,7 +93,7 @@ method mergeSort(array A, integer low, integer high)
     merge(a, low, mid, high) // 征服：合并子程
 ```
 
-<run-script codePath="knowledge-lib/js/算法/排序/mergeSort.js">
+<run-script :code="merge">
 </run-script>
 
 # 快速排序

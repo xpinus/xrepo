@@ -604,8 +604,14 @@ inject: {
 要想改动数组，应该使用`Vue.set`或其它Array方法
 
 **注意: Object.defineProperty可以拦截数组的读写**，但vue2却并没有用它去拦截数组
-<run-script codePath="knowledge-lib/框架/vue/asset/q1.js">
+
+<script setup>
+import q1 from './asset/q1.js?raw'
+</script>
+
+<run-script :code="q1">
 </run-script>
+
 原因：
 - 性能问题，数组通常包含大量元素，如果都拦截会带来巨大的性能开销
 - 而且Obejct.defineProperty只能对已知的属性进行拦截，而数组的长度和内容可能动态变化，可能会导致框架的性能不稳定

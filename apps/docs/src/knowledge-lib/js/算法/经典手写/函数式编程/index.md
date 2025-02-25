@@ -2,7 +2,11 @@
 
 ## 面试题
 
+<script setup>
+import code from './q1.js?raw';
+</script>
+
 > 实现下面函数
 
-<run-script codePath="knowledge-lib/js/算法/经典手写/函数式编程/q1.js">
+<run-script :code="code">
 </run-script>

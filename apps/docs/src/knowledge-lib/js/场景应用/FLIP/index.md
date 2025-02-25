@@ -7,9 +7,10 @@
 - Play: 记录元素的当前位置
 
 <script setup>
-import flip from './flip.vue'
+import flip from './flip.vue';
+import flipCode from './flip.vue?raw';
 </script>
 
-<preview codePath="knowledge-lib/js/场景应用/FLIP/flip.vue">
+<preview :code="flipCode">
   <flip />
 </preview>

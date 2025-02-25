@@ -1,19 +1,21 @@
-// 递归深拷贝
-function deepClone(obj, cache = new WeakMap()) {
-    if (obj === null || typeof obj !== 'object') return obj;
-    if (obj instanceof Date) return new Date(obj);
-    if (obj instanceof RegExp) return new RegExp(obj);
+function isPrimitive(target) {
+    return target !== Object(target); // Object()参数如果是引用数据会原样返回
+}
 
-    if (cache.has(obj)) return cache.get(obj); // 如果出现循环引用，则返回缓存的对象，防止递归进入死循环
-    let cloneObj = new obj.constructor(); // 使用对象所属的构造函数创建一个新对象
-    cache.set(obj, cloneObj); // 缓存对象，用于循环引用的情况
+function deepClone(target, cache = new WeakMap()) {
+    if (isPrimitive(target)) return target;
 
-    for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            cloneObj[key] = deepClone(obj[key], cache); // 递归拷贝
-        }
+    if (cache.has(target)) return cache.get(target);
+    const newObj = new target.constructor();
+    cache.set(target, newObj);
+
+    if (newObj instanceof Function) return newObj; // Function下去遍历会有而外的属性，这里直接返回
+
+    for (const key of Reflect.ownKeys(target)) {
+        newObj[key] = deepClone(target[key], cache);
     }
-    return cloneObj;
+
+    return newObj;
 }
 
 // 测试：
@@ -29,12 +31,12 @@ const test = {
     action: function () {
         console.log(this.name);
     },
-    s: new Set([1, 2, 3]),
+    // s: new Set([1, 2, 3]),   // Set Map还是要额外处理
 };
 test.children.circle = test; // 循环引用
 
 const cloneObj = deepClone(test);
 
-console.log(cloneObj === test); // false
-console.log(cloneObj);
-console.log(cloneObj === cloneObj.children.circle);
+console.log(cloneObj.children === test.children); // false
+test.action();
+// console.log(cloneObj === cloneObj.children.circle);

@@ -40,7 +40,18 @@ const promise = new Promise((resolve, reject) => {
 
 [手写promise](https://www.cnblogs.com/dennisj/p/12660388.html) 
 
-<run-script codePath="knowledge-lib/js/jsAPI/promiseA/MyPromiseES.js">
+<script setup>
+import p from './MyPromiseES.js?raw';
+import a from './await.js?raw';
+import t1 from './questions/t1.js?raw';
+import t2 from './questions/t2.js?raw';
+import t3 from './questions/t3.js?raw';
+import t4 from './questions/t4.js?raw';
+import t5 from './questions/t5.js?raw';
+import t6 from './questions/t6.js?raw';
+</script>
+
+<run-script :code="p">
 </run-script>
 
 ## async 和 await
@@ -51,14 +62,14 @@ await 是等待 async 的异步执行，而且只能在 async 里面定义。syn
 
 await 关键字仅在 async function 中有效。如果在 async function 函数体外使用 await ，你只会得到一个语法错误。
 
-<run-script  name="利用生成器和迭代器实现相同效果" codePath="knowledge-lib/js/jsAPI/promiseA/await.js">
+<run-script  name="利用生成器和迭代器实现相同效果" :code="a">
 </run-script>
 
 ## 面试题
 
-<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t1.js"></run-script>
-<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t2.js"></run-script>
-<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t3.js"></run-script>
-<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t4.js"></run-script>
-<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t5.js"></run-script>
-<run-script codePath="knowledge-lib/js/jsAPI/promiseA/questions/t6.js"></run-script>
+<run-script :code="t1"></run-script>
+<run-script :code="t2"></run-script>
+<run-script :code="t3"></run-script>
+<run-script :code="t4"></run-script>
+<run-script :code="t5"></run-script>
+<run-script :code="t6"></run-script>
