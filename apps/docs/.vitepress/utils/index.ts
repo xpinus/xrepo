@@ -141,6 +141,7 @@ export function generateSidebar(navItems: NavItem[], sidebar = {}) {
 
         for (let i = 0; i < files.length; i++) {
             const filename = files[i];
+            if (filename.endsWith('.md~')) continue; // 有些不明原因的错误文件
             const fn = filename.replace('.md', '');
 
             const filePath = path.resolve(ROOT_PATH, basePath, filename);
