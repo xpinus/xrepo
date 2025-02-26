@@ -1,5 +1,3 @@
-// 思路：贪心算法 + 二分查找 + 反向链表
-
 function getSequence(arr) {
     const p = arr.slice(); // 复制原数组，用于构建反向链表
     const result = [0]; // 结果，为最长子序列值的索引
@@ -46,5 +44,4 @@ function getSequence(arr) {
     return result;
 }
 
-console.log(getSequence([10, 30, 200, 300, 40, 50, 60]));
-console.log(getSequence([10, 0, 1, 2, 3, 1, 5]));
+console.log(getSequence([4, 5, 1, 2, 7, 3, 6, 9]));

@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: 开始进化
-      link: /example
+      link: /knowledge-lib/engineering/开发
     - theme: alt
       text: View on GitHub
       link: https://github.com/xpinus

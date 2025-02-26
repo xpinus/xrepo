@@ -1,4 +1,3 @@
-// 最久未使用
 class LRU {
     #map = new Map();
     #limit = 3;
@@ -8,8 +7,7 @@ class LRU {
     }
 
     get(key) {
-
-        if(!this.#map.has(key)) {
+        if (!this.#map.has(key)) {
             return null;
         }
 
@@ -21,13 +19,13 @@ class LRU {
     }
 
     set(key, value) {
-        if(this.#map.has(key)) {
+        if (this.#map.has(key)) {
             this.#map.delete(key);
         }
 
         this.#map.set(key, value);
 
-        if(this.#map.size > this.#limit) {
+        if (this.#map.size > this.#limit) {
             this.#map.delete(this.#map.keys().next().value);
         }
     }
@@ -37,12 +35,12 @@ class LRU {
     }
 }
 
-const cache = new LRU()
+const cache = new LRU();
 
-cache.set('a', 1)
-cache.set('b', 2)
-cache.set('c', 3)  // {c: 3, b: 2, a: 1}
+cache.set('a', 1);
+cache.set('b', 2);
+cache.set('c', 3); // {c: 3, b: 2, a: 1}
 cache.get('a');
-cache.set('d', 4)
+cache.set('d', 4);
 
-cache.log()
+cache.log();
