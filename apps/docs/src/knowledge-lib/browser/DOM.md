@@ -71,3 +71,9 @@ getElementById(); //通过元素Id，唯一性
 - `scrollWidth/scrollHeight`包含滚动内容的元素的大小：
     - 返回值包含**content + padding + 溢出内容的尺寸**
 
+## HTMLCollection 和 NodeList 有什么区别
+1. 实时性，HTMLCollection是实时的，当dom变化会自动更新；NodeList大多数情况下是静态的
+2. 包含的节点类型：HTMLCollection仅包含元素节点，NodeList可以包含任意类型的节点
+3. forEach: HTMLCollection没有
+4. 访问方式：NodeList只能通过索引访问，HTMLCollection 可以通过索引、元素 id 或 name 属性访问
+

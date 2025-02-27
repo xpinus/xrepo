@@ -176,5 +176,6 @@ Object.defineProperty 的优势如下:
 ## 最长递增子序列
 
 > 思路：贪心算法 + 二分查找 + 反向链表
+> 动态规划 + 贪心算法 + 二分查找 + 回溯结合  https://segmentfault.com/a/1190000039838442
 
 <run-script :code="LIS"></run-script>
