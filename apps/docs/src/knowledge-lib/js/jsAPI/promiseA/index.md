@@ -68,7 +68,41 @@ await 关键字仅在 async function 中有效。如果在 async function 函数
 ## 面试题
 
 <run-script :code="t1"></run-script>
+
 <run-script :code="t2"></run-script>
+1. 同步代码执行
+>  console.log("script start"); 是同步代码，首先执行，输出 script start。
+>
+>  调用 async1()，进入 async1 函数。
+>
+>  在 async1 中，遇到 await async2()，先执行 async2 函数。
+>
+>  async2 中的 console.log("async2 end"); 是同步代码，输出 async2 end。
+>
+>  async2 返回一个 Promise.resolve().then(...)，这是一个微任务，.then会被放入微任务队列。
+>
+>  async1 函数在 await 处暂停，等待 async2 的 Promise 完成。
+>
+>  继续执行同步代码，new Promise(...) 中的 console.log("Promise"); 是同步代码，输出 Promise。
+>
+>  Promise 的 resolve() 被调用，其后的 .then(...) 是微任务，放入微任务队列。
+>
+>  console.log("script end"); 是同步代码，输出 script end。
+2. 异步代码执行
+>  同步代码执行完毕后，开始执行微任务队列中的任务。
+>
+>  微任务队列中有两个任务：
+>
+>  async2 返回的 Promise.resolve().then(() => { console.log("async2 end1"); });，输出 async2 end1。
+>
+>  new Promise 的 .then(function () { console.log("promise1"); })，输出 promise1。
+>
+>  当第一个 .then 执行完毕后，会触发第二个 .then(function () { console.log("promise2"); })，输出 promise2。
+>
+>  微任务队列清空后，async1 函数中 await 的 Promise 完成，继续执行 console.log("async1 end");，输出 async1 end。
+3. 宏任务执行
+>  宏任务队列中有一个 setTimeout，等待所有微任务执行完毕后执行。输出 setTimeout。
+
 <run-script :code="t3"></run-script>
 <run-script :code="t4"></run-script>
 <run-script :code="t5"></run-script>

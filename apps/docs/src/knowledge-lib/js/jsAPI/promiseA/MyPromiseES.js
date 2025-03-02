@@ -10,22 +10,22 @@ function isPromise(obj) {
 }
 
 // 微任务 （惰性函数）
-var runMircoTask = (function() {
-        if (process && process.nextTick) {
-            return (task) => process.nextTick(task);
-        } else if (MutationObserver && typeof MutationObserver === 'function') {
-            return (task) => {
-                const span = document.createElement('span');
-                const observer = new MutationObserver(task);
-                observer.observe(span, {
-                    childList: true,
-                });
-                span.innerHTML = '1';
-            }
-        } else {
-            return (task) => setTimeout(task);
-        }
-})()
+var runMircoTask = (function () {
+    if (typeof process !== 'undefined' && process.nextTick) {
+        return (task) => process.nextTick(task);
+    } else if (MutationObserver && typeof MutationObserver === 'function') {
+        return (task) => {
+            const span = document.createElement('span');
+            const observer = new MutationObserver(task);
+            observer.observe(span, {
+                childList: true,
+            });
+            span.innerHTML = '1';
+        };
+    } else {
+        return (task) => setTimeout(task);
+    }
+})();
 
 class MyPromise {
     _status = PENDING;
@@ -200,11 +200,35 @@ class MyPromise {
 
 // 用例
 (function () {
-    const p2 = new MyPromise((resolve) => {
-        setTimeout(() => {
-            resolve(2);
-        }, 100);
-    });
+    async function async1() {
+        console.log('async1 start');
+        await async2();
+        console.log('async1 end'); // await结束后会把后续内容推进微队列
+    }
+    async function async2() {
+        console.log('async2');
+        return MyPromise.resolve().then(() => {
+            console.log('async2 end1');
+        }); // Promise.resolve相当于把后续函数推进微队列
+    }
 
-    MyPromise.all([MyPromise.resolve(1), p2, MyPromise.resolve(3)]).then(console.log);
+    console.log('script start');
+
+    setTimeout(() => {
+        console.log('setTimeout');
+    }, 0);
+
+    async1();
+
+    new MyPromise((resolve) => {
+        console.log('promise1');
+        resolve();
+    })
+        .then(() => {
+            console.log('promise2');
+        })
+        .then(() => {
+            console.log('promise3');
+        });
+    console.log('script end');
 })();

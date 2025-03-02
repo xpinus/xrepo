@@ -133,7 +133,7 @@
 
 ### useEffect
 
-之前可能已经在 React 组件中执行过数据获取、订阅或者手动修改过 DOM。我们统一把这些操作称为“副作用”，或者简称为“作用”。
+之前可能已经在 React 组件中执行过数据获取、订阅或者手动修改过 DOM。我们统一把这些操作称为“副作用”。
 
 `useEffect` 就是一个 Effect Hook，给函数组件增加了操作副作用的能力。它跟 class 组件中的 `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount` 具有相同的用途，只不过被合并成了一个 API。
 
@@ -775,3 +775,8 @@ React的StrictMode是一种帮助程序组件，可以帮助您编写更好的re
 - 验证[内部组件](https://www.zhihu.com/search?q=内部组件&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A91725031})是否遵循某些推荐做法，如果不在控制台中，则会发出警告。
 - 验证不赞成使用的方法，如果使用了严格模式，则会在控制台中警告您。
 - 通过识别潜在风险来帮助您预防某些副作用。
+
+
+## Fiber
+
+https://segmentfault.com/a/1190000043888674

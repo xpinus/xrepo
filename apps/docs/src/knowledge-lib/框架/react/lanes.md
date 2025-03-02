@@ -1,7 +1,3 @@
----
-sort: 7
----
-
 # Lanes
 
 https://github.com/facebook/react/pull/18796

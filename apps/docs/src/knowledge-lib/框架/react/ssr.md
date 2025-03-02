@@ -1,7 +1,3 @@
----
-sort: 10
----
-
 # SSR
 
 ![csr和ssr](https://pic2.zhimg.com/80/v2-f0fd4c14a4dd3d1a406eb7969318b651_720w.webp)
