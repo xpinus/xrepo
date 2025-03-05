@@ -5,15 +5,16 @@
 ## any和unknow的区别
 > 都是顶级类型，所谓顶级类型可以理解为泛型父类型，即可以包含所有值的类型
 
-- any
-  - 理解为我不关心它的类型
-  - 可以随意使用，不会进行类型检查
-  - type A = keyof any;  // string | number | symbol
--  unknown
-  - 理解为我不知道它的类型
-  - 会有类型检查限制
-  - unknown 类型的变量只能赋给 any 类型和 unknown 类型本身（可以浅显的理解为any要比unkonw更顶级一点）
-  - type B = keyof unknown;  // never
+**any**
+- 理解为我不关心它的类型
+- 可以随意使用，不会进行类型检查
+- type A = keyof any;  // string | number | symbol
+
+**unknown**
+- 理解为我不知道它的类型
+- 会有类型检查限制
+- unknown 类型的变量只能赋给 any 类型和 unknown 类型本身（可以浅显的理解为any要比unkonw更顶级一点）
+- type B = keyof unknown;  // never
 
 在工作中，为了保证类型安全，我们应该尽可能使用 unknown 类型
 
@@ -52,7 +53,7 @@ const result2 = identity('hello'); // Inferring the type
 ```
 
 ## 导入namespace
-
+命名空间（Namespace）用于组织代码，避免全局作用域中的命名冲突
 ```ts
 // 定义一个命名空间 MyNamespace.ts
 export namespace MyNamespace {

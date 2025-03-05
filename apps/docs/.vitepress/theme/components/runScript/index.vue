@@ -9,10 +9,12 @@
         <div class="code">
             <div class="code__reference">
                 <div class="code_content">
-                    <highlightjs
-                        autodetect
-                        :code="props.code"
-                    />
+                    <ClientOnly>
+                        <x-highlight
+                            language="javascript"
+                            :code="props.code"
+                        />
+                    </ClientOnly>
                 </div>
             </div>
         </div>
@@ -24,8 +26,6 @@
 </template>
 
 <script setup>
-import 'highlight.js';
-
 const props = defineProps({
     code: {
         type: String,
@@ -38,7 +38,6 @@ const props = defineProps({
 });
 
 function runScript() {
-    console.log('xx');
     window.eval(props.code);
 }
 </script>

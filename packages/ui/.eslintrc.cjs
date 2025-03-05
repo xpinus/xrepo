@@ -42,7 +42,12 @@ module.exports = {
         'no-var': 'error', // 要求使用 let 或 const 而不是 var
         'no-multiple-empty-lines': ['error', { max: 2 }], // 不允许多个空行
 
-        'prettier/prettier': 'error',
+        'prettier/prettier': [
+            'error',
+            {
+                endOfLine: false,
+            },
+        ],
 
         // typeScript (https://typescript-eslint.io/rules)
         '@typescript-eslint/no-inferrable-types': 'off', // 可以轻松推断的显式类型可能会增加不必要的冗长

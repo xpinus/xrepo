@@ -103,6 +103,23 @@ import demoProxyCode from './src/demoProxy.vue?raw';
   <debounce-ref />
 </preview>
 
+typescript中防抖函数的写法
+```ts
+function debounce<T extends (...args: unknown[]) => unknown>(fn: T, wait: number = 50) {
+    let timer: NodeJS.Timeout | null = null;
+
+    return function(this: unknown, ...args: Parameters<T>) {
+        timer && clearTimeout(timer);
+        const context = this;
+
+        timer = setTimeout(() => {
+            fn.apply(context, args)
+        }, wait)
+
+    }
+}
+```
+
 ## 节流
 > 防抖动和节流本质是不一样的。防抖动是将多次执行变为最后一次执行，节流是将多次执行变成每隔一段时间执行
 

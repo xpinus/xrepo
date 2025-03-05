@@ -14,12 +14,12 @@
     "docs#build": {
       "cache": false,
       "outputs": ["dist/**"],
-      "dependsOn": ["^@xrepo/ui#build"]
+      "dependsOn": ["@xrepo/utils#build", "^@xrepo/ui#build"]
     },
     "docs#dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": ["^@xrepo/ui#build"]
+      "dependsOn": ["@xrepo/utils#build", "^@xrepo/ui#build"]
     },
     "lint": {
       "dependsOn": ["^lint"]

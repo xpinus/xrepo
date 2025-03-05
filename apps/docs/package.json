@@ -13,8 +13,8 @@
   "description": "",
   "dependencies": {
     "@faker-js/faker": "^9.4.0",
-    "@highlightjs/vue-plugin": "^2.1.2",
     "@xrepo/ui": "workspace:^",
+    "@xrepo/utils": "workspace:^",
     "element-plus": "^2.9.4",
     "highlight.js": "^11.10.0",
     "jquery": "^3.7.1",
@@ -27,6 +27,7 @@
     "@types/jquery": "^3.5.32",
     "fs-extra": "^11.2.0",
     "typescript": "5.5.4",
+    "unplugin-vue-components": "^28.4.0",
     "vite-plugin-compression2": "^1.3.3",
     "vitepress": "^1.5.0"
   }

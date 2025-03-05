@@ -1,7 +1,9 @@
 <template>
     <div class="preview-wrapper">
         <div class="preview_box">
-            <slot />
+            <ClientOnly>
+                <slot />
+            </ClientOnly>
         </div>
         <div class="code_box">
             <div
@@ -16,10 +18,9 @@
             >
                 <div class="code__reference">
                     <div class="code_content">
-                        <highlightjs
-                            autodetect
-                            :code="props.code"
-                        />
+                        <ClientOnly>
+                            <x-highlight :code="props.code" />
+                        </ClientOnly>
                     </div>
                 </div>
             </div>
@@ -28,8 +29,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, reactive } from 'vue';
-import 'highlight.js';
+import { ref } from 'vue';
 
 const props = defineProps({
     code: {

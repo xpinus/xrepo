@@ -27,13 +27,6 @@ export default defineConfig({
                     //配置打包根目录
                     dir: 'dist/es',
                 },
-                {
-                    format: 'umd',
-                    name: 'xui',
-                    entryFileNames: '[name].js',
-                    exports: 'named',
-                    dir: 'dist/umd',
-                },
             ],
         },
         emptyOutDir: false,

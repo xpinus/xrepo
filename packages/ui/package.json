@@ -54,7 +54,7 @@
     "gulp-autoprefixer": "^9.0.0",
     "gulp-less": "^5.0.0",
     "gulp-postcss": "^10.0.0",
-    "highlight.js": "^11.10.0",
+    "highlight.js": "^11.11.1",
     "less": "^4.2.0",
     "postcss": "^8.5.3",
     "rimraf": "^6.0.1",

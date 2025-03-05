@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress';
 import { generateSidebar, hash } from './utils';
 import path from 'path';
+import Components from 'unplugin-vue-components/vite';
+import { XrepoUIResolver } from '@xrepo/utils';
 
 const nav = [
     // { text: '博客', link: '/knowledge-lib/blogs' },
@@ -47,7 +49,10 @@ export default defineConfig({
     title: 'Xrepo',
     description: '项目文档',
     srcDir: 'src',
-    head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+    head: [
+        ['link', { rel: 'icon', href: '/favicon.ico' }],
+        // ['script', { src: 'https://cdn.bootcdn.net/ajax/libs/vue/3.5.13/vue.global.prod.min.js' }],
+    ],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         // 右上头部导航栏
@@ -62,7 +67,25 @@ export default defineConfig({
         },
     },
     ignoreDeadLinks: true,
+    sitemap: {
+        hostname: 'https://xrepo.top',
+    },
     vite: {
+        // build: {
+        //     rollupOptions: {
+        //         external: ['vue'],
+        //         output: {
+        //             globals: {
+        //                 vue: 'Vue',
+        //             },
+        //         },
+        //     },
+        // },
+        plugins: [
+            Components({
+                resolvers: [XrepoUIResolver()],
+            }),
+        ],
         resolve: {
             alias: {
                 '@': path.resolve(__dirname, '../src'),
