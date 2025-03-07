@@ -107,3 +107,5 @@ await 关键字仅在 async function 中有效。如果在 async function 函数
 <run-script :code="t4"></run-script>
 <run-script :code="t5"></run-script>
 <run-script :code="t6"></run-script>
+
+[当promise内返回promise时会发生什么](https://www.zhihu.com/question/430549238)
