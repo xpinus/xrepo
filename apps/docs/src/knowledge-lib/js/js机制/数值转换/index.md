@@ -22,7 +22,7 @@
     - 空字符串或字符串中只包含空格时，返回0
     - 不允许数字分隔符
       - 正常数字中，可以使用下划线（_，U+005F）作为分隔符以增强数字字面量的可读性
-    - 与`parseInt`尽可能转换不同
+      - 与`parseInt`尽可能转换不同
   - BigInt直接报错TypeError，防止导致精度误差
   - Symbol直接报错TypeError
 - **string**强制转换
@@ -31,7 +31,7 @@
   - boolean转换为'false'或'true'
   - 数字使用toString(10)方法转换为字符串
   - Symbol直接报错TypeError
-  - 对象是先调用toString()方法，再调用valueOf()方法
+  - 对象是先调用toString()方法，再调用valueOf()方法，否则`[object Object]`
 - **boolean**强制转换
   - ±0、null、false、NaN、undefined、''空字符串转换为false
   - 任何对象转换为true
