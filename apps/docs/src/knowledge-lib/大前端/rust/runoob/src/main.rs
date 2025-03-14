@@ -1,6 +1,4 @@
-fn main() {
-    let vec = vec![1, 2, 3, 4, 5];
-    let filtered_vec: Vec<i32> = vec.into_iter().filter(|&x| x % 2 == 0).collect();
+pub mod adder;
+pub mod garden;
 
-    println!("{:?}", filtered_vec)
-}
+fn main() {}

@@ -47,19 +47,21 @@ Cargo.toml是[Cargo manifest](https://doc.rust-lang.org/cargo/reference/manifest
 
 [vscode开发环境推荐](https://www.duidaima.com/Group/Topic/Rust/18060)
 
-## 基本概念
+## 入门
 
-
-[菜鸟教程](https://www.runoob.com/rust/rust-iter.html)
-
-
-[The Rust Programming Language](https://doc.rust-lang.org/book/)
+[官方手册 The Rust Programming Language](https://doc.rust-lang.org/book/)
 
 ## Rust和WebAssembly
 
 [Rust和WebAssembly](https://wasm.rust-lang.net.cn/docs/book/introduction.html)
 
 [`wasm-bindgen` 指南](https://wasm.rust-lang.net.cn/docs/wasm-bindgen/introduction.html)
+
+> rust中的所有权（ownership）的作用是什么？有哪些规则？
+
+> rust是如何实现模块化的？module\crate\package的区别
+
+> 
 
 ```shell
 cargo install wasm-pack
