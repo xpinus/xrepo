@@ -7,7 +7,7 @@ hero:
 #  tagline: Simple, powerful, and performant. Meet the modern SSG framework you've always wanted.
   actions:
     - theme: brand
-      text: 开始进化
+      text: 启程
       link: /knowledge-lib/engineering/开发
     - theme: alt
       text: View on GitHub
