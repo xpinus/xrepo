@@ -26,6 +26,11 @@ git tag # 在控制台打印出当前仓库的所有标签
 ```shell
 git tag -l ‘v0.1.*’ # 搜索符合模式的标签
 ```
+- 创建
+```shell
+# 替换 v1.0.0 为你想要的标签名称，-m 后面跟着附注信息，commit_id 可选，若不指定则默认在当前提交创建标签
+git tag -a <tag_name> -m "附注信息" <commit_id>
+```
 - 推送标签到远程仓库
 > git push并不会把tag标签传送到远端服务器上，只有通过显式命令才能分享标签到远端仓库
 ```shell
@@ -35,10 +40,21 @@ git push origin v1.0 #将本地v1.0的tag推送到远端服务器
 # push所有tag
 git push [origin] --tags
 ```
+- 删除tag
+```shell
+# 先删除本地标签：
+git tag -d v1.0.0
+
+# 再删除远程标签：
+git push origin --delete v1.0.0
+
+```
 
 ## git 提交，文件名大小写的修改提交不上去
 
 https://blog.csdn.net/weixin_44137575/article/details/112801991
+
+git mv a.txt A.txt
 
 
 ## git错误`fatal: unable to access`

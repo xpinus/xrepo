@@ -57,7 +57,10 @@ Cargo.toml是[Cargo manifest](https://doc.rust-lang.org/cargo/reference/manifest
 
 [`wasm-bindgen` 指南](https://wasm.rust-lang.net.cn/docs/wasm-bindgen/introduction.html)
 
-> rust中的所有权（ownership）的作用是什么？有哪些规则？
+> rust中的所有权（ownership）的作用是什么？有哪些借用规则？
+
+- 任何时候，你只能由一个可变引用或者多个不变引用
+- 引用必须永远时有效的
 
 > rust是如何实现模块化的？module\crate\package的区别
 
