@@ -41,7 +41,7 @@ const nav = [
     { text: '后端', link: '/knowledge-lib/backend' },
     { text: 'AI', link: '/knowledge-lib/AI' },
     { text: '大前端', link: '/knowledge-lib/大前端/' },
-    { text: '组件库', link: '/components/button' },
+    { text: '组件库', link: '/components/' },
 ];
 
 // https://vitepress.dev/reference/site-config

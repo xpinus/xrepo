@@ -1,0 +1,39 @@
+.x-button {
+  --x-button-height: 32px;
+  --x-button-min-width: 108px;
+
+  height: var(--x-button-height);
+  line-height: var(--x-button-height);
+  min-width: var(--x-button-min-width);
+  border-radius: 30px;
+  text-align: center;
+  box-sizing: border-box;
+  width: fit-content;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  vertical-align: middle;
+
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &--primary {
+    color: #fff;
+    background-color: var(--x-color-primary);
+  }
+
+  &--default {
+    border: 1px solid var(--x-color-primary);
+    color: var(--x-color-primary);
+    line-height: calc(var(--x-button-height) - 2px);
+  }
+
+  &--linear {
+    color: #fff;
+    background: linear-gradient(89.99deg, #4a7cfe 7.45%, #769cff 98.59%);
+  }
+}

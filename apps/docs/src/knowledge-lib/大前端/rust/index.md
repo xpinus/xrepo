@@ -49,6 +49,8 @@ Cargo.toml是[Cargo manifest](https://doc.rust-lang.org/cargo/reference/manifest
 
 ## 入门
 
+[Rust语言圣经(Rust Course)](https://course.rs/first-try/sth-you-should-not-do.html)
+
 [官方手册 The Rust Programming Language](https://doc.rust-lang.org/book/)
 
 ## Rust和WebAssembly

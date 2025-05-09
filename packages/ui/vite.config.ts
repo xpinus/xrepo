@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import dts from 'vite-plugin-dts';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import { vite as vidstack } from 'vidstack/plugins';
 
 /* element-plus按需引入 */
 import ElementPlus from 'unplugin-element-plus/vite';
@@ -36,7 +37,13 @@ export default defineConfig({
             // 导入scss而不是css
             useSource: false,
         }),
-        vue() as any,
+        vue({
+            template: {
+                compilerOptions: {
+                    isCustomElement: (tag) => tag.startsWith('media-'),
+                },
+            },
+        }) as any,
         vueJsx(),
         dts({
             insertTypesEntry: true,
@@ -44,6 +51,7 @@ export default defineConfig({
             tsconfigPath: './tsconfig.json',
             outDir: 'dist/types',
         }),
+        vidstack(),
     ],
     resolve: {
         alias: {

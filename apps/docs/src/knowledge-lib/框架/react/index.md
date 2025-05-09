@@ -1,5 +1,7 @@
 # React 相关
 
+https://7km.top/main/object-structure 图解rect
+
 ## React有什么特点
 
 1. 它使用**虚拟DOM**而不是真正的DOM。
