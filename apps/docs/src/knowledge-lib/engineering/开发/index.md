@@ -213,6 +213,9 @@ function addNumbers(value1, value2) {
 - 标题(必须)：标题是commit目的的简短描述。
 - 主体内容(可选)：用新的空行将“标题”和“主体内容”隔开，Git 会自动识别第一行为摘要。主体内容是commit目的的详细描述，可以放一些备注、说明等
 
+### 版本管理和changelog
+
+standard-version 实现版本管理和changelog
 
 
 ## 提高代码的可维护性和可扩展性

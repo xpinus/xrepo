@@ -211,6 +211,12 @@ CMD yarn start
   - 容器不存在（即被删除了）
   - 当容器A重新创建时，其依赖此容器的容器将会重新创建（即docker-compose.yml文件中的容器设置了depends_on为容器A的容器）
 
+```shell
+mysql -u root -p   # 进入muysql命令行
+show databases
+```
+
+
 ### 示例
 
 > 个人博客后端的部署架构（那时我还是个孩子）
