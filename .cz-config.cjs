@@ -14,51 +14,55 @@ module.exports = {
     types: [
         {
             value: ':sparkles: feat',
-            name: '✨ feat:     新功能',
+            name: '✨ feat:  新功能',
+        },
+        {
+            value: ':construction: feat',
+            name: '🚧 construction:  功能开发',
         },
         {
             value: ':bug: fix',
-            name: '🐛 fix:      修复 bug',
+            name: '🐛 fix:  修复 bug',
         },
         {
             value: ':memo: docs',
-            name: '📝  docs:     文档变更',
+            name: '📝 docs:  文档变更',
         },
         {
             value: ':lipstick: style',
-            name: '💄 style:    代码样式美化',
+            name: '💄 style:  样式美化',
         },
         {
             value: ':hammer: refactor',
-            name: '🔨  refactor: 重构',
+            name: '🔨 refactor:  重构',
         },
         {
             value: ':zap: perf',
-            name: '⚡️ perf:     性能优化',
+            name: '⚡️ perf:  性能优化',
         },
         {
             value: ':white_check_mark: test',
-            name: '✅ test:     测试',
+            name: '✅ test:  测试',
         },
         {
             value: ':rewind: revert',
-            name: '⏪ revert:   回退',
+            name: '⏪ revert:  回退',
         },
         {
             value: ':twisted_rightwards_arrows: revert',
-            name: '🔀 merge:   分支合并',
+            name: '🔀 merge:  分支合并',
         },
         {
             value: ':package: build',
-            name: '📦️ build:    打包',
+            name: '📦️ build:  打包',
         },
         {
             value: ':wrench: chore',
-            name: '🔧 chore:    构建/工程依赖/工具',
+            name: '🔧 chore:  构建/工程依赖/工具',
         },
         {
             value: ':tada: init',
-            name: '🎉 init:     初始化',
+            name: '🎉 init:  初始化',
         },
     ],
     messages: {

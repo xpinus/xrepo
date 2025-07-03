@@ -7,15 +7,17 @@ docker run -p 6380:6379 -v C:\Users\pinus\Desktop\langchain_test\redisconfig:/us
 ```
 
 **docker版本如何添加配置文件**
-https://hub.docker.com/_/redis
+https://github.com/redis/redis/releases
 在官网下载对应版本的源代码版本，其中有redis.conf,将其放在电脑的对应文件夹下
 
-**设置密码**
-配置文件中`requirepass`字段
+**配置文件修改**
+配置文件中`requirepass`字段设置密码
+bind 0.0.0.0  允许远程访问
 
 **测试**
 启动服务 redis-server
 启动客户端 redis-cli  
+auth password  验证密码
 quit 退出
 以二进制存储，默认不支持中文， redis-cli  --raw (显示原始值，用于显示中文)
 
