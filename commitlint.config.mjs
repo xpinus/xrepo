@@ -1,1 +1,1 @@
-export default { extends: ['cz'] };
+export default { extends: ['git-commit-emoji', 'cz'] };

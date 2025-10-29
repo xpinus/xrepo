@@ -5,6 +5,8 @@
 ##  缓存位置
 
 - Service Worker (了解)
+  - https://mp.weixin.qq.com/s/3Ep5pJULvP7WHJvVJNDV-g 这是一个更详细的使用介绍
+
 
 [Service Worker](https://www.bookstack.cn/read/webapi-tutorial/docs-service-worker.md) 首先是一个运行在后台的 Worker 线程，然后它会长期运行，充当一个服务
 
