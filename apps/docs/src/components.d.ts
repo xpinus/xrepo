@@ -10,6 +10,5 @@ declare module 'vue' {
   export interface GlobalComponents {
     XButton: typeof import('@xrepo/ui/dist/es/src/components/button/index.mjs')['XButton']
     XHighlight: typeof import('@xrepo/ui/dist/es/src/components/highlight/index.mjs')['XHighlight']
-    XMedia: typeof import('@xrepo/ui/dist/es/src/components/media/index.mjs')['XMedia']
   }
 }
