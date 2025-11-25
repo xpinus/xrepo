@@ -14,9 +14,6 @@ importers:
       turbo:
         specifier: ^2.3.0
         version: 2.3.3
-      vue:
-        specifier: ^3.5.12
-        version: 3.5.13(typescript@5.5.4)
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.6.1
@@ -102,6 +99,9 @@ importers:
       relation-graph:
         specifier: ^2.2.10
         version: 2.2.10
+      vue:
+        specifier: ^3.5.12
+        version: 3.5.13(typescript@5.5.4)
     devDependencies:
       '@types/fs-extra':
         specifier: ^11.0.4

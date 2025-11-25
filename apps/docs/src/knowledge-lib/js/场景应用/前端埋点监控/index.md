@@ -37,7 +37,7 @@ ajax上报这种方式存在很大的问题。
 
 2. Navigator.sendBeacon
 
-navigator.sendBeacon()方法可用于通过 HTTP POST 将少量数据 异步 传输到 Web 服务器。
+`navigator.sendBeacon()`方法可用于通过 HTTP POST 将少量数据 异步 传输到 Web 服务器。
 
 它主要用于将统计数据发送到 Web 服务器，同时避免了用传统技术（如：XMLHttpRequest）发送分析数据的一些问题。
 

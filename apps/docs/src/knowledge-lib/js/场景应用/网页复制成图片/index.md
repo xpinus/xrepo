@@ -19,4 +19,4 @@ dom-to-image-more 3.1.6版本在firfox上导出的时候只有空白图，版本
 
 直接将svg转换成图片就行了
 
-navigator.clipboard 需要在 HTTPS 环境下才能正常工作。在 HTTP 环境下，Clipboard API 将无法使用。
+_navigator.clipboard_ 需要在 HTTPS 环境下才能正常工作。在 HTTP 环境下，Clipboard API 将无法使用。

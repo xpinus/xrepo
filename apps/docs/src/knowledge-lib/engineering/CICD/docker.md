@@ -137,7 +137,7 @@ WORKDIR /webapp
 COPY ./package.json .
 COPY ./yarn.lock    .
 # 安装生产环境的依赖(看情况，临时指定源)
-RUN yarn --production --registry https://registry.npm.taobao.org/
+RUN yarn --production --registry https://registry.npmmirror.com
 
 #拷贝当前终端文件夹内所有到builder的工作目录
 COPY . .

@@ -4,9 +4,9 @@
 
 ## 2025年度计划
 
-### 1，软考高项
+### 1，软考高项 [x]
 
-### 2，为echarts添加动态词云组件
+### 2，为echarts添加动态词云组件  []
 
 ### 3，自媒体：
 
@@ -17,35 +17,24 @@
     MCP
     微信公众号
 
+睡前读书
+
     dify
 
-2. 鞍马总司可视化 
 
-#### 专为独立自媒体人提供数据分析工具
 
-Taro
-
-小程序：针对自媒体用户，提供聚合多平台流量数据分析
-https://zhuanlan.zhihu.com/p/127126944
-
-https://zhuanlan.zhihu.com/p/343561031
-
-https://www.yunyingpai.com/media/524025.html
-
-- 免费：每天更新一次个平台热榜，预设标签筛选
-- 9.9买断：每小时更新，对比，自定义标签筛选
-- AI分析，视频对比，文稿优化\生成：积分，充值
-- ### rust项目
-
-  cancer: for rust command line program优化
-  螃蟹的两只钳子
-
-  1. 输入优化  commander功能 解析 inquirer
-  2. 输出优化  chalk
 
 ## 以后
 
-python Django
+python fastapi
+
+### rust项目
+
+cancer: for rust command line program优化
+螃蟹的两只钳子
+
+1. 输入优化  commander功能 解析 inquirer
+2. 输出优化  chalk
 
 ### 导游证
 
