@@ -80,5 +80,5 @@ module.exports = {
     allowCustomScopes: true,
     allowBreakingChanges: [':sparkles: feat', ':bug: fix'],
     skipQuestions: ['footer'],
-    subjectLimit: 72,
+    subjectLimit: 108,
 };

@@ -20,3 +20,5 @@ services:
       - 3000:80
     volumes:
       - ./docs/nginx.conf:/etc/nginx/nginx.conf #挂载nginx配置
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
