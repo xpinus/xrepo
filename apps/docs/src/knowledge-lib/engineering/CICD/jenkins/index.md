@@ -11,7 +11,11 @@
 ### 安装并启动
 
 ```shell
-docker run --name jenkins -u root -d -p 8080:8080 -p 50000:50000 -v /var/jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -v /usr/bin/docker-compose:/usr/bin/docker-compose  jenkins/jenkins:lts --memory=4g
+# 连结github有问题
+# docker run --name jenkins --network host -u root -d -p 8080:8080 -p 50000:50000  -v /var/jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -v /usr/bin/docker-compose:/usr/bin/docker-compose  jenkins/jenkins:lts 
+
+# 在Docker中使用主机网络模式时，可能会遇到一个警告：“Published ports are discarded when using host network mode”。这意味着在主机网络模式下，通过-p或-P指定的端口映射将被忽略，因为容器将直接使用主机的网络，而不是虚拟的网络接口
+docker run --name jenkins --network host -u root -d -v /var/jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -v /usr/bin/docker-compose:/usr/bin/docker-compose  jenkins/jenkins:lts 
 
 # 命令解释
 # docker run 
