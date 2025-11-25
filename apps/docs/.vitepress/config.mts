@@ -49,6 +49,7 @@ export default defineConfig({
     title: 'Xrepo',
     description: '项目文档',
     srcDir: 'src',
+    outDir: 'dist',
     head: [
         ['link', { rel: 'icon', href: '/favicon.ico' }],
         // ['script', { src: 'https://cdn.bootcdn.net/ajax/libs/vue/3.5.13/vue.global.prod.min.js' }],
