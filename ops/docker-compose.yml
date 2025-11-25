@@ -12,6 +12,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
   docs:
+    container_name: 'docs'
     build: {
        context: ../, # 设置根目录作为dockerfile执行的上下文
        dockerfile: ops/docs/Dockerfile
