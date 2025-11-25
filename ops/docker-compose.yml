@@ -1,7 +1,7 @@
 version: '3'
 services:
   entry_proxy: # 项目的service name
-    container_name: 'https-container' #容器名称
+    container_name: 'entry' #容器名称
     image: nginx
     restart: always
     ports:
@@ -12,7 +12,6 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
   docs:
-    container_name: 'docs-container'
     build: {
        context: ../, # 设置根目录作为dockerfile执行的上下文
        dockerfile: ops/docs/Dockerfile
