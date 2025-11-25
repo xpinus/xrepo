@@ -1,4 +1,3 @@
-version: '3'
 services:
   entry_proxy: # 项目的service name
     container_name: 'entry' #容器名称
