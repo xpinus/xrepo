@@ -9,6 +9,8 @@ services:
       - 80:80
     volumes:
       - ./entry/:/etc/nginx/
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   docs:
     container_name: 'docs-container'
     build: {
