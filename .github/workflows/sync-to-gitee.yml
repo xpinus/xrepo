@@ -13,6 +13,7 @@ jobs:
         with:
           src: github/xpinus
           dst: gitee/xyf97
-          dst_key: ${{ secrets.GITEE_TOKEN }}
+          dst_key: ${{ secrets.GITEE_GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
           force_update: true
           static_list: "xrepo"
