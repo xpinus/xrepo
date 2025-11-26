@@ -10,7 +10,7 @@ jobs:
     name: Run
     runs-on: ubuntu-latest
     steps:
-      - name: Mirror Github to Gitee with white list and cache
+      - name: Mirror Github to Gitee
         uses: wearerequired/git-mirror-action@v1
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_TOKEN }}
