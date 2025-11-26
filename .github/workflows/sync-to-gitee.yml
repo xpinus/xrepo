@@ -11,8 +11,8 @@ jobs:
       - name: Mirror Github to Gitee with white list and cache
         uses: Yikun/hub-mirror-action@master
         with:
-          src: github/${{ github.repository }}
-          dst: gitee/${{ secrets.GITEE_USERNAME }}/${{ github.event.repository.name }}
+          src: github/xpinus
+          dst: gitee/xyf97
           dst_key: ${{ secrets.GITEE_TOKEN }}
           force_update: true
           static_list: "xrepo"
