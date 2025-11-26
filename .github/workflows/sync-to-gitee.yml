@@ -1,19 +1,19 @@
+name: syncToGitee
+
 on:
   push:
-  pull_request_target:
-    branches: [main]
-name: syncToGitee
+    branches:
+      - main
+
 jobs:
   run:
     name: Run
     runs-on: ubuntu-latest
     steps:
       - name: Mirror Github to Gitee with white list and cache
-        uses: Yikun/hub-mirror-action@master
+        uses: wearerequired/git-mirror-action@v1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_TOKEN }}
         with:
-          src: github/xpinus
-          dst: gitee/xyf97
-          dst_key: ${{ secrets.GITEE_GITEE_PRIVATE_KEY }}
-          dst_token: ${{ secrets.GITEE_TOKEN }}
-          force_update: true
-          static_list: "xrepo"
+          source-repo: "git@github.com:xpinus/xrepo.git"
+          destination-repo: "git@gitee.com:xyf97/xrepo.git"
