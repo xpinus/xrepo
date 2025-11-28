@@ -3,7 +3,7 @@
 ## 镜像启动
 
 ```shell
-docker run -p 6380:6379 -v C:\Users\pinus\Desktop\langchain_test\redisconfig:/usr/local/etc/redis --name myredis redis redis-server /usr/local/etc/redis/redis.conf
+docker run -p 6379:6379 -v D:\project\_myself\xrepo\ops\redis:/usr/local/etc/redis --name myredis redis redis-server /usr/local/etc/redis/redis.conf
 ```
 
 **docker版本如何添加配置文件**
@@ -199,4 +199,3 @@ sentinel monitor master host  port  mastername
 redis-sentinel  sentinel.config
 
 为防止哨兵自己出问题，一般使用3个哨兵节点进程
- 
