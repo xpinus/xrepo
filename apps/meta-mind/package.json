@@ -1,0 +1,11 @@
+{
+  "name": "meta-mind",
+  "version": "1.0.0",
+  "description": "`fastapi` `AI` `LLM`",
+  "scripts": {
+    "lint": "uv run ruff check"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

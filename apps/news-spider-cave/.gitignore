@@ -6,9 +6,9 @@ node_modules
 .pnp.js
 
 # Local env files
-.env
-.env.development
-.env.production
+#.env
+#.env.development
+#.env.production
 
 # Testing
 coverage
@@ -41,5 +41,3 @@ yarn-error.log*
 .idea
 
 tsconfig.tsbuildinfo
-
-ops/milvus/volumes/

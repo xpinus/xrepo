@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+#  chroma:
+#    image: chromadb/chroma
+#    ports:
+#      - 8000:8000
+#    volumes:
+#      - F:/Projects/docker-volumes/chroma:/chroma/chroma
+#    environment:
+#      - IS_PERSISTENT=TRUE
+#    restart: on-failure:0
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - D:/docker_volumes/mysql/conf:/etc/mysql/conf.d
+      - D:/docker_volumes/mysql/data:/var/lib/mysql
+      - D:/docker_volumes/mysql/log:/var/log/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=491001
+      - MYSQL_DATABASE=db
+      - TZ=Asia/Shanghai
+    restart: on-failure:0
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - D:/docker_volumes/redis:/usr/local/etc/redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: on-failure:0
+    environment:
+      TZ: Asia/Shanghai

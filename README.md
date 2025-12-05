@@ -1,10 +1,6 @@
-
-
 - apps
-  - base qiankun基座
   - docs 文档，[前端进化之路](xrepo.top)
-  - servant 通用后端服务
-  - mind python ai后端
+  - news-cave 新闻爬虫
 - packages
   - config 通用配置文件
   - ui 通用UI组件库

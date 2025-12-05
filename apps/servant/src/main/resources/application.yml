@@ -1,0 +1,28 @@
+server:
+  port: 6000
+spring:
+  application:
+    name: servant
+  data:
+    # redis配置
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: 97716
+      database: 0      # 数据库索引（默认为0）
+      timeout: 360000  # 连接超时时间（毫秒）
+      lettuce:
+        pool:
+          max-active: 8   # 连接池最大连接数
+          max-idle: 8     # 最大空闲连接数
+          min-idle: 0     # 最小空闲连接数
+          max-wait: -1    # 最大阻塞等待时间（负数表示无限制）
+    # MongoDB配置
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: mountkun_mongodb
+      username:
+      password:
+
+

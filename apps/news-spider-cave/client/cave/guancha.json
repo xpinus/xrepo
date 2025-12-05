@@ -1,0 +1,29 @@
+{
+  "$schema": "http://127.0.0.1:9001/schema/spider.schema.json",
+  "website": "https://www.guancha.cn/",
+  "name": "guancha",
+  "zhName": "观察者网",
+  "language": "zh-CN",
+  "country": "CN",
+  "routes": [
+    {
+      "path": "/internation",
+      "selectors": [
+        {
+          "label": ["国际"],
+          "selector": ".new-header-list h4 a",
+          "fields": [
+            {
+              "name": "title",
+              "selector": "",
+              "type": "string"
+            }
+          ],
+          "limit": 3
+        }
+      ]
+    }
+  ]
+
+
+}

@@ -1,0 +1,27 @@
+services:
+  redis:
+    container_name: 'myredis'
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - ./config/redisConf:/usr/local/etc/redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: on-failure:0
+    environment:
+      TZ: Asia/Shanghai
+#  mysql:
+#    image: mysql:latest
+#    ports:
+#      - 3306:3306
+#    volumes:
+#      - ./doc/mysql/conf:/etc/mysql/conf.d
+#      - ./doc/mysql/data:/var/lib/mysql
+#      - ./doc/mysql/log:/var/log/mysql
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=97716
+#      - MYSQL_DATABASE=news_db
+#      - TZ=Asia/Shanghai
+#    restart: on-failure:0
+
+
