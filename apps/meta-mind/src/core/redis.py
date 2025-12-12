@@ -42,7 +42,7 @@ class RedisClient:
     async def subscribe(self, channel: str, callback: Callable[[str], None]):
         """订阅频道"""
         pubsub = await self.get_pubsub(channel)
-
+        print(f"订阅 to {channel}")
         try:
             async for message in pubsub.listen():
                 if message["type"] == "message":

@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "website": {
+      "type": "string"
+    },
+    "meta": {
+      "type": "object",
+      "description": "新闻网站元数据",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": [
+        "name",
+        "lang",
+        "country"
+      ]
+    },
+    "routes": {
+      "type": "array",
+      "description": "所有要爬取的页面路由",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "selectors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "selector": {
+                  "type": "string"
+                },
+                "fields": {
+                  "type": "array",
+                  "description": "新闻索要包含的字段内容",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "selector": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": ["text", "attr"],
+                        "description": "决定要获取什么属性作为字段值"
+                      },
+                      "attributeName": {
+                        "type": "string",
+                        "description": "type为attr时的目标属性名"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "name",
+                      "selector",
+                      "type"
+                    ]
+                  }
+                },
+                "limit": {
+                  "type": "integer"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "label",
+                "selector",
+                "fields"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "selectors"
+        ]
+      }
+    },
+    "needConnect": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "website",
+    "meta",
+    "routes"
+  ]
+}

@@ -1,2 +1,9 @@
-## pubsub topic
-NEWS_TOPIC = "NEWS"
+NEWS_TOPIC = "NEWS" ## pubsub topic
+
+HOT_NEWS_PROMPT = """
+请生成10篇热点新闻，每篇新闻包含标题和内容，内容不超过100字，标题和内容之间用冒号隔开，格式如下：
+标题1: 内容1
+标题2: 内容2
+标题3: 内容3
+...
+"""

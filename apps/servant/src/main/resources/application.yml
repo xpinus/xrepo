@@ -17,12 +17,5 @@ spring:
           max-idle: 8     # 最大空闲连接数
           min-idle: 0     # 最小空闲连接数
           max-wait: -1    # 最大阻塞等待时间（负数表示无限制）
-    # MongoDB配置
-    mongodb:
-      host: 127.0.0.1
-      port: 27017
-      database: mountkun_mongodb
-      username:
-      password:
 
 

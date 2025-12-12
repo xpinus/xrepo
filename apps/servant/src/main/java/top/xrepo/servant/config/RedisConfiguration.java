@@ -5,10 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import top.xrepo.servant.module.news.listener.NewsChannelTopicMessageListener;
 
 @Configuration
 public class RedisConfiguration {
@@ -24,17 +21,5 @@ public class RedisConfiguration {
         redisTemplate.setValueSerializer(new GenericFastJsonRedisSerializer());
 
         return redisTemplate;
-    }
-
-    @Bean
-    public RedisMessageListenerContainer listenerContainer(RedisConnectionFactory redisConnectionFactory) {
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-
-        container.setConnectionFactory(redisConnectionFactory);
-
-        // 添加监听器
-        container.addMessageListener(new NewsChannelTopicMessageListener(), new ChannelTopic("NEWS"));
-
-        return container;
     }
 }

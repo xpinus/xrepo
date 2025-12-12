@@ -11,24 +11,18 @@ const stealth = require("puppeteer-extra-plugin-stealth");
 chromium.use(stealth());
 
 export class PrimordialSpider {
-    name: string;
-    enName: string;
     website: string;
-    language: Language;
-    country: string;
+    meta: any;
     routes: any[];
 
     constructor(spiderJson: any) {
-        this.name = spiderJson.name;
-        this.enName = spiderJson.enName;
         this.website = spiderJson.website;
-        this.language = spiderJson.language;
-        this.country = spiderJson.country;
+        this.meta = spiderJson.meta;
         this.routes = spiderJson.routes;
     }
 
     async doScrape() {
-        console.log(`---开始爬取 ${this.name} : ${this.website}---`);
+        console.log(`---开始爬取 ${this.meta.name} : ${this.website}---`);
 
         // const context = await chromium.launchPersistentContext(
         //   'C:\\Users\\pinus\\AppDataLocal\\Google\\Chrome\\User Data',
@@ -63,33 +57,62 @@ export class PrimordialSpider {
 
     private async _scrapeBySpider(page: Page, context: BrowserContext) {
         const result: any[] = [];
+
+        const getContent = async (detailLink: string, contentField) => {
+            await page.goto(detailLink);
+            const $ = cheerio.load(await page.content());
+            const content = $(".main .content").text();
+            await page.goBack();
+            return content;
+        };
+
         for (const route of this.routes) {
             try {
                 const href = new URL(route.path, this.website).href;
                 await page.goto(href);
                 const $ = cheerio.load(await page.content());
 
-                for (const selector of route.selectors) {
-                    $(selector.selector)
-                        .toArray()
-                        .slice(0, selector.limit)
-                        .forEach((item, index) => {
-                            const news: any = {
-                                label: selector.label,
-                            };
+                if (route.selectors) {
+                    for (const selector of route.selectors) {
+                        const articleEls = $(selector.selector)
+                            .toArray()
+                            .slice(0, selector.limit || Infinity);
+
+                        for (const el of articleEls) {
+                            const news: any = {};
                             for (const field of selector.fields) {
-                                news[field.name] = $(item).text();
+                                if (field.name === "content" && news.link) {
+                                    news["content"] = await getContent(new URL(news.link, this.website).href, field);
+                                    continue;
+                                }
+
+                                const target = field.selector ? $(el).find(field.selector) : $(el);
+                                switch (field.type) {
+                                    case "text":
+                                        news[field.name] = $(target).text();
+                                        break;
+                                    case "attr":
+                                        news[field.name] = $(target).attr(field.attributeName);
+                                        break;
+                                }
                             }
 
                             news.id = generateUuid5(news.title.toLocaleLowerCase().trim());
+                            Object.assign(news, {
+                                label: selector.label,
+                                ...this.meta,
+                            });
 
                             result.push(news);
-                        });
+                        }
+                    }
                 }
             } catch (err) {
                 console.log(err);
             }
         }
+
+        console.log(result);
 
         return result;
     }

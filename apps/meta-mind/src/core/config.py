@@ -15,18 +15,19 @@ class AppConfig(BaseSettings):
     MILVUS_COLLECTION_NAME: str
     MILVUS_VECTOR_DIMENSION: int
 
+    CHAT_MODEL: str
+    EMBEDDING_MODEL: str
+    TRANSLATION_MODEL: str
+
     model_config = SettingsConfigDict(
         env_file=".env", # 指定 .env 文件路径
         env_file_encoding="utf-8", # 设置文件编码
         case_sensitive=True, # 强制区分大小写
         extra="forbid", # 禁止额外的环境变量
     )
-
-    
  
 @lru_cache()
 def get_appconfig():
     return AppConfig()
-
 
 AppConfigDep = Annotated[AppConfig, Depends(get_appconfig)]
