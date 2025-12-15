@@ -1,18 +1,18 @@
 {
   "$schema": "http://127.0.0.1:6001/schema/spider.schema.json",
-  "website": "https://www.guancha.cn/",
+  "website": "https://www.thepaper.cn/",
   "meta": {
-    "name": "观察者网",
+    "name": "澎湃新闻",
     "lang": "zh-CN",
     "country": "中国"
   },
   "routes": [
     {
-      "path": "/internation",
+      "path": "/",
       "selectors": [
         {
-          "label": ["国际"],
-          "selector": ".new-header-list h4 a",
+          "label": ["热榜"],
+          "selector": "ul li .mdCard a",
           "fields": [
             {
               "name": "title",
@@ -27,13 +27,14 @@
             },
             {
               "name": "content",
-              "selector": ".main .content",
+              "selector": "div[class^=\"index_cententWrap\"]",
               "type": "text"
             }
           ],
           "limit": 10
         }
       ]
+
     }
   ]
 }

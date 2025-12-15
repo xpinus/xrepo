@@ -90,6 +90,17 @@
                 "fields"
               ]
             }
+          },
+          "wait": {
+            "type": "object",
+            "properties": {
+              "target": {
+                "type": "string"
+              },
+              "time": {
+                "type": "integer"
+              }
+            }
           }
         },
         "additionalProperties": false,

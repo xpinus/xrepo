@@ -55,13 +55,14 @@ export class PrimordialSpider {
         return result;
     }
 
+    // 通过解析json配置爬取目标
     private async _scrapeBySpider(page: Page, context: BrowserContext) {
         const result: any[] = [];
 
         const getContent = async (detailLink: string, contentField) => {
             await page.goto(detailLink);
             const $ = cheerio.load(await page.content());
-            const content = $(".main .content").text();
+            const content = $(contentField.selector).text();
             await page.goBack();
             return content;
         };
@@ -70,6 +71,11 @@ export class PrimordialSpider {
             try {
                 const href = new URL(route.path, this.website).href;
                 await page.goto(href);
+
+                if (route.wait) {
+                    await page.waitForSelector(route.wait.target, { timeout: route.wait.timeout || 1000 * 10 });
+                }
+
                 const $ = cheerio.load(await page.content());
 
                 if (route.selectors) {
@@ -82,6 +88,7 @@ export class PrimordialSpider {
                             const news: any = {};
                             for (const field of selector.fields) {
                                 if (field.name === "content" && news.link) {
+                                    // 跳转详情页获取内容
                                     news["content"] = await getContent(new URL(news.link, this.website).href, field);
                                     continue;
                                 }
