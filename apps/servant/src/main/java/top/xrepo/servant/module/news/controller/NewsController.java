@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.xrepo.servant.module.news.service.NewsService;
+import top.xrepo.servant.module.news.vo.HotNewsVO;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/news")
@@ -30,6 +33,11 @@ public class NewsController {
     public String scrape() {
         newsService.scrape();
         return "scrape";
+    }
+
+    @RequestMapping("/hot_news")
+    public ArrayList<HotNewsVO> hotNews() {
+        return newsService.generateHotNews();
     }
 
 }

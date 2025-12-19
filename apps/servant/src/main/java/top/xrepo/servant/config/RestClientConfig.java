@@ -21,6 +21,13 @@ public class RestClientConfig {
     }
 
     @Bean
+    public RestClient metaMindRestClient() {
+        return RestClient.builder()
+                .baseUrl("http://127.0.0.1:6002/")
+                .build();
+    }
+
+    @Bean
     public RestClient wechatRestClient() {
         return RestClient.builder()
                 .baseUrl("https://api.weixin.qq.com/")

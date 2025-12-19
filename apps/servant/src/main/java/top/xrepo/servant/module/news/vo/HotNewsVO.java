@@ -1,24 +1,30 @@
 package top.xrepo.servant.module.news.vo;
 
-import java.util.ArrayList;
-
 /**
  * 大模型生成的热点新闻
  */
 public class HotNewsVO {
-    private String summary;
-    private ArrayList<String> cites;
+    private String title;
+    private String value;
 
-    public String getSummary() {
-        return summary;
+    public String getTitle() {
+        return title;
     }
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setTitle(String title) {
+        this.title = title;
     }
-    public ArrayList<String> getCites() {
-        return cites;
+    public String getValue() {
+        return value;
     }
-    public void setCites(ArrayList<String> cites) {
-        this.cites = cites;
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "HotNewsVO{" +
+                "title='" + title + '\'' +
+                ", value='" + value + '\'' +
+                '}';
     }
 }

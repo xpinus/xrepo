@@ -1,6 +1,7 @@
 package top.xrepo.servant.module.news.service;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.http.HttpStatusCode;
@@ -11,9 +12,11 @@ import java.util.ArrayList;
 @Service
 public class NewsService {
     private final RestClient spiderRestClient;
+    private final RestClient metaMindRestClient;
 
-    public NewsService( @Qualifier("spiderRestClient") RestClient spiderRestClient) {
+    public NewsService( @Qualifier("spiderRestClient") RestClient spiderRestClient, @Qualifier("metaMindRestClient") RestClient metaMindRestClient) {
         this.spiderRestClient = spiderRestClient;
+        this.metaMindRestClient = metaMindRestClient;
     }
 
     /**
@@ -35,17 +38,16 @@ public class NewsService {
      * 生成热点新闻
      */
     public ArrayList<HotNewsVO> generateHotNews() {
-        // TODO  生成热点新闻，将新闻写入mysql
+        ArrayList<HotNewsVO> result =  metaMindRestClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/news/hot")
+                        .build())
+                .retrieve()
+                .onStatus(HttpStatusCode::isError, (request, response) -> {
+                    System.out.println("API调用失败: " + request.getURI());
+                    throw new RuntimeException("API调用失败: " + response.getStatusCode());
+                }).body(new ParameterizedTypeReference<ArrayList<HotNewsVO>>() {});
 
-        HotNewsVO hotNewsVO = new HotNewsVO();
-        hotNewsVO.setSummary("这是热点新闻的摘要");
-        hotNewsVO.setCites(new ArrayList<>() {{
-            add("观察者网");
-        }});
-
-        return new ArrayList<>() {{
-            add(hotNewsVO);
-        }};
+        return result;
     }
 
 }

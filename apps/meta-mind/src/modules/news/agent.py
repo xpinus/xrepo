@@ -6,6 +6,7 @@ from langchain.agents import create_agent
 from langchain_ollama import ChatOllama
 from langchain.tools import tool
 from .dal import get_news_dal
+import json
 
 @tool
 def get_news(n: int) -> str:
@@ -77,9 +78,7 @@ class NewsAgent:
             }
         )
 
-        print(result["messages"][-1])
-
-        return result["messages"]
+        return json.loads(result["messages"][-1].text)
 
     
     def invoke(self, question: str):
