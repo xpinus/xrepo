@@ -47,7 +47,6 @@ class RedisClient:
             async for message in pubsub.listen():
                 if message["type"] == "message":
                     # 将接收到的消息发送给WebSocket客户端
-                    print(f"Received message: {message['data']}")
                     callback(message["data"])
         except asyncio.CancelledError:
             # 客户端断开连接时取消订阅

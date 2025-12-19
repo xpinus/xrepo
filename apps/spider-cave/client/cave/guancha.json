@@ -2,7 +2,7 @@
   "$schema": "http://127.0.0.1:6001/schema/spider.schema.json",
   "website": "https://www.guancha.cn/",
   "meta": {
-    "name": "观察者网",
+    "org": "观察者网",
     "lang": "zh-CN",
     "country": "中国"
   },

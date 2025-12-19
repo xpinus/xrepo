@@ -2,7 +2,7 @@
   "$schema": "http://127.0.0.1:6001/schema/spider.schema.json",
   "website": "https://www.thepaper.cn/",
   "meta": {
-    "name": "澎湃新闻",
+    "org": "澎湃新闻",
     "lang": "zh-CN",
     "country": "中国"
   },

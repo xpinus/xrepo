@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "`fastapi` `AI` `LLM`",
   "scripts": {
+    "start": "python src/main.py",
     "lint": "uv run ruff check"
   },
   "keywords": [],

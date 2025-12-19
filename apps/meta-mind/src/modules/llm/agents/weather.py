@@ -73,7 +73,8 @@ class WeatherForecasterAgent:
 
     
     
-def get_instance(config: AppConfigDep):
+def get_instance():
+    config = AppConfigDep()
     return WeatherForecasterAgent(config)
 
-WeatherForecasterAgent = Annotated[WeatherForecasterAgent, Depends(WeatherForecasterAgent)]
+WeatherForecasterAgentDep = Annotated[WeatherForecasterAgent, Depends(WeatherForecasterAgent)]

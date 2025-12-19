@@ -1,6 +1,8 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import List
+from .service import NewsServiceDep
+
 
 router = APIRouter(
     prefix="/news",      # 为这个路由器的所有路径添加前缀
@@ -8,8 +10,21 @@ router = APIRouter(
 )
 
 @router.get("/")
-async def list():
-    return {"message": "Hello news"}
+async def list(news_service: NewsServiceDep):
+    # return {"message": "Hello news"}
+    return news_service.test()
+
+
+class NewsDTO(BaseModel):
+    content: str
+
+@router.post("/sum")
+def summarize(newsDTO: NewsDTO, news_service: NewsServiceDep):
+    return news_service.summarize_news(newsDTO.content)
+
+@router.get("/hot")
+async def hot_news(news_service: NewsServiceDep):
+    return news_service.generate_hot_news()
 
 
 class DeleteDTO(BaseModel):

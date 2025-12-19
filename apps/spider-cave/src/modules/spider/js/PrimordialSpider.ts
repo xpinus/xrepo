@@ -22,7 +22,7 @@ export class PrimordialSpider {
     }
 
     async doScrape() {
-        console.log(`---开始爬取 ${this.meta.name} : ${this.website}---`);
+        console.log(`---开始爬取 ${this.meta.org} : ${this.website}---`);
 
         // const context = await chromium.launchPersistentContext(
         //   'C:\\Users\\pinus\\AppDataLocal\\Google\\Chrome\\User Data',
@@ -90,6 +90,10 @@ export class PrimordialSpider {
                                 if (field.name === "content" && news.link) {
                                     // 跳转详情页获取内容
                                     news["content"] = await getContent(new URL(news.link, this.website).href, field);
+                                    if (!news["content"]) {
+                                        // 不存在内容时，把标题作为内容
+                                        news["content"] = news["title"];
+                                    }
                                     continue;
                                 }
 
@@ -104,10 +108,11 @@ export class PrimordialSpider {
                                 }
                             }
 
-                            news.id = generateUuid5(news.title.toLocaleLowerCase().trim());
                             Object.assign(news, {
+                                id: generateUuid5(news.title.toLocaleLowerCase().trim() + this.meta.org),
                                 label: selector.label,
-                                ...this.meta,
+                                lang: this.meta.lang,
+                                meta: this.meta,
                             });
 
                             result.push(news);

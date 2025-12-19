@@ -2,7 +2,7 @@
   "$schema": "http://127.0.0.1:6001/schema/spider.schema.json",
   "website": "https://www.toutiao.com/",
   "meta": {
-    "name": "今日头条",
+    "org": "今日头条",
     "lang": "zh-CN",
     "country": "中国"
   },

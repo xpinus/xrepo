@@ -9,11 +9,12 @@
       "type": "object",
       "description": "新闻网站元数据",
       "properties": {
-        "name": {
+        "org": {
           "type": "string"
         },
         "language": {
-          "type": "string"
+          "type": "string",
+          "enum": ["zh-CN"]
         },
         "country": {
           "type": "string"
