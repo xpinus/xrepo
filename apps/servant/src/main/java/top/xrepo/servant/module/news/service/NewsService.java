@@ -22,10 +22,9 @@ public class NewsService {
     /**
      * 抓取新闻
      */
-    public void scrape() {
+    public void scrapeHotNews() {
         spiderRestClient.post()
-                .uri(uriBuilder -> uriBuilder.path("/spider/scrape")
-                        .queryParam("spiderName", "guancha")
+                .uri(uriBuilder -> uriBuilder.path("/spider/scrape_all")
                         .build())
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, (request, response) -> {

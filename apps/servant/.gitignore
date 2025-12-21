@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 私密配置 ###
+**/application-local.yml
+
+.run/

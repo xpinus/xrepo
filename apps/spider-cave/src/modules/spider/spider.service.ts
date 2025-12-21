@@ -20,6 +20,22 @@ export class SpiderService {
     }
 
     /**
+     * 执行所有爬虫，拉取新闻
+     */
+    async scrapeAllSites() {
+        const cave = ["guancha", "thepaper", "toutiao"];
+
+        for (const spiderName of cave) {
+            try {
+                await this.scrapeNews(spiderName);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        return "正在爬取所有";
+    }
+
+    /**
      * 执行爬虫，拉取新闻
      */
     async scrapeNews(spiderName: string): Promise<any> {
@@ -34,7 +50,7 @@ export class SpiderService {
         this.spiderQueue.add("scrape", {
             json: spiderJson,
         });
-        return "正在爬取";
+        return "正在爬取：" + spiderName;
     }
 
     /**

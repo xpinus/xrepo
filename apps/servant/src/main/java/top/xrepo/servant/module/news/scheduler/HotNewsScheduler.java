@@ -9,17 +9,26 @@ import org.springframework.stereotype.Component;
 import top.xrepo.servant.module.news.service.NewsService;
 
 @Component
-public class HotNewsGenerateScheduler {
+public class HotNewsScheduler {
 
-    private final Logger logger = LoggerFactory.getLogger(HotNewsGenerateScheduler.class);
+    private final Logger logger = LoggerFactory.getLogger(HotNewsScheduler.class);
     private final NewsService newsService;
 
-    public HotNewsGenerateScheduler(NewsService newsService) {
+    public HotNewsScheduler(NewsService newsService) {
         this.newsService = newsService;
     }
 
     /**
-     * 每日15:00:00 生成热点新闻
+     * 每隔3小时爬取热点新闻
+     */
+    @Scheduled(cron = "0 0 */3 * * ?")
+    public void scrap() {
+        logger.info("开始爬取热点新闻");
+        newsService.scrapeHotNews();
+    }
+
+    /**
+     * 每日16:00:00 生成热点新闻
      */
     @Scheduled(cron = "0 0 15 * * ?")
     public void generate() {

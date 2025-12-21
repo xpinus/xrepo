@@ -4,6 +4,7 @@
   "description": "`fastapi` `AI` `LLM`",
   "scripts": {
     "start": "python src/main.py",
+    "sync": "uv sync",
     "lint": "uv run ruff check"
   },
   "keywords": [],

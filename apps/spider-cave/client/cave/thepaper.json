@@ -35,6 +35,32 @@
         }
       ]
 
+    },
+    {
+      "path": "/channel_122908",
+      "selectors": {
+        "label": ["国际"],
+        "selector": ".ant-row .ant-card-body div[class^=\"toplink\"] a",
+        "fields": [
+          {
+            "name": "title",
+            "selector": "h2",
+            "type": "text"
+          },
+          {
+            "name": "link",
+            "selector": "",
+            "type": "attr",
+            "attributeName": "href"
+          },
+          {
+            "name": "content",
+            "selector": "div[class^=\"cententWrap\"]",
+            "type": "text"
+          }
+        ],
+        "limit": 5
+      }
     }
   ]
 }

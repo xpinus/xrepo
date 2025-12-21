@@ -15,4 +15,9 @@ export class SpiderController {
     async scrapeNews(@Query("spiderName") spiderName: string) {
         return await this.spiderService.scrapeNews(spiderName);
     }
+
+    @Post("scrape_all")
+    async scrapeAllNews() {
+        return await this.spiderService.scrapeAllSites();
+    }
 }

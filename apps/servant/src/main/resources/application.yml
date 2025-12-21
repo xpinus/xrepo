@@ -3,12 +3,11 @@ server:
 spring:
   application:
     name: servant
+  profiles:
+    active: local
   data:
     # redis配置
     redis:
-      host: 127.0.0.1
-      port: 6379
-      password: 97716
       database: 0      # 数据库索引（默认为0）
       timeout: 360000  # 连接超时时间（毫秒）
       lettuce:
@@ -17,5 +16,6 @@ spring:
           max-idle: 8     # 最大空闲连接数
           min-idle: 0     # 最小空闲连接数
           max-wait: -1    # 最大阻塞等待时间（负数表示无限制）
+
 
 
