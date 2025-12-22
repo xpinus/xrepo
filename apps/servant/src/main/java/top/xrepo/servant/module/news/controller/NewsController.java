@@ -8,6 +8,7 @@ import top.xrepo.servant.module.news.service.WechatService;
 import top.xrepo.servant.module.news.vo.HotNewsVO;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/news")
@@ -43,7 +44,7 @@ public class NewsController {
     }
 
     @RequestMapping("/hot_news")
-    public ArrayList<HotNewsVO> hotNews() {
+    public Map<String, Object> hotNews() {
         return newsService.generateHotNews();
     }
 

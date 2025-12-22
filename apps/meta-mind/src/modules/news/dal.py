@@ -71,7 +71,7 @@ class NewsDAL:
             schema=schema,
             index_params=index_params,
             properties={
-                "collection.ttl.seconds": 1209600 # 2周 TTL
+                "collection.ttl.seconds": 604800  # 1周 TTL
             }
         )
 

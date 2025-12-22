@@ -16,20 +16,20 @@ class AssistantAgent:
         self.agent = create_agent(
             model=ChatOllama(
                 model=config.CHAT_MODEL, 
-                temperature=0.88, # 提高温度会让模型的回答更有创意
+                temperature=0.6, # 提高温度会让模型的回答更有创意
                 top_p=0.9, # 较高的值会生成更多样化的文本
                 top_k=40, # 减少生成无意义内容的可能性
             ),
             tools=[get_date, get_huangli],
-            system_prompt="You are a helpful assistant",
+            system_prompt="你是一个助手",
         )
     
     def invoke(self, question: str):
         print(question)
-        response = self.agent.invoke(
+        result = self.agent.invoke(
             {"messages": [{"role": "user", "content": question}]}
         )
-        return response
+        return result["messages"][-1].text
     
 @lru_cache
 def get_instance():

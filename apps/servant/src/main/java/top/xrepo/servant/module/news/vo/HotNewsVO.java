@@ -22,9 +22,6 @@ public class HotNewsVO {
 
     @Override
     public String toString() {
-        return "HotNewsVO{" +
-                "title='" + title + '\'' +
-                ", value='" + value + '\'' +
-                '}';
+        return "【"+ title +"】(" + value + ")\n\n";
     }
 }

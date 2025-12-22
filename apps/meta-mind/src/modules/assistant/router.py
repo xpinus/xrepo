@@ -7,5 +7,5 @@ router = APIRouter(
 )
 
 @router.get("/chat")
-async def chat(question: str, llm_service: AssistantServiceDep):
-    return llm_service.chat(question)
+async def chat(question: str, assistant_service: AssistantServiceDep):
+    return assistant_service.chat(question)
