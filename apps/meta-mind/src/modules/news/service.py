@@ -2,10 +2,8 @@
 from fastapi import Depends
 from typing import Annotated
 
-from modules.llm.service import LLMServiceDep
 from .agent import NewsAgentDep
 from .dal import NewsDalDep
-from .model import NewsMessagePO
 from utils.embeddings import get_embeddings
 
 class NewsService:

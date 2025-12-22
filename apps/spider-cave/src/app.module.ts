@@ -8,6 +8,7 @@ import { ServeStaticModule } from "@nestjs/serve-static";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { SpiderModule } from "./modules/spider/spider.module";
+import { SearchModule } from "./modules/search/search.module";
 
 @Module({
     imports: [
@@ -48,6 +49,7 @@ import { SpiderModule } from "./modules/spider/spider.module";
         }),
         /* modules */
         SpiderModule,
+        SearchModule,
     ],
     controllers: [AppController],
     providers: [AppService],

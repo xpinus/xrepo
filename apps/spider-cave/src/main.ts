@@ -20,9 +20,9 @@ async function bootstrap() {
     // 全局验证管道
     app.useGlobalPipes(
         new ValidationPipe({
-            transform: true,
-            whitelist: true,
-            forbidNonWhitelisted: true,
+            transform: true, // 自动转换类型
+            whitelist: true, // 过滤未装饰的属性
+            forbidNonWhitelisted: true, // 禁止未装饰的属性
             disableErrorMessages: false,
         }),
     );

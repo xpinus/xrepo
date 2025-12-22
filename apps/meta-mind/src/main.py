@@ -3,9 +3,9 @@ import uvicorn
 from fastapi import FastAPI
 from core.config import AppConfigDep
 from core.redis import redis_client
+from modules.assistant.router import router as assistant_router
 from modules.news.router import router as news_router
 from modules.news.listener import news_listener
-# from modules.llm.router import router as llm_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -20,8 +20,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+app.include_router(assistant_router)
 app.include_router(news_router)
-# app.include_router(llm_router)
 
 @app.get("/")
 def hello(config: AppConfigDep):
