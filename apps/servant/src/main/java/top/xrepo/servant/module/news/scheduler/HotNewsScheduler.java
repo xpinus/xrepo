@@ -30,7 +30,7 @@ public class HotNewsScheduler {
     /**
      * 每日16:00:00 生成热点新闻
      */
-    @Scheduled(cron = "0 0 15 * * ?")
+    @Scheduled(cron = "0 0 16 * * ?")
     public void generate() {
         logger.info("开始生成热点新闻");
         newsService.generateHotNews();

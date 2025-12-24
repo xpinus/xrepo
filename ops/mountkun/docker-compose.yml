@@ -10,18 +10,19 @@ services:
     restart: on-failure:0
     environment:
       TZ: Asia/Shanghai
-#  mysql:
-#    image: mysql:latest
-#    ports:
-#      - 3306:3306
-#    volumes:
-#      - ./doc/mysql/conf:/etc/mysql/conf.d
-#      - ./doc/mysql/data:/var/lib/mysql
-#      - ./doc/mysql/log:/var/log/mysql
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=97716
-#      - MYSQL_DATABASE=news_db
-#      - TZ=Asia/Shanghai
-#    restart: on-failure:0
+  mysql:
+    container_name: 'mysql'
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - ./config/mysql/conf:/etc/mysql/conf.d
+      - ./config/mysql/data:/var/lib/mysql
+      - ./config/mysql/log:/var/log/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=97716
+      - MYSQL_DATABASE=my_db
+      - TZ=Asia/Shanghai
+    restart: on-failure:0
 
 

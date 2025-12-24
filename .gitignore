@@ -43,3 +43,5 @@ yarn-error.log*
 tsconfig.tsbuildinfo
 
 ops/milvus/volumes/
+
+ops/mountkun/config/mysql/
