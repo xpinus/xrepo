@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { BullModule } from "@nestjs/bull";
 import { RedisModule } from "@nestjs-modules/ioredis";
 import { ServeStaticModule } from "@nestjs/serve-static";
+import { ScheduleModule } from "@nestjs/schedule";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
@@ -47,6 +48,9 @@ import { OnlineModule } from "./modules/online/online.module";
                 },
             }),
         }),
+        /* schedule */
+        ScheduleModule.forRoot(),
+
         /* modules */
         SpiderModule,
         OnlineModule,

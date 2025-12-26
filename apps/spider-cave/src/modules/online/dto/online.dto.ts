@@ -1,4 +1,4 @@
-import { IsString, Matches } from "class-validator";
+import { IsString, Matches, IsArray } from "class-validator";
 
 export class HuangLiDto {
     @IsString()
@@ -8,7 +8,13 @@ export class HuangLiDto {
     date: string;
 }
 
-export class WechatArticleDto {
+export class HotNewsArticleDto {
+    @IsArray()
+    news: {
+        title: string;
+        value: string;
+    }[];
+
     @IsString()
-    content: string;
+    fortune: string;
 }

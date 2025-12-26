@@ -49,8 +49,8 @@ public class NewsService {
                         .build())
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, (request, response) -> {
-                    System.out.println("API调用失败: " + request.getURI());
-                    throw new RuntimeException("API调用失败: " + response.getStatusCode());
+                    System.out.println("生成新闻API调用失败: " + request.getURI());
+                    throw new RuntimeException("生成新闻API调用失败: " + response.getStatusCode());
                 }).body(new ParameterizedTypeReference<ArrayList<HotNewsVO>>() {});
 
         // 获取明天的日期 yyyy-MM-dd
@@ -62,15 +62,25 @@ public class NewsService {
                         .build())
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, (request, response) -> {
-                    System.out.println("API调用失败: " + request.getURI());
-                    throw new RuntimeException("API调用失败: " + response.getStatusCode());
+                    System.out.println("生成黄历API调用失败: " + request.getURI());
+                    throw new RuntimeException("生成黄历API调用失败: " + response.getStatusCode());
                 }).body(String.class);
 
         Map<String, Object> result = new HashMap<>();
         result.put("news", news);
         result.put("fortune", fortune);
 
-        emailService.send("pinus0716@163.com", "今日热点新闻", "今日热点新闻：\n" + news + "\n\n今日黄历：" + fortune);
+        spiderRestClient.post()
+                .uri(uriBuilder -> uriBuilder.path("/online/publish")
+                        .build())
+                .body(result)
+                .retrieve()
+                .onStatus(HttpStatusCode::isError, (request, response) -> {
+                    System.out.println("发布API调用失败: " + request.getURI());
+                    throw new RuntimeException("发布API调用失败: " + response.getStatusCode());
+                }).toBodilessEntity();
+
+        emailService.send("pinus0716@163.com", "今日热点新闻已更新", "今日热点新闻：\n" + news + "\n\n今日黄历：" + fortune);
 
         return result;
     }

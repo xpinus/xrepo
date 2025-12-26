@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Query, Body, All } from "@nestjs/common";
 import { OnlineService } from "./online.service";
-import { HuangLiDto, WechatArticleDto } from "./dto/online.dto";
+import { HuangLiDto, HotNewsArticleDto } from "./dto/online.dto";
 
 @Controller("online")
 export class OnlineController {
@@ -8,7 +8,7 @@ export class OnlineController {
 
     @Get("search")
     async search(@Query("q") q: string) {
-        return await this.searchService.search(q);
+        return await this.searchService.bingSearch(q);
     }
 
     @Get("huangli")
@@ -17,8 +17,8 @@ export class OnlineController {
     }
 
     @Post("publish")
-    publish() {
-        this.searchService.publishHotNews("");
-        return "发布中";
+    async publish(@Body() content: HotNewsArticleDto) {
+        await this.searchService.publishHotNews(content);
+        return "已发布";
     }
 }

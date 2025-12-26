@@ -43,7 +43,7 @@ public class NewsController {
         return "scrape";
     }
 
-    @RequestMapping("/hot_news")
+    @GetMapping("/hot_news")
     public Map<String, Object> hotNews() {
         return newsService.generateHotNews();
     }
